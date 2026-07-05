@@ -1,6 +1,8 @@
 import { useState } from 'react';
-import { Check, Sparkles, Crown, Play, ShoppingCart, FileText, Mail } from 'lucide-react';
+import { Check, Sparkles, Crown, Play, ShoppingCart, Mail, FileText } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import SectionHeading from '../site/SectionHeading';
+import Reveal from '../site/Reveal';
 
 interface PlanFeature {
   id: string;
@@ -14,8 +16,6 @@ interface PricingPlan {
   description: string;
   iconType: 'sparkle' | 'crown';
   isHighlighted: boolean;
-  buttonText: string;
-  buttonStyle: 'outline' | 'disabled' | 'filled';
   features: PlanFeature[];
   trialUrl: string;
   purchaseUrl: string;
@@ -31,8 +31,6 @@ const plans: PricingPlan[] = [
     description: 'For small businesses ready to streamline their finances',
     iconType: 'sparkle',
     isHighlighted: false,
-    buttonText: 'Downgrade',
-    buttonStyle: 'outline',
     trialUrl: 'https://finance.flowza.ai/trial?plan=starter',
     purchaseUrl: 'https://finance.flowza.ai/checkout?plan=starter',
     features: [
@@ -59,8 +57,6 @@ const plans: PricingPlan[] = [
     description: 'For growing businesses that need the full toolkit',
     iconType: 'crown',
     isHighlighted: true,
-    buttonText: 'Most Popular',
-    buttonStyle: 'disabled',
     trialUrl: 'https://finance.flowza.ai/trial?plan=professional',
     purchaseUrl: 'https://finance.flowza.ai/checkout?plan=professional',
     features: [
@@ -87,8 +83,6 @@ const plans: PricingPlan[] = [
     description: 'For established businesses with advanced requirements',
     iconType: 'crown',
     isHighlighted: false,
-    buttonText: 'Upgrade',
-    buttonStyle: 'filled',
     trialUrl: 'https://finance.flowza.ai/trial?plan=enterprise',
     purchaseUrl: 'https://finance.flowza.ai/checkout?plan=enterprise',
     features: [
@@ -117,151 +111,149 @@ function calculateYearlyPrice(monthlyPrice: number): number {
 }
 
 function PlanIcon({ type, className }: { type: 'sparkle' | 'crown'; className?: string }) {
-  if (type === 'sparkle') {
-    return <Sparkles className={className} />;
-  }
+  if (type === 'sparkle') return <Sparkles className={className} />;
   return <Crown className={className} />;
-}
-
-function DualActionButtons({ plan }: { plan: PricingPlan }) {
-  return (
-    <div className="flex flex-col sm:flex-row gap-3">
-      <button
-        onClick={() => window.open(plan.trialUrl, '_blank')}
-        className="flex-1 py-3 px-4 rounded-lg text-sm font-medium flex items-center justify-center gap-2 transition-all duration-200 border border-gray-300 text-gray-700 hover:bg-gray-50"
-      >
-        <Play size={16} />
-        Start Trial
-      </button>
-      <button
-        onClick={() => window.open(plan.purchaseUrl, '_blank')}
-        className="flex-1 py-3 px-4 rounded-lg text-sm font-medium flex items-center justify-center gap-2 transition-all duration-200 bg-teal-600 text-white hover:bg-teal-700"
-      >
-        <ShoppingCart size={16} />
-        Buy Now
-      </button>
-    </div>
-  );
 }
 
 export default function Pricing() {
   const [billingPeriod, setBillingPeriod] = useState<'monthly' | 'yearly'>('monthly');
 
-  const getDisplayPrice = (monthlyPrice: number) => {
-    if (billingPeriod === 'yearly') {
-      return calculateYearlyPrice(monthlyPrice);
-    }
-    return monthlyPrice;
-  };
+  const getDisplayPrice = (monthlyPrice: number) =>
+    billingPeriod === 'yearly' ? calculateYearlyPrice(monthlyPrice) : monthlyPrice;
 
   return (
-    <section id="pricing" className="py-24 px-6 bg-gray-50">
+    <section id="pricing" className="scroll-mt-28 py-20 sm:py-24 px-4 sm:px-6 bg-white">
       <div className="max-w-6xl mx-auto">
-        <div className="flex justify-center mb-12">
-          <div className="inline-flex items-center p-1 bg-white rounded-full border border-gray-200 shadow-sm">
+        <SectionHeading
+          badge="Pricing"
+          title="Simple, Transparent Pricing"
+          subtitle="Start free, scale as you grow. Every plan includes purchase management, banking, reports and multi-currency support."
+        />
+
+        {/* Billing toggle */}
+        <Reveal className="flex justify-center mb-12">
+          <div className="inline-flex items-center p-1 bg-gray-100 rounded-full border border-gray-200">
             <button
               onClick={() => setBillingPeriod('monthly')}
-              className={`px-6 py-2.5 text-sm font-medium rounded-full transition-all duration-200 ${
-                billingPeriod === 'monthly'
-                  ? 'bg-white text-gray-900 shadow-sm border border-gray-200'
-                  : 'text-gray-500 hover:text-gray-700'
+              className={`px-6 py-2.5 text-sm font-semibold rounded-full transition-all duration-200 ${
+                billingPeriod === 'monthly' ? 'bg-white text-slate-900 shadow-sm' : 'text-gray-500 hover:text-gray-700'
               }`}
             >
               Monthly
             </button>
             <button
               onClick={() => setBillingPeriod('yearly')}
-              className={`px-6 py-2.5 text-sm font-medium rounded-full transition-all duration-200 flex items-center gap-2 ${
-                billingPeriod === 'yearly'
-                  ? 'bg-white text-gray-900 shadow-sm border border-gray-200'
-                  : 'text-gray-500 hover:text-gray-700'
+              className={`px-6 py-2.5 text-sm font-semibold rounded-full transition-all duration-200 flex items-center gap-2 ${
+                billingPeriod === 'yearly' ? 'bg-white text-slate-900 shadow-sm' : 'text-gray-500 hover:text-gray-700'
               }`}
             >
               Yearly
-              <span className="text-xs text-teal-600 font-medium">Save {YEARLY_DISCOUNT_PERCENT}%</span>
+              <span className="text-xs text-emerald-600 font-semibold">Save {YEARLY_DISCOUNT_PERCENT}%</span>
             </button>
           </div>
-        </div>
+        </Reveal>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
-          {plans.map((plan) => (
-            <div key={plan.id} className="relative">
+          {plans.map((plan, i) => (
+            <Reveal key={plan.id} delay={i * 90} className="relative h-full">
               {plan.isHighlighted && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-10">
-                  <span className="px-4 py-1.5 rounded-full text-xs font-medium text-white bg-teal-500 shadow-sm">
+                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 z-10">
+                  <span className="px-4 py-1.5 rounded-full text-xs font-bold text-white fx-gradient shadow-[0_4px_14px_rgba(37,99,235,0.4)]">
                     Most Popular
                   </span>
                 </div>
               )}
               <div
-                className={`relative p-6 rounded-2xl border bg-white transition-all duration-300 ${
+                className={`relative h-full p-7 rounded-2xl border bg-white transition-all duration-300 ${
                   plan.isHighlighted
-                    ? 'border-teal-200 shadow-lg'
-                    : 'border-gray-200 hover:border-gray-300 hover:shadow-md'
+                    ? 'border-blue-200 shadow-[0_20px_50px_rgba(37,99,235,0.14)]'
+                    : 'border-gray-200 shadow-sm hover:border-gray-300 hover:shadow-md'
                 }`}
               >
                 <div className="flex items-center gap-2 mb-4">
-                  <PlanIcon
-                    type={plan.iconType}
-                    className="w-5 h-5 text-teal-600"
-                  />
-                  <span className="text-base font-semibold text-gray-900">{plan.name}</span>
+                  <span
+                    className={`w-9 h-9 rounded-xl flex items-center justify-center ${
+                      plan.isHighlighted ? 'bg-blue-50 border border-blue-100' : 'bg-gray-50 border border-gray-100'
+                    }`}
+                  >
+                    <PlanIcon type={plan.iconType} className="w-[18px] h-[18px] text-blue-600" />
+                  </span>
+                  <span className="text-lg font-bold text-slate-900">{plan.name}</span>
                 </div>
 
                 <div className="mb-3">
-                  <span className="text-4xl font-bold text-gray-900">
+                  <span className="text-[42px] font-bold text-slate-900 tracking-tight">
                     ${getDisplayPrice(plan.monthlyPrice)}
                   </span>
                   <span className="text-gray-500 text-sm ml-1">/mo</span>
+                  {billingPeriod === 'yearly' && (
+                    <span className="ml-2 text-xs font-semibold text-emerald-600">billed yearly</span>
+                  )}
                 </div>
 
-                <p className="text-sm text-gray-500 mb-6 leading-relaxed">
-                  {plan.description}
-                </p>
+                <p className="text-sm text-gray-500 mb-6 leading-relaxed">{plan.description}</p>
 
-                <div className="mb-6">
-                  <DualActionButtons plan={plan} />
+                <div className="flex flex-col sm:flex-row gap-3 mb-7">
+                  <a
+                    href={plan.trialUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 py-3 px-4 rounded-xl text-sm font-semibold flex items-center justify-center gap-2 border border-gray-200 text-slate-700 hover:border-blue-300 hover:text-blue-700 transition-all"
+                  >
+                    <Play size={15} />
+                    Start Trial
+                  </a>
+                  <a
+                    href={plan.purchaseUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`flex-1 py-3 px-4 rounded-xl text-sm font-semibold flex items-center justify-center gap-2 text-white transition-all ${
+                      plan.isHighlighted
+                        ? 'fx-gradient shadow-[0_6px_18px_rgba(37,99,235,0.35)] hover:shadow-[0_8px_24px_rgba(37,99,235,0.45)]'
+                        : 'bg-slate-900 hover:bg-slate-800'
+                    }`}
+                  >
+                    <ShoppingCart size={15} />
+                    Buy Now
+                  </a>
                 </div>
 
                 <ul className="space-y-3">
                   {plan.features.map((feature) => (
                     <li key={feature.id} className="flex items-start gap-2.5">
-                      <Check size={16} className="text-teal-500 shrink-0 mt-0.5" />
-                      <span className="text-sm text-gray-700">{feature.text}</span>
+                      <span className="w-[18px] h-[18px] rounded-full bg-emerald-50 border border-emerald-200 flex items-center justify-center shrink-0 mt-0.5">
+                        <Check size={11} className="text-emerald-600" />
+                      </span>
+                      <span className="text-sm text-slate-700">{feature.text}</span>
                     </li>
                   ))}
                 </ul>
               </div>
-            </div>
+            </Reveal>
           ))}
         </div>
 
-        <div className="mt-12 bg-white rounded-2xl border border-gray-200 p-6 md:p-8">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+        {/* Enterprise Plus */}
+        <Reveal className="mt-10">
+          <div className="rounded-2xl border border-gray-200 bg-gray-50 p-6 md:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-xl bg-gray-100 flex items-center justify-center">
-                <FileText className="w-6 h-6 text-gray-600" />
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold text-gray-900">Enterprise Plus</h3>
-                <p className="text-sm text-gray-500">Tailored for your Enterprise Needs</p>
-              </div>
+              <span className="w-12 h-12 rounded-xl bg-white border border-gray-200 flex items-center justify-center shadow-sm">
+                <FileText className="w-5 h-5 text-blue-600" />
+              </span>
+              <span>
+                <span className="block text-lg font-bold text-slate-900">Enterprise Plus</span>
+                <span className="block text-sm text-gray-500">Tailored for your enterprise needs — custom pricing</span>
+              </span>
             </div>
-            <div className="flex-shrink-0">
-              <div className="border border-gray-200 rounded-xl p-6 text-center bg-white">
-                <p className="text-xs text-gray-500 mb-1">Custom Pricing</p>
-                <p className="text-xl font-bold text-gray-900 mb-4">Let's Talk</p>
-                <Link
-                  to="/contact"
-                  className="inline-flex items-center gap-2 px-6 py-2.5 bg-slate-800 text-white text-sm font-medium rounded-lg hover:bg-slate-700 transition-colors"
-                >
-                  <Mail size={16} />
-                  Contact Sales
-                </Link>
-              </div>
-            </div>
+            <Link
+              to="/contact"
+              className="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-slate-900 text-white text-sm font-semibold rounded-xl hover:bg-slate-800 transition-colors shrink-0"
+            >
+              <Mail size={15} />
+              Contact Sales
+            </Link>
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

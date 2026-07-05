@@ -132,7 +132,7 @@ export default function Contact() {
   };
 
   const inputClass =
-    'w-full px-4 py-3 rounded-xl text-sm text-gray-900 placeholder-gray-400 outline-none transition-all focus:ring-2 focus:ring-sky-200 focus:border-sky-400';
+    'w-full px-4 py-3 rounded-xl text-sm text-gray-900 placeholder-gray-400 outline-none transition-all focus:ring-2 focus:ring-blue-200 focus:border-blue-400';
   const inputStyle = {
     background: '#ffffff',
     border: '1px solid #d1d5db',
@@ -141,7 +141,7 @@ export default function Contact() {
   return (
     <PageLayout>
       <div
-        className="min-h-screen pt-28 pb-20 px-6"
+        className="min-h-screen pt-14 pb-20 px-6"
         style={{ background: 'linear-gradient(180deg, #f4faff 0%, #ffffff 70%)' }}
       >
         <div
@@ -153,20 +153,11 @@ export default function Contact() {
 
         <div className="relative max-w-6xl mx-auto">
           <div className="text-center mb-14">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-sky-200 bg-sky-50 text-xs text-sky-700 uppercase tracking-widest mb-5 font-semibold">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-sm text-blue-600 mb-5 font-semibold">
               Get in Touch
             </div>
-            <h1 className="font-display font-extrabold text-[2.85rem] md:text-[3.42rem] text-gray-900 tracking-tight leading-tight mb-4">
-              Let's Build Something{' '}
-              <span
-                style={{
-                  background: 'linear-gradient(90deg, #38bdf8 0%, #0ea5e9 50%, #22d3ee 100%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                }}
-              >
-                Together
-              </span>
+            <h1 className="font-bold text-4xl sm:text-5xl lg:text-[52px] text-slate-900 tracking-tight leading-[1.08] mb-4">
+              Let's Build Something <span className="fx-gradient-text">Together</span>
             </h1>
             <p className="text-gray-600 text-base max-w-xl mx-auto leading-relaxed">
               Whether you're exploring a product, ready to buy, or just have a question — our team responds within one business day.
@@ -290,8 +281,7 @@ export default function Contact() {
                   </p>
                   <a
                     href="/"
-                    className="inline-flex items-center gap-2 mt-8 px-6 py-3 rounded-full text-sm font-semibold text-white transition-all hover:-translate-y-0.5"
-                    style={{ background: 'linear-gradient(135deg, #0ea5e9, #0284c7)' }}
+                    className="inline-flex items-center gap-2 mt-8 px-6 py-3 rounded-xl text-sm font-semibold text-white fx-gradient shadow-[0_6px_18px_rgba(37,99,235,0.35)] transition-all hover:-translate-y-0.5"
                   >
                     Back to Home
                     <ArrowUpRight size={14} />
@@ -404,8 +394,7 @@ export default function Contact() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full py-3.5 px-6 rounded-xl text-sm font-semibold text-white flex items-center justify-center gap-2.5 transition-all duration-300 hover:-translate-y-0.5 disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none"
-                    style={{ background: 'linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%)' }}
+                    className="w-full py-3.5 px-6 rounded-xl text-sm font-semibold text-white fx-gradient shadow-[0_6px_18px_rgba(37,99,235,0.35)] flex items-center justify-center gap-2.5 transition-all duration-300 hover:-translate-y-0.5 disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none"
                   >
                     {isSubmitting ? (
                       <>

@@ -45,7 +45,7 @@ export default function About() {
         <div className="max-w-5xl mx-auto">
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <div>
-              <span className="text-xs font-semibold uppercase tracking-widest text-sky-600 mb-3 block">Our Mission</span>
+              <span className="text-xs font-semibold uppercase tracking-widest text-blue-600 mb-3 block">Our Mission</span>
               <h2 className="font-display font-bold text-4xl text-gray-900 mb-6 leading-tight">
                 AI that works the way your business does
               </h2>
@@ -64,8 +64,8 @@ export default function About() {
               />
               <div className="absolute -bottom-4 -left-4 bg-white rounded-xl p-4 shadow-[0_1px_3px_rgba(15,23,42,0.06),0_10px_30px_rgba(15,23,42,0.05)] border border-gray-200">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-sky-100 flex items-center justify-center">
-                    <Users size={18} className="text-sky-600" />
+                  <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center">
+                    <Users size={18} className="text-blue-600" />
                   </div>
                   <div>
                     <p className="font-semibold text-gray-900 text-sm">Growing Fast</p>
@@ -81,14 +81,14 @@ export default function About() {
       <section className="py-20 px-6 bg-gray-50">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-14">
-            <span className="text-xs font-semibold uppercase tracking-widest text-sky-600 mb-3 block">What We Stand For</span>
+            <span className="text-xs font-semibold uppercase tracking-widest text-blue-600 mb-3 block">What We Stand For</span>
             <h2 className="font-display font-bold text-4xl text-gray-900">Our Values</h2>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {values.map(({ icon: Icon, title, description }) => (
               <div key={title} className="p-6 rounded-2xl bg-white border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-200">
-                <div className="w-11 h-11 rounded-xl bg-sky-50 border border-sky-100 flex items-center justify-center mb-4">
-                  <Icon size={20} className="text-sky-600" />
+                <div className="w-11 h-11 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center mb-4">
+                  <Icon size={20} className="text-blue-600" />
                 </div>
                 <h3 className="font-display font-semibold text-gray-900 mb-2">{title}</h3>
                 <p className="text-gray-500 text-sm leading-relaxed">{description}</p>
@@ -104,7 +104,7 @@ export default function About() {
           <p className="text-gray-600 text-lg mb-8">Join 100+ businesses already using Flowza AI to work smarter.</p>
           <a
             href="mailto:sales@flowza.ai"
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-sm font-semibold text-white bg-violet-gradient hover:shadow-[0_0_28px_rgba(14,165,233,0.55)] transition-all duration-300 hover:-translate-y-0.5"
+            className="inline-flex items-center gap-2 px-8 py-4 rounded-xl text-sm font-semibold text-white fx-gradient shadow-[0_8px_24px_rgba(37,99,235,0.35)] hover:shadow-[0_10px_30px_rgba(37,99,235,0.45)] transition-all duration-300 hover:-translate-y-0.5"
           >
             Get in Touch
           </a>

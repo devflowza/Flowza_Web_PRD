@@ -25,16 +25,73 @@
   }
 
   body {
-    background: linear-gradient(180deg, #f3f9ff 0%, #ffffff 24%, #ffffff 100%);
-    background-attachment: fixed;
+    background: #ffffff;
     color: #0f172a;
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+}
+
+/* ——— FlowzaAI design system (2026 overhaul) ——— */
+@layer utilities {
+  /* Subtle square-grid backdrop used in heroes and light sections */
+  .fx-grid {
+    background-image:
+      linear-gradient(rgba(37, 99, 235, 0.055) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(37, 99, 235, 0.055) 1px, transparent 1px);
+    background-size: 44px 44px;
+  }
+
+  .fx-grid-fade {
+    -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 70%, transparent 100%);
+    mask-image: linear-gradient(180deg, #000 0%, #000 70%, transparent 100%);
+  }
+
+  /* Brand gradient — Flowza cyan → blue (replaces the old violet gradient role) */
+  .fx-gradient {
+    background-image: linear-gradient(120deg, #22d3ee 0%, #2563eb 100%);
+  }
+
+  .fx-gradient-text {
+    background-image: linear-gradient(120deg, #06b6d4 0%, #2563eb 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  /* Scroll-reveal helper driven by the <Reveal> component */
+  .fx-reveal {
+    opacity: 0;
+    transform: translateY(26px);
+    transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .fx-reveal.fx-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fx-reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+
+  .fx-marquee {
+    animation: marquee 36s linear infinite;
+  }
+
+  .fx-marquee-mask {
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
+    mask-image: linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
   }
 }
 

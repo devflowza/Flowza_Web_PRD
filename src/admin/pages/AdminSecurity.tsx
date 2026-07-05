@@ -10,7 +10,7 @@ interface BackupCodesData {
 }
 
 export default function AdminSecurity() {
-  const { session, updateUser } = useAdminAuth();
+  const { session } = useAdminAuth();
   const { addToast } = useToast();
   const navigate = useNavigate();
   const [backupCodes, setBackupCodes] = useState<string[]>([]);

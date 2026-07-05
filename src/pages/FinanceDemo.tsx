@@ -354,7 +354,7 @@ export default function FinanceDemo() {
       <FinanceDemoNav />
 
       {/* HERO */}
-      <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-24 pb-16 px-6">
+      <section className="relative min-h-[80vh] flex flex-col items-center justify-center overflow-hidden pt-16 pb-16 px-6">
         <div className="absolute inset-0 pointer-events-none">
           <div
             className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[600px] rounded-full opacity-[0.10]"

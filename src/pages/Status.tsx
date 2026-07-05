@@ -70,7 +70,7 @@ export default function Status() {
 
   return (
     <PageLayout>
-      <section className="relative pt-36 pb-20 px-6 overflow-hidden">
+      <section className="relative pt-20 pb-20 px-6 overflow-hidden">
         <div className="max-w-4xl mx-auto text-center">
           <div className={`inline-flex items-center gap-3 px-6 py-3 rounded-2xl mb-8 border ${
             allOperational

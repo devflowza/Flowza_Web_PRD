@@ -104,7 +104,7 @@ export default function TermsOfService() {
   return (
     <PageLayout>
       <div
-        className="relative pt-32 pb-20 px-6 overflow-hidden"
+        className="relative pt-16 pb-20 px-6 overflow-hidden"
         style={{
           background: 'linear-gradient(180deg, #f0fdf9 0%, #ffffff 70%)',
         }}

@@ -69,7 +69,7 @@ export default function HelpCenter() {
 
   return (
     <PageLayout>
-      <section className="relative pt-36 pb-24 px-6 overflow-hidden">
+      <section className="relative pt-20 pb-24 px-6 overflow-hidden">
         <div className="max-w-3xl mx-auto text-center">
           <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-sky-200 bg-sky-50 text-xs font-semibold uppercase tracking-widest text-sky-700 mb-6">
             Help Center
