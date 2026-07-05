@@ -11,7 +11,6 @@ export const WHATSAPP_DISPLAY = '+968 9210 7562';
 export const CONTACT_EMAIL = 'sales@flowza.ai';
 export const OFFICE_ADDRESS = 'Ghala, Muscat, Oman';
 export const BUSINESS_HOURS = 'Sun – Thu: 9:00 AM – 6:00 PM GST';
-export const TRIAL_URL = 'https://finance.flowza.ai/trial';
 
 /* ——— Platforms ——— */
 

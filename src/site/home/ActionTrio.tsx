@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { Zap, DollarSign, MessageCircle } from 'lucide-react';
 import SectionHeading from '../SectionHeading';
 import Reveal from '../Reveal';
-import { TRIAL_URL, WHATSAPP_URL } from '../data';
+import { WHATSAPP_URL } from '../data';
 
 const actions = [
   {
@@ -11,8 +11,8 @@ const actions = [
     description: 'Spin up your workspace and see your operation in flow — before you pay anything.',
     badge: 'No Card Required',
     gradient: 'from-blue-600 to-blue-700',
-    href: TRIAL_URL,
-    external: true,
+    href: '/get-started',
+    external: false,
   },
   {
     icon: DollarSign,

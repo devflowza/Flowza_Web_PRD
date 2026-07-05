@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, ChevronDown, ArrowRight } from 'lucide-react';
-import { landingProducts, TRIAL_URL } from './data';
+import { landingProducts } from './data';
 
 const navLinks = [
   { label: 'Home', to: '/' },
@@ -125,14 +125,12 @@ export default function SiteNav() {
 
         {/* CTA + mobile toggle */}
         <div className="flex items-center gap-3">
-          <a
-            href={TRIAL_URL}
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            to="/get-started"
             className="hidden sm:inline-flex items-center gap-2 fx-gradient text-white text-sm font-semibold px-5 py-2.5 rounded-xl shadow-[0_4px_14px_rgba(37,99,235,0.35)] hover:shadow-[0_6px_20px_rgba(37,99,235,0.45)] hover:-translate-y-px transition-all"
           >
             Start Free Trial
-          </a>
+          </Link>
           <button
             onClick={() => setMobileOpen((v) => !v)}
             className="lg:hidden p-2 rounded-lg text-slate-700 hover:bg-gray-100 transition-colors"
@@ -184,15 +182,13 @@ export default function SiteNav() {
                 </Link>
               ))}
             </div>
-            <a
-              href={TRIAL_URL}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              to="/get-started"
               className="mt-4 flex items-center justify-center gap-2 fx-gradient text-white text-sm font-semibold px-5 py-3 rounded-xl shadow-[0_4px_14px_rgba(37,99,235,0.35)]"
               onClick={() => setMobileOpen(false)}
             >
               Start Free Trial
-            </a>
+            </Link>
           </div>
         </div>
       )}

@@ -1,6 +1,7 @@
 import { Routes, Route, useLocation } from 'react-router-dom';
 import ScrollToTop from './components/ScrollToTop';
 import Home from './site/Home';
+import GetStarted from './pages/GetStarted';
 import ProductDetail from './pages/ProductDetail';
 import FinanceDemo from './pages/FinanceDemo';
 import About from './pages/About';
@@ -31,6 +32,7 @@ function PublicRoutes() {
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/get-started" element={<GetStarted />} />
         <Route path="/products/:productId" element={<ProductDetail />} />
         <Route path="/finance" element={<FinanceDemo />} />
         <Route path="/finance-demo" element={<FinanceDemo />} />

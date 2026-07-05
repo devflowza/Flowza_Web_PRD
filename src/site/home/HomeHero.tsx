@@ -1,5 +1,6 @@
 import { MessageCircle, ArrowRight, ShieldCheck, Activity, Zap, ShoppingCart, Truck, Flower2, Crown, TrendingUp } from 'lucide-react';
-import { WHATSAPP_URL, TRIAL_URL } from '../data';
+import { Link } from 'react-router-dom';
+import { WHATSAPP_URL } from '../data';
 import { productImages } from '../../assets/productImages';
 
 const featurePills = [
@@ -69,15 +70,13 @@ export default function HomeHero() {
               <MessageCircle size={16} />
               WhatsApp
             </a>
-            <a
-              href={TRIAL_URL}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              to="/get-started"
               className="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 text-white text-sm font-semibold px-6 py-3.5 shadow-[0_6px_18px_rgba(37,99,235,0.35)] hover:bg-blue-700 hover:shadow-[0_8px_24px_rgba(37,99,235,0.45)] hover:-translate-y-px transition-all"
             >
               Start Free Trial
               <ArrowRight size={15} />
-            </a>
+            </Link>
             <a
               href="#platforms"
               className="inline-flex items-center justify-center gap-2 rounded-xl bg-white border border-gray-200 text-slate-800 text-sm font-semibold px-6 py-3.5 shadow-sm hover:border-blue-300 hover:text-blue-700 transition-all"
