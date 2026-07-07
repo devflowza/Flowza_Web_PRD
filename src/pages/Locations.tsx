@@ -58,7 +58,7 @@ export default function Locations() {
         label="Office Locations"
         title="Wherever You Are,"
         titleHighlight="We're There Too"
-        subtitle="Flowza operates globally with offices strategically positioned across India and the Middle East. Connect with our teams across three major hubs."
+        subtitle="FlowZa operates globally with offices strategically positioned across India and the Middle East. Connect with our teams across three major hubs."
         imageUrl="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=1400"
       />
 

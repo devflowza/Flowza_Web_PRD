@@ -38,7 +38,7 @@ export default function FinanceSpotlight() {
       <div className="max-w-7xl mx-auto">
         <SectionHeading
           badge="Flagship Platform"
-          title="Flowza Finance — Your Entire Back Office, Live"
+          title="FlowZa Finance — Your Entire Back Office, Live"
           subtitle="The operating system for your business finances. Accounting, invoicing, inventory, payroll, HR and compliance — unified in one cloud platform with real-time data and bank-grade security."
         />
 
@@ -48,7 +48,7 @@ export default function FinanceSpotlight() {
             <div className="relative rounded-2xl overflow-hidden shadow-[0_24px_70px_rgba(15,23,42,0.18)] ring-1 ring-slate-900/5">
               <img
                 src={dashboardImg}
-                alt="Flowza Finance dashboard — live P&L, cash flow and receivables"
+                alt="FlowZa Finance dashboard — live P&L, cash flow and receivables"
                 className="w-full object-cover"
                 loading="lazy"
               />
@@ -97,7 +97,7 @@ export default function FinanceSpotlight() {
                 to="/products/finance"
                 className="inline-flex items-center gap-2 text-blue-600 font-semibold text-sm hover:text-blue-700 transition-colors mt-1"
               >
-                Explore Flowza Finance <ArrowRight size={15} />
+                Explore FlowZa Finance <ArrowRight size={15} />
               </Link>
             </Reveal>
           </div>

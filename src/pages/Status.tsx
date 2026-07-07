@@ -5,12 +5,12 @@ import PageLayout from '../components/PageLayout';
 type ServiceStatus = 'operational' | 'degraded' | 'outage';
 
 const services: { name: string; status: ServiceStatus; uptime: number; description: string }[] = [
-  { name: 'Flowza Finance', status: 'operational', uptime: 99.98, description: 'Accounting, inventory, payroll & tax compliance engine' },
-  { name: 'Flowza Spa Master', status: 'operational', uptime: 99.95, description: 'Booking and wellness management platform' },
-  { name: 'Flowza LogisPro', status: 'operational', uptime: 99.91, description: 'Logistics and route optimization' },
-  { name: 'Flowza QRForge', status: 'operational', uptime: 100.00, description: 'Dynamic QR code generation and analytics' },
-  { name: 'Flowza POS', status: 'operational', uptime: 99.99, description: 'Point of sale and inventory management' },
-  { name: 'Flowza Fleetza', status: 'operational', uptime: 99.87, description: 'Fleet tracking and maintenance AI' },
+  { name: 'FlowZa Finance', status: 'operational', uptime: 99.98, description: 'Accounting, inventory, payroll & tax compliance engine' },
+  { name: 'FlowZa Spa Master', status: 'operational', uptime: 99.95, description: 'Booking and wellness management platform' },
+  { name: 'FlowZa LogisPro', status: 'operational', uptime: 99.91, description: 'Logistics and route optimization' },
+  { name: 'FlowZa QRForge', status: 'operational', uptime: 100.00, description: 'Dynamic QR code generation and analytics' },
+  { name: 'FlowZa POS', status: 'operational', uptime: 99.99, description: 'Point of sale and inventory management' },
+  { name: 'FlowZa Fleetza', status: 'operational', uptime: 99.87, description: 'Fleet tracking and maintenance AI' },
   { name: 'Unified AI Core', status: 'operational', uptime: 99.97, description: 'Shared AI intelligence engine for all products' },
   { name: 'Authentication & API', status: 'operational', uptime: 99.99, description: 'OAuth, SSO, and API gateway' },
   { name: 'Data Storage', status: 'operational', uptime: 100.00, description: 'Primary database and backup systems' },
@@ -20,7 +20,7 @@ const services: { name: string; status: ServiceStatus; uptime: number; descripti
 const incidents = [
   {
     date: 'Feb 8, 2026',
-    title: 'Degraded performance on Flowza LogisPro route optimization',
+    title: 'Degraded performance on FlowZa LogisPro route optimization',
     status: 'Resolved',
     duration: '47 minutes',
     impact: 'Minor — route calculation times increased by ~3x. Live tracking unaffected.',
@@ -32,7 +32,7 @@ const incidents = [
   },
   {
     date: 'Jan 15, 2026',
-    title: 'Email notification delays for Flowza Spa Master bookings',
+    title: 'Email notification delays for FlowZa Spa Master bookings',
     status: 'Resolved',
     duration: '1h 22min',
     impact: 'Moderate — booking confirmation emails delayed by 30–90 minutes. No data loss.',
@@ -91,7 +91,7 @@ export default function Status() {
           </div>
           <h1 className="font-display font-bold text-5xl text-gray-900 mb-4">System Status</h1>
           <p className="text-gray-600 text-lg">
-            Real-time status for all Flowza AI platforms and infrastructure components.
+            Real-time status for all FlowZa AI platforms and infrastructure components.
           </p>
         </div>
       </section>
@@ -210,7 +210,7 @@ export default function Status() {
       <section className="py-16 px-6">
         <div className="max-w-2xl mx-auto text-center bg-white border border-gray-200 rounded-3xl p-10 shadow-sm">
           <h2 className="font-display font-bold text-2xl text-gray-900 mb-2">Subscribe to Status Updates</h2>
-          <p className="text-gray-600 text-sm mb-6">Get notified instantly when any Flowza service is impacted.</p>
+          <p className="text-gray-600 text-sm mb-6">Get notified instantly when any FlowZa service is impacted.</p>
           <div className="flex gap-3 max-w-sm mx-auto">
             <input
               type="email"

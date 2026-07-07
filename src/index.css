@@ -37,7 +37,7 @@
   }
 }
 
-/* ——— FlowzaAI design system (2026 overhaul) ——— */
+/* ——— FlowZaAI design system (2026 overhaul) ——— */
 @layer utilities {
   /* Subtle square-grid backdrop used in heroes and light sections */
   .fx-grid {
@@ -52,7 +52,7 @@
     mask-image: linear-gradient(180deg, #000 0%, #000 70%, transparent 100%);
   }
 
-  /* Brand gradient — Flowza cyan → blue (replaces the old violet gradient role) */
+  /* Brand gradient — FlowZa cyan → blue (replaces the old violet gradient role) */
   .fx-gradient {
     background-image: linear-gradient(120deg, #22d3ee 0%, #2563eb 100%);
   }

@@ -4,13 +4,13 @@ import { useNavigate } from 'react-router-dom';
 
 const allStories = [
   {
-    quote: "Flowza Finance cut our month-end close from 5 days to just 6 hours. The AI catches errors we used to miss entirely. It's not just software — it's a financial partner.",
+    quote: "FlowZa Finance cut our month-end close from 5 days to just 6 hours. The AI catches errors we used to miss entirely. It's not just software — it's a financial partner.",
     name: 'Khalid Al-Rashid',
     role: 'CFO',
     company: 'AlNoor Retail Group',
     avatar: 'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=80&h=80&dpr=2',
     productColor: '#10b981',
-    product: 'Flowza Finance',
+    product: 'FlowZa Finance',
     industry: 'Finance',
     stats: [
       { value: '85%', label: 'Time Saved' },
@@ -19,13 +19,13 @@ const allStories = [
     ],
   },
   {
-    quote: "Flowza Spa Master transformed how we run our five locations. Online bookings went up 230% in the first month. Staff actually enjoy using it — that alone is priceless.",
+    quote: "FlowZa Spa Master transformed how we run our five locations. Online bookings went up 230% in the first month. Staff actually enjoy using it — that alone is priceless.",
     name: 'Lena Voss',
     role: 'Operations Director',
     company: 'Serenity Wellness',
     avatar: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=80&h=80&dpr=2',
     productColor: '#f43f5e',
-    product: 'Flowza Spa Master',
+    product: 'FlowZa Spa Master',
     industry: 'Hospitality',
     stats: [
       { value: '230%', label: 'More Bookings' },
@@ -34,13 +34,13 @@ const allStories = [
     ],
   },
   {
-    quote: "Flowza Fleetza gave us visibility we didn't know we were missing. Fuel costs dropped 22% within 90 days just from the route and behavior insights. The ROI was immediate.",
+    quote: "FlowZa Fleetza gave us visibility we didn't know we were missing. Fuel costs dropped 22% within 90 days just from the route and behavior insights. The ROI was immediate.",
     name: 'Omar Hassan',
     role: 'Fleet Manager',
     company: 'Swift Logistics MENA',
     avatar: 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=80&h=80&dpr=2',
     productColor: '#0ea5e9',
-    product: 'Flowza Fleetza',
+    product: 'FlowZa Fleetza',
     industry: 'Logistics',
     stats: [
       { value: '22%', label: 'Fuel Reduction' },
@@ -55,7 +55,7 @@ const allStories = [
     company: 'Root Projects',
     avatar: 'https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=80&h=80&dpr=2',
     productColor: '#f59e0b',
-    product: 'Flowza Finance',
+    product: 'FlowZa Finance',
     industry: 'Finance',
     stats: [
       { value: '60%', label: 'Faster Delivery' },
@@ -70,7 +70,7 @@ const allStories = [
     company: 'Dhofartec',
     avatar: 'https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=80&h=80&dpr=2',
     productColor: '#0ea5e9',
-    product: 'Flowza Fleetza',
+    product: 'FlowZa Fleetza',
     industry: 'Logistics',
     stats: [
       { value: '35%', label: 'Faster Response' },
@@ -79,13 +79,13 @@ const allStories = [
     ],
   },
   {
-    quote: "Defenders LLC manages security across 12 sites. With Flowza Fleetza we coordinate 80 patrol vehicles in real time. Incidents reduced by 40% in the first quarter alone.",
+    quote: "Defenders LLC manages security across 12 sites. With FlowZa Fleetza we coordinate 80 patrol vehicles in real time. Incidents reduced by 40% in the first quarter alone.",
     name: 'Ibrahim Al-Maskari',
     role: 'Head of Operations',
     company: 'Defenders LLC',
     avatar: 'https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=80&h=80&dpr=2',
     productColor: '#0ea5e9',
-    product: 'Flowza Fleetza',
+    product: 'FlowZa Fleetza',
     industry: 'Logistics',
     stats: [
       { value: '40%', label: 'Fewer Incidents' },
@@ -94,13 +94,13 @@ const allStories = [
     ],
   },
   {
-    quote: "Star Safe Solutions overhauled our field service scheduling with Flowza Spa Master's booking engine adapted for safety inspections. Our utilisation rate jumped from 58% to 91%.",
+    quote: "Star Safe Solutions overhauled our field service scheduling with FlowZa Spa Master's booking engine adapted for safety inspections. Our utilisation rate jumped from 58% to 91%.",
     name: 'Fatima Al-Rawahi',
     role: 'General Manager',
     company: 'Star Safe Solutions',
     avatar: 'https://images.pexels.com/photos/1130626/pexels-photo-1130626.jpeg?auto=compress&cs=tinysrgb&w=80&h=80&dpr=2',
     productColor: '#f43f5e',
-    product: 'Flowza Spa Master',
+    product: 'FlowZa Spa Master',
     industry: 'Hospitality',
     stats: [
       { value: '91%', label: 'Utilisation Rate' },
@@ -115,7 +115,7 @@ const allStories = [
     company: 'Future Space LLC',
     avatar: 'https://images.pexels.com/photos/1300402/pexels-photo-1300402.jpeg?auto=compress&cs=tinysrgb&w=80&h=80&dpr=2',
     productColor: '#10b981',
-    product: 'Flowza Finance',
+    product: 'FlowZa Finance',
     industry: 'Finance',
     stats: [
       { value: '3', label: 'Venues Launched' },
@@ -124,13 +124,13 @@ const allStories = [
     ],
   },
   {
-    quote: "Suwaiq Modern runs one of the fastest-growing retail chains in the region. Flowza Finance gave us consolidated reporting across 18 branches with zero manual data entry.",
+    quote: "Suwaiq Modern runs one of the fastest-growing retail chains in the region. FlowZa Finance gave us consolidated reporting across 18 branches with zero manual data entry.",
     name: 'Maryam Al-Habsi',
     role: 'Finance Controller',
     company: 'Suwaiq Modern',
     avatar: 'https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&w=80&h=80&dpr=2',
     productColor: '#10b981',
-    product: 'Flowza Finance',
+    product: 'FlowZa Finance',
     industry: 'Finance',
     stats: [
       { value: '18', label: 'Branches Unified' },

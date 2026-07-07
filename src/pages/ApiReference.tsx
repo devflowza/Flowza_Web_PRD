@@ -14,7 +14,7 @@ const endpoints = [
     ],
   },
   {
-    product: 'Flowza Spa Master API',
+    product: 'FlowZa Spa Master API',
     color: '#f43f5e',
     base: '/api/v1/spamaster',
     routes: [
@@ -25,7 +25,7 @@ const endpoints = [
     ],
   },
   {
-    product: 'Flowza LogisPro API',
+    product: 'FlowZa LogisPro API',
     color: '#38bdf8',
     base: '/api/v1/logispro',
     routes: [
@@ -36,7 +36,7 @@ const endpoints = [
     ],
   },
   {
-    product: 'Flowza QRForge API',
+    product: 'FlowZa QRForge API',
     color: '#f59e0b',
     base: '/api/v1/qrforge',
     routes: [
@@ -80,7 +80,7 @@ export default function ApiReference() {
             API <span className="text-gradient-violet">Reference</span>
           </h1>
           <p className="text-lg text-gray-600 mb-10 max-w-2xl mx-auto">
-            RESTful APIs for every Flowza platform. Build integrations, automate workflows, and embed AI intelligence into your own applications.
+            RESTful APIs for every FlowZa platform. Build integrations, automate workflows, and embed AI intelligence into your own applications.
           </p>
           <div className="flex items-center justify-center gap-3 flex-wrap">
             <div className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-full text-sm text-gray-600 shadow-sm">

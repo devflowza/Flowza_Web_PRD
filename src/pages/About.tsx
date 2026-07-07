@@ -26,7 +26,7 @@ export default function About() {
         label="Our Story"
         title="Built to Transform"
         titleHighlight="Every Business"
-        subtitle="Flowza AI was founded on the belief that powerful AI tools shouldn't be reserved for enterprises with nine-figure budgets. We build for the rest."
+        subtitle="FlowZa AI was founded on the belief that powerful AI tools shouldn't be reserved for enterprises with nine-figure budgets. We build for the rest."
         imageUrl="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=1400"
       />
 
@@ -53,13 +53,13 @@ export default function About() {
                 Most software is built for an imaginary average customer. We build for real people — the spa owner managing 12 staff, the logistics company tracking 400 vehicles, the restaurant running a distributed POS network.
               </p>
               <p className="text-gray-600 text-lg leading-relaxed">
-                Seven purpose-built platforms. One unified vision. Flowza AI is the operating system for businesses that refuse to stay behind.
+                Seven purpose-built platforms. One unified vision. FlowZa AI is the operating system for businesses that refuse to stay behind.
               </p>
             </div>
             <div className="relative">
               <img
                 src="https://images.pexels.com/photos/3184325/pexels-photo-3184325.jpeg?auto=compress&cs=tinysrgb&w=800"
-                alt="Flowza team"
+                alt="FlowZa team"
                 className="w-full h-80 object-cover rounded-2xl shadow-[0_1px_3px_rgba(15,23,42,0.06),0_10px_30px_rgba(15,23,42,0.12)]"
               />
               <div className="absolute -bottom-4 -left-4 bg-white rounded-xl p-4 shadow-[0_1px_3px_rgba(15,23,42,0.06),0_10px_30px_rgba(15,23,42,0.05)] border border-gray-200">
@@ -101,7 +101,7 @@ export default function About() {
       <section className="py-20 px-6">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="font-display font-bold text-4xl text-gray-900 mb-4">Ready to transform your business?</h2>
-          <p className="text-gray-600 text-lg mb-8">Join 100+ businesses already using Flowza AI to work smarter.</p>
+          <p className="text-gray-600 text-lg mb-8">Join 100+ businesses already using FlowZa AI to work smarter.</p>
           <a
             href="mailto:sales@flowza.ai"
             className="inline-flex items-center gap-2 px-8 py-4 rounded-xl text-sm font-semibold text-white fx-gradient shadow-[0_8px_24px_rgba(37,99,235,0.35)] hover:shadow-[0_10px_30px_rgba(37,99,235,0.45)] transition-all duration-300 hover:-translate-y-0.5"

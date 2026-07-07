@@ -91,7 +91,7 @@ export default function CookiePolicy() {
           </div>
           <p className="text-gray-500 text-base mb-6">Last updated: <span className="text-gray-900 font-medium">February 1, 2026</span></p>
           <p className="text-gray-600 text-sm leading-relaxed max-w-2xl">
-            Flowza AI uses cookies to keep you signed in, understand how our products are used, and personalize your experience. This page explains exactly what we set and why.
+            FlowZa AI uses cookies to keep you signed in, understand how our products are used, and personalize your experience. This page explains exactly what we set and why.
           </p>
         </div>
       </div>

@@ -7,19 +7,19 @@ const sections = [
     id: 'acceptance',
     title: 'Acceptance of Terms',
     icon: FileText,
-    content: 'By using any Flowza AI platform or service, you agree to these Terms. If you are acting on behalf of an organization, you confirm you have authority to bind that organization. Continued use after updates constitutes acceptance of revised terms.',
+    content: 'By using any FlowZa AI platform or service, you agree to these Terms. If you are acting on behalf of an organization, you confirm you have authority to bind that organization. Continued use after updates constitutes acceptance of revised terms.',
   },
   {
     id: 'services',
     title: 'Our Services',
     icon: Code,
     points: [
-      { label: 'Flowza Finance', detail: 'Accounting, inventory, payroll, HR, and multi-country tax compliance.' },
-      { label: 'Flowza Spa Master', detail: 'Spa and wellness business management.' },
-      { label: 'Flowza LogisPro', detail: 'Logistics, routing, and fleet management.' },
-      { label: 'Flowza QRForge', detail: 'Dynamic QR code creation and analytics.' },
-      { label: 'Flowza POS', detail: 'Point of sale and inventory management.' },
-      { label: 'Flowza Fleetza', detail: 'Fleet tracking and predictive maintenance.' },
+      { label: 'FlowZa Finance', detail: 'Accounting, inventory, payroll, HR, and multi-country tax compliance.' },
+      { label: 'FlowZa Spa Master', detail: 'Spa and wellness business management.' },
+      { label: 'FlowZa LogisPro', detail: 'Logistics, routing, and fleet management.' },
+      { label: 'FlowZa QRForge', detail: 'Dynamic QR code creation and analytics.' },
+      { label: 'FlowZa POS', detail: 'Point of sale and inventory management.' },
+      { label: 'FlowZa Fleetza', detail: 'Fleet tracking and predictive maintenance.' },
     ],
   },
   {
@@ -55,9 +55,9 @@ const sections = [
     title: 'Intellectual Property',
     icon: Code,
     points: [
-      { label: 'Our IP', detail: 'All software, AI models, interfaces, and documentation are owned by Flowza AI FZ-LLC. These Terms grant only a limited license to use our services.' },
+      { label: 'Our IP', detail: 'All software, AI models, interfaces, and documentation are owned by FlowZa AI FZ-LLC. These Terms grant only a limited license to use our services.' },
       { label: 'Your data', detail: 'You retain all rights to your business data. We process it solely to provide and improve the services.' },
-      { label: 'Feedback', detail: 'Any suggestions or feedback you share may be used by Flowza without obligation.' },
+      { label: 'Feedback', detail: 'Any suggestions or feedback you share may be used by FlowZa without obligation.' },
     ],
   },
   {

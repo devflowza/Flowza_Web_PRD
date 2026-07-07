@@ -1017,7 +1017,7 @@ export default function FinanceDemo() {
             ))}
           </div>
           <blockquote className="text-2xl md:text-3xl font-display font-semibold text-gray-900 leading-relaxed mb-8">
-            "Flowza Finance transformed our entire accounting workflow. What used to take our team
+            "FlowZa Finance transformed our entire accounting workflow. What used to take our team
             a full week every month now completes automatically in hours."
           </blockquote>
           <div className="flex items-center justify-center gap-3">
@@ -1085,7 +1085,7 @@ export default function FinanceDemo() {
                   )}
                 </div>
                 <a
-                  href={plan.price === 'Custom' ? 'https://web.whatsapp.com/send?phone=96892107562&text=Hello! Flowza' : 'https://finance.flowza.ai'}
+                  href={plan.price === 'Custom' ? 'https://web.whatsapp.com/send?phone=96892107562&text=Hello! FlowZa' : 'https://finance.flowza.ai'}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="block w-full text-center px-6 py-3 rounded-full font-semibold text-sm transition-all duration-300 hover:-translate-y-0.5 mb-6"
@@ -1150,7 +1150,7 @@ export default function FinanceDemo() {
               <div className="absolute inset-0 bg-white/15 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
             </a>
             <a
-              href="https://web.whatsapp.com/send?phone=96892107562&text=Hello! Flowza"
+              href="https://web.whatsapp.com/send?phone=96892107562&text=Hello! FlowZa"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-8 py-4 rounded-full font-semibold text-emerald-400 text-base border border-emerald-500/30 hover:border-emerald-500/60 hover:bg-emerald-500/10 transition-all duration-300"
@@ -1194,7 +1194,7 @@ function FinanceDemoNav() {
         <div className="flex items-center gap-3">
           <a href="https://flowza.ai/products/finance" className="flex items-center gap-1.5 text-gray-500 hover:text-gray-900 transition-colors text-sm">
             <ArrowLeft size={14} />
-            <span>Flowza</span>
+            <span>FlowZa</span>
           </a>
           <span className="text-gray-300">/</span>
           <div className="flex items-center gap-2">
@@ -1204,7 +1204,7 @@ function FinanceDemoNav() {
             >
               <DollarSign size={11} style={{ color: '#10b981' }} />
             </div>
-            <span className="text-sm font-semibold text-gray-900">Flowza Finance</span>
+            <span className="text-sm font-semibold text-gray-900">FlowZa Finance</span>
           </div>
         </div>
 
@@ -1238,10 +1238,10 @@ function FinanceDemoFooter() {
       <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
         <div className="flex items-center gap-2.5">
           <div className="w-7 h-7 rounded-xl overflow-hidden">
-            <img src="/Logo_Final_-_Focused.jpeg" alt="Flowza" className="w-full h-full object-cover" />
+            <img src="/Logo_Final_-_Focused.jpeg" alt="FlowZa" className="w-full h-full object-cover" />
           </div>
-          <span className="text-gray-700 text-sm font-semibold">Flowza Finance</span>
-          <span className="text-gray-400 text-sm">· By Flowza AI</span>
+          <span className="text-gray-700 text-sm font-semibold">FlowZa Finance</span>
+          <span className="text-gray-400 text-sm">· By FlowZa AI</span>
         </div>
         <div className="flex items-center gap-6">
           <Link to="/privacy" className="text-xs text-gray-500 hover:text-gray-900 transition-colors">
@@ -1254,7 +1254,7 @@ function FinanceDemoFooter() {
             All Products
           </Link>
         </div>
-        <p className="text-xs text-gray-400">© {new Date().getFullYear()} Flowza AI. All rights reserved.</p>
+        <p className="text-xs text-gray-400">© {new Date().getFullYear()} FlowZa AI. All rights reserved.</p>
       </div>
     </footer>
   );

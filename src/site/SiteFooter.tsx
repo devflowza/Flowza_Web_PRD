@@ -46,13 +46,13 @@ export default function SiteFooter() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.35fr_1fr_1fr_1.15fr] gap-10 lg:gap-12 pb-14">
           {/* Brand */}
           <div>
-            <Link to="/" className="flex items-center gap-3 mb-4" aria-label="Flowza AI — home">
+            <Link to="/" className="flex items-center gap-3 mb-4" aria-label="FlowZa AI — home">
               <span className="w-11 h-11 rounded-xl overflow-hidden ring-1 ring-cyan-400/25">
                 <img src="/Logo_Final_-_Focused.jpeg" alt="" className="w-full h-full object-cover" />
               </span>
               <span className="leading-tight">
                 <span className="block font-bold text-lg text-white tracking-tight">
-                  Flowza <span className="fx-gradient-text">AI</span>
+                  FlowZa <span className="fx-gradient-text">AI</span>
                 </span>
                 <span className="block text-[11px] text-slate-400 font-medium">Business Operating Systems</span>
               </span>
@@ -178,7 +178,7 @@ export default function SiteFooter() {
 
         {/* Copyright */}
         <div className="border-t border-white/10 py-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500">
-          <p>© {new Date().getFullYear()} Flowza AI. All Rights Reserved.</p>
+          <p>© {new Date().getFullYear()} FlowZa AI. All Rights Reserved.</p>
           <Link to="/status" className="inline-flex items-center gap-2 hover:text-emerald-400 transition-colors">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.9)]" />
             All systems operational

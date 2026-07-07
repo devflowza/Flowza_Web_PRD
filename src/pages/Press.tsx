@@ -3,47 +3,47 @@ import PageLayout from '../components/PageLayout';
 import PageHero from '../components/PageHero';
 
 const coverage = [
-  { outlet: 'TechCrunch', headline: 'Flowza AI raises $8M to bring enterprise AI to GCC\'s underserved SME market', date: 'March 2024', url: '#', logo: 'TC' },
+  { outlet: 'TechCrunch', headline: 'FlowZa AI raises $8M to bring enterprise AI to GCC\'s underserved SME market', date: 'March 2024', url: '#', logo: 'TC' },
   { outlet: 'Forbes Middle East', headline: 'The 10 AI Startups Redefining Business Software in the Arab World', date: 'January 2024', url: '#', logo: 'FM' },
-  { outlet: 'Wamda', headline: 'How Flowza AI became the most-deployed AI platform for UAE hospitality businesses', date: 'November 2023', url: '#', logo: 'WA' },
-  { outlet: 'Gulf Business', headline: 'Flowza\'s unified AI approach is disrupting traditional ERP in the Gulf', date: 'September 2023', url: '#', logo: 'GB' },
+  { outlet: 'Wamda', headline: 'How FlowZa AI became the most-deployed AI platform for UAE hospitality businesses', date: 'November 2023', url: '#', logo: 'WA' },
+  { outlet: 'Gulf Business', headline: 'FlowZa\'s unified AI approach is disrupting traditional ERP in the Gulf', date: 'September 2023', url: '#', logo: 'GB' },
   { outlet: 'Sifted', headline: 'Meet the Dubai startup making AI affordable for every business', date: 'July 2023', url: '#', logo: 'SF' },
-  { outlet: 'Arab Startup', headline: 'Flowza AI hits 100 enterprise clients, eyes Southeast Asia expansion', date: 'May 2023', url: '#', logo: 'AS' },
+  { outlet: 'Arab Startup', headline: 'FlowZa AI hits 100 enterprise clients, eyes Southeast Asia expansion', date: 'May 2023', url: '#', logo: 'AS' },
 ];
 
 const releases = [
   {
     date: 'February 14, 2026',
-    title: 'Flowza AI Launches Finance 3.0 with Real-Time AI Bookkeeping Engine',
+    title: 'FlowZa AI Launches Finance 3.0 with Real-Time AI Bookkeeping Engine',
     summary: 'New release brings automated VAT compliance, multi-currency AI categorization, and a natural language financial assistant to all Finance subscribers.',
   },
   {
     date: 'January 10, 2026',
-    title: 'Flowza AI Introduces Unified AI Core Across All Six Product Lines',
-    summary: 'The Flowza Unified AI Core enables shared intelligence, cross-platform data insights, and dramatically reduced onboarding time for multi-product customers.',
+    title: 'FlowZa AI Introduces Unified AI Core Across All Six Product Lines',
+    summary: 'The FlowZa Unified AI Core enables shared intelligence, cross-platform data insights, and dramatically reduced onboarding time for multi-product customers.',
   },
   {
     date: 'October 22, 2025',
-    title: 'Flowza AI Expands to Egypt and Qatar, Reaching 100+ Enterprise Clients',
+    title: 'FlowZa AI Expands to Egypt and Qatar, Reaching 100+ Enterprise Clients',
     summary: 'The company opens regional offices in Cairo and Doha, supporting Arabic-language AI models and localized compliance requirements.',
   },
   {
     date: 'June 5, 2025',
-    title: 'Flowza AI Raises $8M Series A Led by BECO Capital and Saudi Aramco Ventures',
+    title: 'FlowZa AI Raises $8M Series A Led by BECO Capital and Saudi Aramco Ventures',
     summary: 'Funding will accelerate product development across all six platforms and support regional hiring of 30+ engineers and product managers.',
   },
   {
     date: 'February 20, 2025',
-    title: 'Flowza AI Launches Flowza Fleetza — AI-Powered Fleet Intelligence Platform',
-    summary: 'Flowza Fleetza uses predictive maintenance AI and real-time routing optimization to reduce fleet operating costs by up to 23% on average.',
+    title: 'FlowZa AI Launches FlowZa Fleetza — AI-Powered Fleet Intelligence Platform',
+    summary: 'FlowZa Fleetza uses predictive maintenance AI and real-time routing optimization to reduce fleet operating costs by up to 23% on average.',
   },
 ];
 
 const assets = [
-  { name: 'Flowza AI Logo Pack (SVG, PNG)', size: '2.4 MB', type: 'Brand Assets' },
+  { name: 'FlowZa AI Logo Pack (SVG, PNG)', size: '2.4 MB', type: 'Brand Assets' },
   { name: 'Product Screenshots Bundle', size: '18 MB', type: 'Product Images' },
   { name: 'Executive Headshots', size: '8.6 MB', type: 'Team Photos' },
-  { name: 'Flowza AI Brand Guidelines', size: '4.1 MB', type: 'Brand Guide' },
+  { name: 'FlowZa AI Brand Guidelines', size: '4.1 MB', type: 'Brand Guide' },
   { name: 'Company Fact Sheet 2026', size: '512 KB', type: 'One-Pager' },
 ];
 
@@ -52,7 +52,7 @@ export default function Press() {
     <PageLayout>
       <PageHero
         label="Newsroom"
-        title="Flowza AI in the"
+        title="FlowZa AI in the"
         titleHighlight="News"
         subtitle="Press releases, media coverage, and brand resources for journalists and media professionals covering the future of AI-powered business software."
         imageUrl="https://images.pexels.com/photos/3184339/pexels-photo-3184339.jpeg?auto=compress&cs=tinysrgb&w=1400"

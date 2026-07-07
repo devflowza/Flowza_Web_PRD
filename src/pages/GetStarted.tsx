@@ -27,9 +27,9 @@ const liveTrials = [
 
 export default function GetStarted() {
   useEffect(() => {
-    document.title = 'Get Started — Flowza AI';
+    document.title = 'Get Started — FlowZa AI';
     return () => {
-      document.title = 'Flowza AI — Business Operating Systems';
+      document.title = 'FlowZa AI — Business Operating Systems';
     };
   }, []);
 
@@ -52,7 +52,7 @@ export default function GetStarted() {
             Pick Your Platform. <span className="fx-gradient-text">Start in Minutes.</span>
           </h1>
           <p className="text-lg text-gray-500 leading-relaxed max-w-2xl mx-auto">
-            Flowza Finance and Flowza Club are live today with self-serve trials. The rest of
+            FlowZa Finance and FlowZa Club are live today with self-serve trials. The rest of
             the fabric is rolling out — tell us which one you need and we'll set you up first.
           </p>
         </div>

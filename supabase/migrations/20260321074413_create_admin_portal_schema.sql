@@ -2,7 +2,7 @@
   # Admin Portal Schema
 
   ## Summary
-  Creates all tables needed for the Flowza Admin Portal including:
+  Creates all tables needed for the FlowZa Admin Portal including:
   
   1. New Tables
     - `admin_users` - Admin accounts with TOTP secrets and backup codes

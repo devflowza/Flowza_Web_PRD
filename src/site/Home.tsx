@@ -13,7 +13,7 @@ import FaqSection from './home/FaqSection';
 
 export default function Home() {
   useEffect(() => {
-    document.title = 'Flowza AI — Business Operating Systems';
+    document.title = 'FlowZa AI — Business Operating Systems';
   }, []);
 
   return (

@@ -9,8 +9,8 @@ const posts = [
   {
     id: 1,
     category: 'Product',
-    title: 'Introducing Flowza Finance 3.0: Real-Time AI Bookkeeping',
-    excerpt: 'Our biggest product update yet. Flowza Finance 3.0 brings real-time transaction categorization, automated VAT reporting, and a new AI assistant that answers financial questions in plain language.',
+    title: 'Introducing FlowZa Finance 3.0: Real-Time AI Bookkeeping',
+    excerpt: 'Our biggest product update yet. FlowZa Finance 3.0 brings real-time transaction categorization, automated VAT reporting, and a new AI assistant that answers financial questions in plain language.',
     author: 'Layla Hassan',
     authorRole: 'CTO',
     authorImg: 'https://images.pexels.com/photos/3756679/pexels-photo-3756679.jpeg?auto=compress&cs=tinysrgb&w=100',
@@ -35,7 +35,7 @@ const posts = [
   {
     id: 3,
     category: 'Engineering',
-    title: 'How We Built the Flowza Unified AI Core',
+    title: 'How We Built the FlowZa Unified AI Core',
     excerpt: 'One model to rule them all. We explain the architecture decisions behind sharing a single AI brain across six vastly different product surfaces.',
     author: 'Khalid Nuri',
     authorRole: 'Head of Engineering',
@@ -48,8 +48,8 @@ const posts = [
   {
     id: 4,
     category: 'Guides',
-    title: 'Getting the Most Out of Flowza Spa Master: A Complete Setup Guide',
-    excerpt: 'From booking configuration to staff scheduling, loyalty programs to payment processing — everything you need to launch Flowza Spa Master in under an hour.',
+    title: 'Getting the Most Out of FlowZa Spa Master: A Complete Setup Guide',
+    excerpt: 'From booking configuration to staff scheduling, loyalty programs to payment processing — everything you need to launch FlowZa Spa Master in under an hour.',
     author: 'Sara Al-Mansoori',
     authorRole: 'VP Customer Success',
     authorImg: 'https://images.pexels.com/photos/3756681/pexels-photo-3756681.jpeg?auto=compress&cs=tinysrgb&w=100',
@@ -87,8 +87,8 @@ const posts = [
   {
     id: 7,
     category: 'Guides',
-    title: 'Migrating to Flowza LogisPro: A Step-by-Step Playbook',
-    excerpt: 'Switching logistics platforms sounds scary. We\'ve moved 18 companies to Flowza LogisPro without a single day of operational downtime.',
+    title: 'Migrating to FlowZa LogisPro: A Step-by-Step Playbook',
+    excerpt: 'Switching logistics platforms sounds scary. We\'ve moved 18 companies to FlowZa LogisPro without a single day of operational downtime.',
     author: 'Sara Al-Mansoori',
     authorRole: 'VP Customer Success',
     authorImg: 'https://images.pexels.com/photos/3756681/pexels-photo-3756681.jpeg?auto=compress&cs=tinysrgb&w=100',
@@ -100,8 +100,8 @@ const posts = [
   {
     id: 8,
     category: 'Product',
-    title: 'Flowza QRForge Dynamic Campaigns: How Brands Are Using Smart QR Codes',
-    excerpt: 'QR codes are having a massive renaissance. We look at five innovative ways Flowza clients are using Flowza QRForge dynamic campaigns to drive measurable ROI.',
+    title: 'FlowZa QRForge Dynamic Campaigns: How Brands Are Using Smart QR Codes',
+    excerpt: 'QR codes are having a massive renaissance. We look at five innovative ways FlowZa clients are using FlowZa QRForge dynamic campaigns to drive measurable ROI.',
     author: 'Hana Yamamoto',
     authorRole: 'Head of Design',
     authorImg: 'https://images.pexels.com/photos/3771089/pexels-photo-3771089.jpeg?auto=compress&cs=tinysrgb&w=100',
@@ -123,7 +123,7 @@ export default function Blog() {
   return (
     <PageLayout>
       <PageHero
-        label="Flowza Blog"
+        label="FlowZa Blog"
         title="Ideas, Insights &"
         titleHighlight="Updates"
         subtitle="Deep dives into AI, product thinking, engineering craft, and the future of business software — from the team building it."
