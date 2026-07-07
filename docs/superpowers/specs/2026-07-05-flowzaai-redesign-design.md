@@ -1,14 +1,14 @@
-# FlowzaAI Website Overhaul — Design Spec
+# FlowZaAI Website Overhaul — Design Spec
 
 **Date:** 2026-07-05
 **Status:** Approved-by-request (user explicitly commissioned the overhaul; session runs autonomously)
 
 ## Goal
 
-Rebuild the public FlowzaAI website so it adopts the design system and UX of the
+Rebuild the public FlowZaAI website so it adopts the design system and UX of the
 reference site (`http://localhost:4173/home` — the Space Recovery site) while keeping
-all existing FlowzaAI content, branding, and functionality. The result must feel
-premium, enterprise-grade, and purpose-built for FlowzaAI — not a clone of the
+all existing FlowZaAI content, branding, and functionality. The result must feel
+premium, enterprise-grade, and purpose-built for FlowZaAI — not a clone of the
 reference.
 
 ## Sources
@@ -33,12 +33,12 @@ reference.
 
 The reference is a light, trust-forward, Tailwind-based services site. Its DNA:
 
-| Token | Reference | FlowzaAI adaptation |
+| Token | Reference | FlowZaAI adaptation |
 |---|---|---|
 | Font | IBM Plex Sans (400–700) | Same — swaps out the current 4-font mix |
-| Primary action | blue-600 `#2563eb` | Same blue-600; brand gradient shifts to Flowza cyan→blue (`#22d3ee → #2563eb`) |
-| Hot accent (top CTA) | red gradient (red-500→600) | Flowza cyan→blue gradient (brand, not red) |
-| WhatsApp green | `#25d366` / green-500 | Same (real CTA — Flowza's WhatsApp is +968 9210 7562) |
+| Primary action | blue-600 `#2563eb` | Same blue-600; brand gradient shifts to FlowZa cyan→blue (`#22d3ee → #2563eb`) |
+| Hot accent (top CTA) | red gradient (red-500→600) | FlowZa cyan→blue gradient (brand, not red) |
+| WhatsApp green | `#25d366` / green-500 | Same (real CTA — FlowZa's WhatsApp is +968 9210 7562) |
 | Headings | slate-900, 700 weight, tight tracking | Same |
 | Body | gray-600 on white / gray-50 | Same |
 | Section tints | blue-50 / gray-50 / white alternation | Same |
@@ -49,7 +49,7 @@ The reference is a light, trust-forward, Tailwind-based services site. Its DNA:
 
 ### Signature components to reproduce
 
-- **Top utility bar** (dark navy for Flowza instead of red): WhatsApp number, email,
+- **Top utility bar** (dark navy for FlowZa instead of red): WhatsApp number, email,
   business hours, location + "All systems operational" pill.
 - **White sticky navbar:** logo block (icon + name + micro-subtitle), center links,
   Platforms dropdown (7 products), gradient CTA button.
@@ -60,7 +60,7 @@ The reference is a light, trust-forward, Tailwind-based services site. Its DNA:
   chips and a connecting line.
 - **Feature cards:** white, rounded-2xl, image top with overlapping rounded-square icon.
 - **Stats band:** blue gradient, big white numbers, uppercase tracked labels.
-- **Image-tile grid** ("any device" pattern) → the 7 Flowza platforms.
+- **Image-tile grid** ("any device" pattern) → the 7 FlowZa platforms.
 - **Gradient action trio** (blue/green/purple cards) → Start Trial / Pricing / Contact.
 - **Certification cards** with tinted borders → SOC 2, uptime, tax engines.
 - **Testimonials:** stars header + white quote cards.
@@ -72,7 +72,7 @@ The reference is a light, trust-forward, Tailwind-based services site. Its DNA:
 
 | Route | Treatment |
 |---|---|
-| `/` | Full rebuild: TopBar → Navbar → Hero → trust marquee → Platforms grid → How It Works (3 steps) → Why Flowza (4 cards + manifesto line) → Stats band → Finance spotlight → Pricing → Testimonials → Action trio → FAQ → Footer |
+| `/` | Full rebuild: TopBar → Navbar → Hero → trust marquee → Platforms grid → How It Works (3 steps) → Why FlowZa (4 cards + manifesto line) → Stats band → Finance spotlight → Pricing → Testimonials → Action trio → FAQ → Footer |
 | `/products/:id` | Rebuild with same system: product hero (accent color), 6 feature cards, 3 steps, stats band, testimonial, related products, CTA |
 | `/contact` | Restyle: hero + contact cards + form (keep Supabase submit logic verbatim) |
 | `/about` | Restyle with new primitives |
@@ -106,4 +106,4 @@ the existing data files. FAQ items are assembled from existing facts only (14-da
 ## Out of scope
 
 - Admin portal redesign, Supabase schema, blog/careers/press pages not in the route
-  graph, Arabic localization (reference has a language toggle; Flowza has no AR content).
+  graph, Arabic localization (reference has a language toggle; FlowZa has no AR content).

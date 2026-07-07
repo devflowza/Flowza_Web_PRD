@@ -107,7 +107,7 @@ Deno.serve(async (req: Request) => {
       await transport.sendMail({
         from: `"${config.sender_name}" <${config.sender_email}>`,
         to: admin.email,
-        subject: "Flowza Admin — SMTP Test",
+        subject: "FlowZa Admin — SMTP Test",
         html: `<p>Your SMTP configuration is working correctly.</p><p>Sent at ${new Date().toLocaleString()}</p>`,
       });
 

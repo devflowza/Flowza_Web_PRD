@@ -20,9 +20,9 @@ export default function ProductDetail() {
   }, [product, navigate]);
 
   useEffect(() => {
-    if (product) document.title = `${product.name} — Flowza AI`;
+    if (product) document.title = `${product.name} — FlowZa AI`;
     return () => {
-      document.title = 'Flowza AI — Business Operating Systems';
+      document.title = 'FlowZa AI — Business Operating Systems';
     };
   }, [product]);
 
@@ -86,7 +86,7 @@ export default function ProductDetail() {
                     boxShadow: `0 8px 24px ${product.color}59`,
                   }}
                 >
-                  Launch {product.name.replace('Flowza ', '')}
+                  Launch {product.name.replace('FlowZa ', '')}
                   <ExternalLink size={15} />
                 </a>
                 <a
@@ -150,7 +150,7 @@ export default function ProductDetail() {
         <div className="max-w-6xl mx-auto">
           <SectionHeading
             badge="Capabilities"
-            title={`Everything ${product.name.replace('Flowza ', '')} Does for You`}
+            title={`Everything ${product.name.replace('FlowZa ', '')} Does for You`}
             subtitle={product.longDescription}
           />
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -234,7 +234,7 @@ export default function ProductDetail() {
         </div>
       </section>
 
-      {/* Pricing — plans are Flowza Finance plans */}
+      {/* Pricing — plans are FlowZa Finance plans */}
       {product.id === 'finance' && <Pricing />}
 
       {/* Related platforms */}
@@ -243,7 +243,7 @@ export default function ProductDetail() {
           <SectionHeading
             badge="One Fabric"
             title="Works Better Together"
-            subtitle="Every Flowza platform shares the same operating fabric — customers, inventory and ledger data flow between systems without manual re-entry."
+            subtitle="Every FlowZa platform shares the same operating fabric — customers, inventory and ledger data flow between systems without manual re-entry."
           />
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {product.related.slice(0, 3).map((r, i) => (

@@ -9,7 +9,7 @@ export default function WhyFlowza() {
       <section id="why-flowza" className="scroll-mt-28 py-20 sm:py-24 px-4 sm:px-6 bg-gray-50">
         <div className="max-w-6xl mx-auto">
           <SectionHeading
-            badge="Why Flowza"
+            badge="Why FlowZa"
             title="Software That Disappears Into the Work"
             subtitle={MANIFESTO}
           />

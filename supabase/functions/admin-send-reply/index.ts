@@ -96,13 +96,13 @@ Deno.serve(async (req: Request) => {
     const html = `
       <div style="font-family: Inter, system-ui, sans-serif; max-width: 600px; margin: 0 auto; color: #1a1a1a;">
         <div style="background: linear-gradient(135deg, #0ea5e9, #0369a1); padding: 28px 32px; border-radius: 12px 12px 0 0;">
-          <h2 style="color: white; margin: 0; font-size: 20px; font-weight: 600;">Flowza.ai</h2>
+          <h2 style="color: white; margin: 0; font-size: 20px; font-weight: 600;">FlowZa.ai</h2>
         </div>
         <div style="background: #ffffff; padding: 32px; border: 1px solid #e5e7eb; border-top: none; border-radius: 0 0 12px 12px;">
           <p style="margin: 0 0 16px; color: #374151;">Hi ${escapeHtml(toName)},</p>
           <div style="color: #374151; line-height: 1.6;">${body}</div>
           <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 28px 0;" />
-          <p style="margin: 0; font-size: 13px; color: #9ca3af;">This email was sent by the Flowza.ai support team.</p>
+          <p style="margin: 0; font-size: 13px; color: #9ca3af;">This email was sent by the FlowZa.ai support team.</p>
         </div>
       </div>
     `;

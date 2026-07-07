@@ -71,7 +71,7 @@ export default function AdminLogin() {
           <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br from-sky-500 to-blue-600 mb-4 shadow-lg">
             <Zap size={22} className="text-white" />
           </div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Flowza.ai</h1>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">FlowZa.ai</h1>
           <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Admin Portal</p>
         </div>
 

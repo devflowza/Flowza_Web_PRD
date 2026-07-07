@@ -35,13 +35,13 @@ export default function SiteNav() {
     <nav className="bg-white border-b border-gray-100 shadow-[0_1px_3px_rgba(15,23,42,0.04)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 h-[72px] flex items-center justify-between gap-4">
         {/* Logo block */}
-        <Link to="/" className="flex items-center gap-3 shrink-0 group" aria-label="Flowza AI — home">
+        <Link to="/" className="flex items-center gap-3 shrink-0 group" aria-label="FlowZa AI — home">
           <span className="w-11 h-11 rounded-xl overflow-hidden ring-1 ring-blue-100 shadow-[0_2px_10px_rgba(37,99,235,0.18)] group-hover:shadow-[0_2px_16px_rgba(37,99,235,0.3)] transition-shadow">
             <img src="/Logo_Final_-_Focused.jpeg" alt="" className="w-full h-full object-cover" />
           </span>
           <span className="leading-tight">
             <span className="block font-bold text-lg text-slate-900 tracking-tight">
-              Flowza <span className="fx-gradient-text">AI</span>
+              FlowZa <span className="fx-gradient-text">AI</span>
             </span>
             <span className="block text-[11px] text-gray-400 font-medium">Business Operating Systems</span>
           </span>

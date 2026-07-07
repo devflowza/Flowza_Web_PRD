@@ -2,7 +2,7 @@ import { Star } from 'lucide-react';
 import Reveal from '../Reveal';
 import { homeTestimonials } from '../data';
 
-/** Star-rated quote cards from operators running on Flowza. */
+/** Star-rated quote cards from operators running on FlowZa. */
 export default function TestimonialsSection() {
   return (
     <section id="testimonials" className="scroll-mt-28 py-20 sm:py-24 px-4 sm:px-6 bg-gray-50">

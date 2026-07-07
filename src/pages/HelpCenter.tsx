@@ -14,13 +14,13 @@ const topics = [
 const faqs: { question: string; answer: string; category: string }[] = [
   {
     category: 'Getting Started',
-    question: 'How long does it take to get up and running with Flowza?',
+    question: 'How long does it take to get up and running with FlowZa?',
     answer: 'Most businesses are fully operational within 24–48 hours. Our onboarding team will guide you through data import, team setup, and initial configuration. Complex enterprise setups with custom integrations may take 3–5 business days.',
   },
   {
     category: 'Getting Started',
-    question: 'Can I use multiple Flowza products under one account?',
-    answer: 'Yes. Your Flowza account is your unified workspace. You can activate any combination of our seven platforms — Finance, Flowza Spa Master, Flowza LogisPro, Flowza QRForge, Flowza POS, Flowza Fleetza, and Flowza Club — and they share a common data layer and reporting dashboard.',
+    question: 'Can I use multiple FlowZa products under one account?',
+    answer: 'Yes. Your FlowZa account is your unified workspace. You can activate any combination of our seven platforms — Finance, FlowZa Spa Master, FlowZa LogisPro, FlowZa QRForge, FlowZa POS, FlowZa Fleetza, and FlowZa Club — and they share a common data layer and reporting dashboard.',
   },
   {
     category: 'Billing & Plans',
@@ -34,12 +34,12 @@ const faqs: { question: string; answer: string; category: string }[] = [
   },
   {
     category: 'Account & Settings',
-    question: 'How do I invite team members to my Flowza workspace?',
+    question: 'How do I invite team members to my FlowZa workspace?',
     answer: 'Go to Settings → Team → Invite Members. You can send email invitations and assign role-based access permissions (Admin, Manager, Operator, Read-only) per product. There\'s no limit on team members.',
   },
   {
     category: 'Account & Settings',
-    question: 'Can I export all my data from Flowza?',
+    question: 'Can I export all my data from FlowZa?',
     answer: 'Yes, full data export is available at any time. Go to Settings → Data Export and select the products and date ranges you want. Exports are delivered as CSV, Excel, or JSON within minutes.',
   },
   {
@@ -49,15 +49,15 @@ const faqs: { question: string; answer: string; category: string }[] = [
   },
   {
     category: 'Security & Privacy',
-    question: 'Does Flowza support SSO / SAML?',
+    question: 'Does FlowZa support SSO / SAML?',
     answer: 'Yes, SAML 2.0 and OAuth 2.0 SSO is available on Professional and Enterprise plans. We support integration with Okta, Azure AD, Google Workspace, and any standard SAML provider.',
   },
 ];
 
 const videos = [
-  { title: 'Complete Flowza Finance Setup in 20 Minutes', duration: '20:14', product: 'Finance', thumb: 'https://images.pexels.com/photos/6801648/pexels-photo-6801648.jpeg?auto=compress&cs=tinysrgb&w=400' },
-  { title: 'Flowza Spa Master Booking Engine Walkthrough', duration: '15:42', product: 'Flowza Spa Master', thumb: '/product-spamaster-new.webp' },
-  { title: 'Setting Up Flowza LogisPro Live Tracking', duration: '12:08', product: 'Flowza LogisPro', thumb: 'https://images.pexels.com/photos/1427541/pexels-photo-1427541.jpeg?auto=compress&cs=tinysrgb&w=400' },
+  { title: 'Complete FlowZa Finance Setup in 20 Minutes', duration: '20:14', product: 'Finance', thumb: 'https://images.pexels.com/photos/6801648/pexels-photo-6801648.jpeg?auto=compress&cs=tinysrgb&w=400' },
+  { title: 'FlowZa Spa Master Booking Engine Walkthrough', duration: '15:42', product: 'FlowZa Spa Master', thumb: '/product-spamaster-new.webp' },
+  { title: 'Setting Up FlowZa LogisPro Live Tracking', duration: '12:08', product: 'FlowZa LogisPro', thumb: 'https://images.pexels.com/photos/1427541/pexels-photo-1427541.jpeg?auto=compress&cs=tinysrgb&w=400' },
 ];
 
 export default function HelpCenter() {

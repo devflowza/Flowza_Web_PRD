@@ -68,7 +68,7 @@ export default function AdminLayout() {
           >
             {sidebarOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
-          <span className="font-semibold text-gray-900 dark:text-white text-sm">Flowza Admin</span>
+          <span className="font-semibold text-gray-900 dark:text-white text-sm">FlowZa Admin</span>
         </header>
 
         <main className="flex-1 overflow-auto">

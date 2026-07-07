@@ -151,7 +151,7 @@ Deno.serve(async (req: Request) => {
     const html = `
       <div style="font-family: Inter, system-ui, sans-serif; max-width: 640px; margin: 0 auto; color: #1a1a1a;">
         <div style="background: linear-gradient(135deg, #0ea5e9, #0369a1); padding: 28px 32px; border-radius: 12px 12px 0 0;">
-          <h2 style="color: white; margin: 0 0 4px; font-size: 20px; font-weight: 600;">Flowza.ai</h2>
+          <h2 style="color: white; margin: 0 0 4px; font-size: 20px; font-weight: 600;">FlowZa.ai</h2>
           <p style="color: rgba(255,255,255,0.8); margin: 0; font-size: 13px;">Contact Form Message — Forwarded from Admin Portal</p>
         </div>
         <div style="background: #ffffff; padding: 32px; border: 1px solid #e5e7eb; border-top: none; border-radius: 0 0 12px 12px;">
@@ -208,7 +208,7 @@ Deno.serve(async (req: Request) => {
           </div>
 
           <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 0 0 16px;" />
-          <p style="margin: 0; font-size: 12px; color: #9ca3af;">This message was forwarded from the Flowza.ai admin portal. To manage forwarding settings, log in to the portal.</p>
+          <p style="margin: 0; font-size: 12px; color: #9ca3af;">This message was forwarded from the FlowZa.ai admin portal. To manage forwarding settings, log in to the portal.</p>
         </div>
       </div>
     `;

@@ -7,7 +7,7 @@ const sections = [
     id: 'overview',
     title: 'Overview',
     icon: Eye,
-    content: 'Flowza AI operates seven AI-powered business platforms. This policy explains how we collect, use, and protect your personal data when you use any of our services. By using our platforms, you agree to the practices described here.',
+    content: 'FlowZa AI operates seven AI-powered business platforms. This policy explains how we collect, use, and protect your personal data when you use any of our services. By using our platforms, you agree to the practices described here.',
   },
   {
     id: 'data-we-collect',
@@ -200,7 +200,7 @@ export default function PrivacyPolicy() {
             <Download size={15} className="text-gray-400" />
             <p className="text-sm text-gray-500">To export or delete your data, contact us at <a href="mailto:privacy@flowza.ai" className="text-blue-600 hover:underline">privacy@flowza.ai</a></p>
           </div>
-          <p className="text-xs text-gray-400">© 2026 Flowza AI FZ-LLC · Dubai Internet City, UAE</p>
+          <p className="text-xs text-gray-400">© 2026 FlowZa AI FZ-LLC · Dubai Internet City, UAE</p>
         </div>
       </div>
     </PageLayout>

@@ -4,7 +4,7 @@ import PageHero from '../components/PageHero';
 
 const benefits = [
   { icon: Globe, title: 'Remote Friendly', description: 'Work from anywhere in the world. We\'re a distributed team with hubs in Dubai, Riyadh, and Cairo.' },
-  { icon: TrendingUp, title: 'Equity for All', description: 'Every full-time employee receives meaningful equity. When Flowza wins, you win.' },
+  { icon: TrendingUp, title: 'Equity for All', description: 'Every full-time employee receives meaningful equity. When FlowZa wins, you win.' },
   { icon: Heart, title: 'Full Health Coverage', description: 'Premium health, dental, and vision insurance for you and your immediate family.' },
   { icon: Laptop, title: 'Top-Tier Equipment', description: '$3,000 equipment budget to get your ideal setup — MacBook Pro, monitors, keyboards, all of it.' },
   { icon: Coffee, title: 'Learning Budget', description: '$2,000 annually for courses, conferences, books, and certifications. Growth is a company priority.' },
@@ -15,7 +15,7 @@ const openRoles = [
   { id: 1, department: 'Engineering', title: 'Senior Backend Engineer (AI Infrastructure)', location: 'Remote · Dubai preferred', type: 'Full-time' },
   { id: 2, department: 'Engineering', title: 'Frontend Engineer (React / TypeScript)', location: 'Remote', type: 'Full-time' },
   { id: 3, department: 'Engineering', title: 'ML Engineer — NLP & Forecasting', location: 'Remote · Riyadh preferred', type: 'Full-time' },
-  { id: 4, department: 'Product', title: 'Senior Product Manager — Flowza Finance', location: 'Dubai, UAE', type: 'Full-time' },
+  { id: 4, department: 'Product', title: 'Senior Product Manager — FlowZa Finance', location: 'Dubai, UAE', type: 'Full-time' },
   { id: 5, department: 'Product', title: 'Product Designer (UX/UI)', location: 'Remote', type: 'Full-time' },
   { id: 6, department: 'Sales & Growth', title: 'Enterprise Account Executive — GCC', location: 'Riyadh or Dubai', type: 'Full-time' },
   { id: 7, department: 'Sales & Growth', title: 'Growth Marketing Manager', location: 'Remote', type: 'Full-time' },
@@ -78,7 +78,7 @@ export default function Careers() {
           <div className="text-center mb-14">
             <span className="text-xs font-semibold uppercase tracking-widest text-sky-600 mb-3 block">Open Positions</span>
             <h2 className="font-display font-bold text-4xl text-gray-900">{openRoles.length} Roles Available</h2>
-            <p className="text-gray-500 mt-3 text-lg">Find your place in the Flowza AI story.</p>
+            <p className="text-gray-500 mt-3 text-lg">Find your place in the FlowZa AI story.</p>
           </div>
 
           <div className="space-y-10">
@@ -131,7 +131,7 @@ export default function Careers() {
       <section className="py-16 px-6">
         <div className="max-w-3xl mx-auto text-center bg-white border border-gray-200 rounded-3xl p-12 shadow-[0_1px_3px_rgba(15,23,42,0.06),0_10px_30px_rgba(15,23,42,0.05)]">
           <h2 className="font-display font-bold text-3xl text-gray-900 mb-3">Don't see your role?</h2>
-          <p className="text-gray-600 mb-8">We're always looking for exceptional people. Send us your resume and tell us how you'd make Flowza better.</p>
+          <p className="text-gray-600 mb-8">We're always looking for exceptional people. Send us your resume and tell us how you'd make FlowZa better.</p>
           <a
             href="mailto:careers@flowza.ai"
             className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-sm font-semibold text-white bg-violet-gradient hover:shadow-[0_0_28px_rgba(14,165,233,0.55)] transition-all duration-300 hover:-translate-y-0.5"

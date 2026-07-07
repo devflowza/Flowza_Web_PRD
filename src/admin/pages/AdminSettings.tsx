@@ -269,7 +269,7 @@ export default function AdminSettings() {
                 </div>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {field('Sender Name', 'sender_name', 'text', 'Flowza Support')}
+                {field('Sender Name', 'sender_name', 'text', 'FlowZa Support')}
                 {field('Sender Email', 'sender_email', 'email', 'support@flowza.ai')}
               </div>
             </div>

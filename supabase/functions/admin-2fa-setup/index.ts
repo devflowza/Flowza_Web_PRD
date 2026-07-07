@@ -58,7 +58,7 @@ function generateBackupCodes(count = 8): string[] {
 
 async function buildTotpQr(secretBase32: string, email: string) {
   const totp = new TOTP({
-    issuer: "Flowza Admin",
+    issuer: "FlowZa Admin",
     label: email,
     algorithm: "SHA1",
     digits: 6,

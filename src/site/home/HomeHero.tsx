@@ -43,7 +43,7 @@ export default function HomeHero() {
           </p>
 
           <p className="mt-4 max-w-xl text-gray-600 leading-relaxed">
-            Seven purpose-built AI systems on one operating fabric. Flowza quietly automates
+            Seven purpose-built AI systems on one operating fabric. FlowZa quietly automates
             the busywork — invoices, routes, rosters, stock — so a team of ten can move like
             a team of fifty.
           </p>
@@ -106,7 +106,7 @@ export default function HomeHero() {
           <div className="relative rounded-2xl overflow-hidden shadow-[0_24px_70px_rgba(15,23,42,0.22)] ring-1 ring-slate-900/5 bg-white">
             <img
               src={productImages.finance}
-              alt="Flowza Finance live dashboard"
+              alt="FlowZa Finance live dashboard"
               className="w-full h-[320px] sm:h-[420px] object-cover object-left-top"
             />
             <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-navy-950/85 via-navy-950/40 to-transparent pt-16 pb-4 px-5">
@@ -114,7 +114,7 @@ export default function HomeHero() {
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
                 Live Platform
               </span>
-              <p className="text-white font-bold text-lg leading-tight">Flowza Finance</p>
+              <p className="text-white font-bold text-lg leading-tight">FlowZa Finance</p>
               <p className="text-white/70 text-sm">Real-time dashboards · Accounting, payroll &amp; compliance</p>
             </div>
           </div>

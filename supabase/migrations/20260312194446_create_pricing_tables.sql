@@ -1,5 +1,5 @@
 /*
-  # Create Pricing Tables for Flowza.ai
+  # Create Pricing Tables for FlowZa.ai
 
   This migration creates the database schema for the dynamic pricing system.
 

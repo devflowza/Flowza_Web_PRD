@@ -6,7 +6,7 @@ import { productImages } from '../assets/productImages';
 
 /* ——— Contact & company constants ——— */
 
-export const WHATSAPP_URL = 'https://web.whatsapp.com/send?phone=96892107562&text=Hello! Flowza';
+export const WHATSAPP_URL = 'https://web.whatsapp.com/send?phone=96892107562&text=Hello! FlowZa';
 export const WHATSAPP_DISPLAY = '+968 9210 7562';
 export const CONTACT_EMAIL = 'sales@flowza.ai';
 export const OFFICE_ADDRESS = 'Ghala, Muscat, Oman';
@@ -32,7 +32,7 @@ export const landingProducts: LandingProduct[] = [
   {
     id: 'finance',
     index: '01',
-    name: 'Flowza Finance',
+    name: 'FlowZa Finance',
     short: 'Finance',
     tagline: 'All-in-one finance & ERP',
     description: 'Accounting, inventory, payroll, HR and multi-country compliance — unified in one platform.',
@@ -45,7 +45,7 @@ export const landingProducts: LandingProduct[] = [
   {
     id: 'logispro',
     index: '02',
-    name: 'Flowza LogisPro',
+    name: 'FlowZa LogisPro',
     short: 'LogisPro',
     tagline: 'Smart logistics platform',
     description: 'Route optimization, live shipment tracking and warehouse management.',
@@ -58,7 +58,7 @@ export const landingProducts: LandingProduct[] = [
   {
     id: 'spamaster',
     index: '03',
-    name: 'Flowza Spa Master',
+    name: 'FlowZa Spa Master',
     short: 'Spa Master',
     tagline: 'Spa & wellness management',
     description: 'Bookings, staff scheduling, inventory and customer loyalty — unified.',
@@ -71,7 +71,7 @@ export const landingProducts: LandingProduct[] = [
   {
     id: 'fleetza',
     index: '04',
-    name: 'Flowza Fleetza',
+    name: 'FlowZa Fleetza',
     short: 'Fleetza',
     tagline: 'Fleet intelligence system',
     description: 'GPS tracking, driver behaviour scoring and predictive maintenance.',
@@ -84,7 +84,7 @@ export const landingProducts: LandingProduct[] = [
   {
     id: 'qrforge',
     index: '05',
-    name: 'Flowza QRForge',
+    name: 'FlowZa QRForge',
     short: 'QRForge',
     tagline: 'Dynamic QR code engine',
     description: 'Dynamic QR codes at scale — redirects, scan analytics and bulk generation.',
@@ -97,7 +97,7 @@ export const landingProducts: LandingProduct[] = [
   {
     id: 'pos',
     index: '06',
-    name: 'Flowza POS',
+    name: 'FlowZa POS',
     short: 'POS',
     tagline: 'Next-gen point of sale',
     description: 'Blazing-fast point of sale with offline mode and deep customer analytics.',
@@ -110,7 +110,7 @@ export const landingProducts: LandingProduct[] = [
   {
     id: 'club',
     index: '07',
-    name: 'Flowza Club',
+    name: 'FlowZa Club',
     short: 'Club',
     tagline: 'Club & membership management',
     description: 'Membership, billing, POS and zero-double-book booking for clubs — unified.',
@@ -153,13 +153,13 @@ export const whyItems = [
   {
     icon: DollarSign,
     title: 'True cost savings',
-    desc: 'Customers report 40–85% less manual operational work within the first 90 days of running on Flowza.',
+    desc: 'Customers report 40–85% less manual operational work within the first 90 days of running on FlowZa.',
     color: '#f43f5e',
   },
 ];
 
 export const MANIFESTO =
-  'We believe software should disappear into the work. Flowza quietly automates the busywork — invoices, routes, rosters, stock — so a team of ten can move like a team of fifty.';
+  'We believe software should disappear into the work. FlowZa quietly automates the busywork — invoices, routes, rosters, stock — so a team of ten can move like a team of fifty.';
 
 /* ——— Clients & testimonials ——— */
 
@@ -183,7 +183,7 @@ export const clients = [
 export const homeTestimonials = [
   {
     quote:
-      "Flowza Finance cut our month-end close from 5 days to just 6 hours. The AI catches errors we used to miss entirely. It's not just software — it's a financial partner.",
+      "FlowZa Finance cut our month-end close from 5 days to just 6 hours. The AI catches errors we used to miss entirely. It's not just software — it's a financial partner.",
     name: 'Khalid Al-Rashid',
     role: 'CFO',
     company: 'AlNoor Retail Group',
@@ -192,7 +192,7 @@ export const homeTestimonials = [
   },
   {
     quote:
-      'Flowza Spa Master transformed how we run our five locations. Online bookings went up 230% in the first month. Staff actually enjoy using it — that alone is priceless.',
+      'FlowZa Spa Master transformed how we run our five locations. Online bookings went up 230% in the first month. Staff actually enjoy using it — that alone is priceless.',
     name: 'Lena Voss',
     role: 'Operations Director',
     company: 'Serenity Wellness',
@@ -201,7 +201,7 @@ export const homeTestimonials = [
   },
   {
     quote:
-      "Flowza Fleetza gave us visibility we didn't know we were missing. Fuel costs dropped 22% within 90 days just from the route and behavior insights. The ROI was immediate.",
+      "FlowZa Fleetza gave us visibility we didn't know we were missing. Fuel costs dropped 22% within 90 days just from the route and behavior insights. The ROI was immediate.",
     name: 'Omar Hassan',
     role: 'Fleet Manager',
     company: 'Swift Logistics MENA',
@@ -214,16 +214,16 @@ export const homeTestimonials = [
 
 export const faqItems = [
   {
-    q: 'How long does it take to go live on Flowza?',
-    a: 'Hours, not weeks. Every platform ships with pre-built templates, a guided setup wizard and dedicated onboarding support. Flowza Finance includes a migration wizard that imports contacts, items and history from Zoho or spreadsheets.',
+    q: 'How long does it take to go live on FlowZa?',
+    a: 'Hours, not weeks. Every platform ships with pre-built templates, a guided setup wizard and dedicated onboarding support. FlowZa Finance includes a migration wizard that imports contacts, items and history from Zoho or spreadsheets.',
   },
   {
     q: 'Which countries and tax regimes do you support?',
-    a: 'Flowza is built for MEA & India. Flowza Finance ships with GST for India and VAT plus Corporate Tax for the Gulf, with country-specific chart-of-accounts packs and statutory payroll filings built in — not bolted on.',
+    a: 'FlowZa is built for MEA & India. FlowZa Finance ships with GST for India and VAT plus Corporate Tax for the Gulf, with country-specific chart-of-accounts packs and statutory payroll filings built in — not bolted on.',
   },
   {
     q: 'Is there a free trial?',
-    a: 'Yes — every plan can be started as a free trial before you buy. Flowza Club offers a 14-day trial with a six-step setup wizard covering branding, currency, tax, staff roles and facilities.',
+    a: 'Yes — every plan can be started as a free trial before you buy. FlowZa Club offers a 14-day trial with a six-step setup wizard covering branding, currency, tax, staff roles and facilities.',
   },
   {
     q: 'Do you offer yearly billing discounts?',
@@ -231,11 +231,11 @@ export const faqItems = [
   },
   {
     q: 'How secure is my business data?',
-    a: 'Flowza runs on SOC 2 compliant infrastructure with end-to-end encryption, role-based access control and audit trails on every action, backed by a 99.9% uptime SLA.',
+    a: 'FlowZa runs on SOC 2 compliant infrastructure with end-to-end encryption, role-based access control and audit trails on every action, backed by a 99.9% uptime SLA.',
   },
   {
     q: 'Can the platforms work together?',
-    a: 'Yes — that is the point. Seven purpose-built systems share one operating fabric: Flowza POS posts straight into Flowza Finance, and every platform shares customer, inventory and ledger data without manual re-entry.',
+    a: 'Yes — that is the point. Seven purpose-built systems share one operating fabric: FlowZa POS posts straight into FlowZa Finance, and every platform shares customer, inventory and ledger data without manual re-entry.',
   },
 ];
 

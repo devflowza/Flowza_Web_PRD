@@ -2,29 +2,29 @@ import { Search, BookOpen, ArrowRight, Clock, ChevronRight, Star } from 'lucide-
 import PageLayout from '../components/PageLayout';
 
 const products = [
-  { id: 'finance', name: 'Flowza Finance', color: '#10b981', icon: '💼', desc: 'Accounting, inventory, payroll, HR, VAT & GST.', articles: 42 },
-  { id: 'spamaster', name: 'Flowza Spa Master', color: '#f43f5e', icon: '💆', desc: 'Bookings, staff, loyalty, and payment flows.', articles: 38 },
-  { id: 'logispro', name: 'Flowza LogisPro', color: '#38bdf8', icon: '🚚', desc: 'Routes, tracking, warehousing, and delivery SLAs.', articles: 35 },
-  { id: 'qrforge', name: 'Flowza QRForge', color: '#f59e0b', icon: '📱', desc: 'QR campaigns, analytics, and dynamic links.', articles: 28 },
-  { id: 'pos', name: 'Flowza POS', color: '#0ea5e9', icon: '🛒', desc: 'Point of sale, inventory, and multi-branch ops.', articles: 31 },
-  { id: 'fleetza', name: 'Flowza Fleetza', color: '#06b6d4', icon: '🚗', desc: 'Fleet tracking, maintenance, and driver management.', articles: 29 },
-  { id: 'club', name: 'Flowza Club', color: '#9333ea', icon: '⛳', desc: 'Membership, billing, POS, and zero-double-book bookings.', articles: 24 },
+  { id: 'finance', name: 'FlowZa Finance', color: '#10b981', icon: '💼', desc: 'Accounting, inventory, payroll, HR, VAT & GST.', articles: 42 },
+  { id: 'spamaster', name: 'FlowZa Spa Master', color: '#f43f5e', icon: '💆', desc: 'Bookings, staff, loyalty, and payment flows.', articles: 38 },
+  { id: 'logispro', name: 'FlowZa LogisPro', color: '#38bdf8', icon: '🚚', desc: 'Routes, tracking, warehousing, and delivery SLAs.', articles: 35 },
+  { id: 'qrforge', name: 'FlowZa QRForge', color: '#f59e0b', icon: '📱', desc: 'QR campaigns, analytics, and dynamic links.', articles: 28 },
+  { id: 'pos', name: 'FlowZa POS', color: '#0ea5e9', icon: '🛒', desc: 'Point of sale, inventory, and multi-branch ops.', articles: 31 },
+  { id: 'fleetza', name: 'FlowZa Fleetza', color: '#06b6d4', icon: '🚗', desc: 'Fleet tracking, maintenance, and driver management.', articles: 29 },
+  { id: 'club', name: 'FlowZa Club', color: '#9333ea', icon: '⛳', desc: 'Membership, billing, POS, and zero-double-book bookings.', articles: 24 },
 ];
 
 const quickStart = [
   { step: '01', title: 'Create your account', description: 'Sign up and verify your organization details. Takes less than 5 minutes.' },
-  { step: '02', title: 'Choose your product', description: 'Select one or more Flowza platforms that match your business needs.' },
+  { step: '02', title: 'Choose your product', description: 'Select one or more FlowZa platforms that match your business needs.' },
   { step: '03', title: 'Import your data', description: 'Use our guided migration tools to bring in existing data with zero downtime.' },
   { step: '04', title: 'Configure your AI', description: 'Set your preferences, workflows, and AI automation rules for your specific context.' },
   { step: '05', title: 'Go live', description: 'Invite your team, test your setup, and launch. Support is available 24/7 to help.' },
 ];
 
 const recentArticles = [
-  { title: 'Setting up automated VAT reporting in Flowza Finance', product: 'Finance', time: '8 min', updated: '2 days ago' },
-  { title: 'How to configure multi-branch inventory in Flowza POS', product: 'Flowza POS', time: '6 min', updated: '4 days ago' },
-  { title: 'Creating dynamic QR campaigns with custom analytics', product: 'Flowza QRForge', time: '5 min', updated: '1 week ago' },
-  { title: 'Flowza LogisPro webhook setup for real-time delivery tracking', product: 'Flowza LogisPro', time: '10 min', updated: '1 week ago' },
-  { title: 'Flowza Spa Master staff scheduling: advanced configuration', product: 'Flowza Spa Master', time: '7 min', updated: '2 weeks ago' },
+  { title: 'Setting up automated VAT reporting in FlowZa Finance', product: 'Finance', time: '8 min', updated: '2 days ago' },
+  { title: 'How to configure multi-branch inventory in FlowZa POS', product: 'FlowZa POS', time: '6 min', updated: '4 days ago' },
+  { title: 'Creating dynamic QR campaigns with custom analytics', product: 'FlowZa QRForge', time: '5 min', updated: '1 week ago' },
+  { title: 'FlowZa LogisPro webhook setup for real-time delivery tracking', product: 'FlowZa LogisPro', time: '10 min', updated: '1 week ago' },
+  { title: 'FlowZa Spa Master staff scheduling: advanced configuration', product: 'FlowZa Spa Master', time: '7 min', updated: '2 weeks ago' },
 ];
 
 export default function Documentation() {
@@ -39,7 +39,7 @@ export default function Documentation() {
             How can we <span className="text-gradient-violet">help you?</span>
           </h1>
           <p className="text-lg text-gray-600 mb-10">
-            Find guides, API references, tutorials, and troubleshooting articles for all Flowza AI products.
+            Find guides, API references, tutorials, and troubleshooting articles for all FlowZa AI products.
           </p>
           <div className="relative max-w-xl mx-auto">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
@@ -148,7 +148,7 @@ export default function Documentation() {
             <div className="p-6 bg-white rounded-2xl border border-gray-100 text-center shadow-sm">
               <Search size={28} className="text-sky-600 mx-auto mb-3" />
               <h3 className="font-semibold text-gray-900 mb-2">Community Forum</h3>
-              <p className="text-gray-500 text-sm mb-4">Connect with other Flowza users, share tips, and get peer support.</p>
+              <p className="text-gray-500 text-sm mb-4">Connect with other FlowZa users, share tips, and get peer support.</p>
               <a href="#" className="text-sm text-sky-600 font-medium flex items-center justify-center gap-1 hover:gap-2 transition-all">
                 Join Forum <ArrowRight size={13} />
               </a>

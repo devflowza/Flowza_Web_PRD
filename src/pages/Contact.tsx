@@ -17,13 +17,13 @@ const services = [
   'General Inquiry',
   'Sales Inquiry',
   'Technical Support',
-  'Flowza Finance',
-  'Flowza QRForge',
-  'Flowza Fleetza',
-  'Flowza LogisPro',
-  'Flowza Spa Master',
-  'Flowza POS',
-  'Flowza PMS',
+  'FlowZa Finance',
+  'FlowZa QRForge',
+  'FlowZa Fleetza',
+  'FlowZa LogisPro',
+  'FlowZa Spa Master',
+  'FlowZa POS',
+  'FlowZa PMS',
 ];
 
 const contactCards = [
@@ -31,7 +31,7 @@ const contactCards = [
     icon: MessageCircle,
     label: 'WhatsApp',
     value: 'Chat with us on WhatsApp',
-    href: 'https://web.whatsapp.com/send?phone=96892107562&text=Hello! Flowza',
+    href: 'https://web.whatsapp.com/send?phone=96892107562&text=Hello! FlowZa',
     iconBg: '#22c55e22',
     iconColor: '#22c55e',
     borderColor: '#22c55e33',
@@ -64,7 +64,7 @@ const quickLinks = [
 const socials = [
   { icon: Linkedin, href: 'https://linkedin.com/company/flowzaai', label: 'LinkedIn' },
   { icon: Youtube, href: 'https://youtube.com/@flowzaai', label: 'YouTube' },
-  { icon: MessageCircle, href: 'https://web.whatsapp.com/send?phone=96892107562&text=Hello! Flowza', label: 'WhatsApp' },
+  { icon: MessageCircle, href: 'https://web.whatsapp.com/send?phone=96892107562&text=Hello! FlowZa', label: 'WhatsApp' },
 ];
 
 export default function Contact() {
@@ -174,7 +174,7 @@ export default function Contact() {
                   boxShadow: '0 1px 3px rgba(15,23,42,0.06), 0 10px 30px rgba(15,23,42,0.05)',
                 }}
               >
-                <h2 className="text-gray-900 font-bold text-lg mb-1">Flowza.ai</h2>
+                <h2 className="text-gray-900 font-bold text-lg mb-1">FlowZa.ai</h2>
                 <p className="text-gray-400 text-xs uppercase tracking-widest font-semibold mb-5">Contact Information</p>
 
                 <div className="space-y-3">

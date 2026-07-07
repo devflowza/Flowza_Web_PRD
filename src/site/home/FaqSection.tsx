@@ -14,7 +14,7 @@ export default function FaqSection() {
         <SectionHeading
           badge="FAQ"
           title="Frequently Asked Questions"
-          subtitle="Everything you need to know about running your business on Flowza."
+          subtitle="Everything you need to know about running your business on FlowZa."
         />
 
         <div className="flex flex-col gap-3">

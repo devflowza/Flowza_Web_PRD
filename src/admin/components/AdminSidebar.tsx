@@ -44,7 +44,7 @@ export default function AdminSidebar({ unreadCount, onClose }: Props) {
             <Zap size={16} className="text-white" />
           </div>
           <div>
-            <p className="font-semibold text-gray-900 dark:text-white text-sm leading-tight">Flowza.ai</p>
+            <p className="font-semibold text-gray-900 dark:text-white text-sm leading-tight">FlowZa.ai</p>
             <p className="text-xs text-gray-500 dark:text-gray-400">Admin Portal</p>
           </div>
         </div>
