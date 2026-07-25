@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { CheckCircle, AlertCircle, ArrowRight } from 'lucide-react';
 import PageLayout from '../components/PageLayout';
+import { WHATSAPP_URL } from '../site/data';
 
 type ServiceStatus = 'operational' | 'degraded' | 'outage';
 
@@ -66,16 +67,22 @@ const allOperational = services.every((s) => s.status === 'operational');
 
 export default function Status() {
   const [openIncident, setOpenIncident] = useState<number | null>(null);
-  const [email, setEmail] = useState('');
+
+  useEffect(() => {
+    document.title = 'System status — FlowZa AI';
+    return () => {
+      document.title = 'FlowZa AI — Business Operating Systems';
+    };
+  }, []);
 
   return (
     <PageLayout>
-      <section className="relative pt-20 pb-20 px-6 overflow-hidden">
+      <section className="relative overflow-hidden wash-top px-6 pb-16 pt-16 sm:pt-24">
         <div className="max-w-4xl mx-auto text-center">
-          <div className={`inline-flex items-center gap-3 px-6 py-3 rounded-2xl mb-8 border ${
+          <div className={`inline-flex items-center gap-3 rounded-full px-6 py-3 mb-8 ring-1 ${
             allOperational
-              ? 'bg-emerald-50 border-emerald-200'
-              : 'bg-amber-50 border-amber-200'
+              ? 'bg-emerald-50 ring-emerald-200'
+              : 'bg-amber-50 ring-amber-200'
           }`}>
             {allOperational ? (
               <>
@@ -89,24 +96,24 @@ export default function Status() {
               </>
             )}
           </div>
-          <h1 className="font-display font-bold text-5xl text-gray-900 mb-4">System Status</h1>
-          <p className="text-gray-600 text-lg">
+          <h1 className="display-hero text-4xl text-ink sm:text-5xl lg:text-[56px] mb-5">System status</h1>
+          <p className="text-ink-500 text-lg">
             Real-time status for all FlowZa AI platforms and infrastructure components.
           </p>
         </div>
       </section>
 
-      <section className="py-16 px-6 bg-white/40 backdrop-blur-sm">
+      <section className="py-16 px-6 bg-mist">
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center justify-between mb-8">
-            <h2 className="font-display font-bold text-2xl text-gray-900">Service Status</h2>
+            <h2 className="display-title text-2xl text-ink">Service status</h2>
             <span className="text-xs text-gray-400">Last updated: {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} GST</span>
           </div>
           <div className="space-y-2">
             {services.map((service) => {
               const cfg = statusConfig[service.status];
               return (
-                <div key={service.name} className="flex items-center justify-between p-4 bg-white rounded-xl border border-gray-100">
+                <div key={service.name} className="flex items-center justify-between p-4 bg-white rounded-2xl ring-1 ring-ink/[0.07]">
                   <div className="flex items-center gap-3">
                     <span className={`w-2.5 h-2.5 rounded-full ${cfg.dot} relative flex`}>
                       {service.status === 'operational' && (
@@ -132,7 +139,7 @@ export default function Status() {
       <section className="py-20 px-6">
         <div className="max-w-4xl mx-auto">
           <div className="mb-10">
-            <h2 className="font-display font-bold text-2xl text-gray-900 mb-2">90-Day Uptime History</h2>
+            <h2 className="display-title text-2xl text-ink mb-2">90-day uptime history</h2>
             <p className="text-gray-500 text-sm">Each bar represents one day. Green = fully operational.</p>
           </div>
           <div className="flex items-end gap-0.5 h-16">
@@ -164,15 +171,15 @@ export default function Status() {
         </div>
       </section>
 
-      <section className="py-16 px-6 bg-white/40 backdrop-blur-sm">
+      <section className="py-16 px-6 bg-mist">
         <div className="max-w-4xl mx-auto">
-          <h2 className="font-display font-bold text-2xl text-gray-900 mb-8">Past Incidents</h2>
+          <h2 className="display-title text-2xl text-ink mb-8">Past incidents</h2>
           {incidents.length === 0 ? (
             <div className="text-center py-12 text-gray-400">No incidents in the past 90 days.</div>
           ) : (
             <div className="space-y-4">
               {incidents.map((incident, i) => (
-                <div key={i} className="bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm">
+                <div key={i} className="bg-white rounded-2xl ring-1 ring-ink/[0.07] overflow-hidden">
                   <button
                     onClick={() => setOpenIncident(openIncident === i ? null : i)}
                     className="w-full flex items-center justify-between p-5 text-left"
@@ -208,20 +215,19 @@ export default function Status() {
       </section>
 
       <section className="py-16 px-6">
-        <div className="max-w-2xl mx-auto text-center bg-white border border-gray-200 rounded-3xl p-10 shadow-sm">
-          <h2 className="font-display font-bold text-2xl text-gray-900 mb-2">Subscribe to Status Updates</h2>
-          <p className="text-gray-600 text-sm mb-6">Get notified instantly when any FlowZa service is impacted.</p>
-          <div className="flex gap-3 max-w-sm mx-auto">
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="you@company.com"
-              className="flex-1 px-4 py-3 rounded-full bg-white border border-gray-200 text-gray-900 placeholder-gray-400 text-sm focus:outline-none focus:border-sky-400 focus:ring-2 focus:ring-sky-100 transition-colors"
-            />
-            <button className="px-5 py-3 rounded-full bg-violet-gradient text-white text-sm font-semibold hover:shadow-[0_0_20px_rgba(14,165,233,0.4)] transition-all duration-200">
-              Subscribe
-            </button>
+        <div className="mx-auto max-w-2xl rounded-[2rem] bg-white p-10 text-center shadow-soft ring-1 ring-ink/[0.07]">
+          <h2 className="display-title mb-2 text-2xl text-ink">Get status updates</h2>
+          <p className="mb-7 text-sm leading-relaxed text-ink-500">
+            We post incident notices and maintenance windows before they happen. Reach us
+            any time — or check back here for live state.
+          </p>
+          <div className="flex flex-col items-center justify-center gap-3.5 sm:flex-row">
+            <a href="mailto:support@flowza.ai?subject=Subscribe%20to%20status%20updates" className="btn-primary btn-md">
+              Subscribe by email
+            </a>
+            <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="btn-secondary btn-md">
+              Message us on WhatsApp
+            </a>
           </div>
         </div>
       </section>

@@ -1,53 +1,75 @@
 import { useState } from 'react';
-import { ChevronDown, MessageCircle } from 'lucide-react';
-import SectionHeading from '../SectionHeading';
+import { Plus, MessageCircle } from 'lucide-react';
 import Reveal from '../Reveal';
 import { faqItems, WHATSAPP_URL } from '../data';
 
-/** Accordion FAQ assembled from existing site facts. */
+/** Two-column FAQ: sticky heading + hairline list with plus-fold rows. */
 export default function FaqSection() {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="scroll-mt-28 py-20 sm:py-24 px-4 sm:px-6 bg-gray-50">
-      <div className="max-w-3xl mx-auto">
-        <SectionHeading
-          badge="FAQ"
-          title="Frequently Asked Questions"
-          subtitle="Everything you need to know about running your business on FlowZa."
-        />
+    <section id="faq" className="scroll-mt-24 bg-mist px-4 py-24 sm:px-6 sm:py-32">
+      <div className="mx-auto grid max-w-7xl gap-14 lg:grid-cols-[1fr_1.5fr] lg:gap-24">
+        {/* Sticky intro */}
+        <div className="lg:sticky lg:top-32 lg:self-start">
+          <Reveal>
+            <span className="eyebrow">FAQ</span>
+            <h2 className="display-title mt-5 text-[2rem] text-ink sm:text-[2.6rem] lg:text-[3rem]">
+              Questions, answered.
+            </h2>
+            <p className="mt-5 max-w-sm text-base leading-relaxed text-ink-500">
+              Everything you need to know about running your business on FlowZa. Can't
+              find it here? We answer fastest on WhatsApp.
+            </p>
+            <a
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-secondary btn-md group mt-8 inline-flex"
+            >
+              <MessageCircle size={15} className="text-emerald-600" />
+              Chat with us
+            </a>
+          </Reveal>
+        </div>
 
-        <div className="flex flex-col gap-3">
+        {/* Fold list */}
+        <div>
           {faqItems.map((item, i) => {
             const isOpen = open === i;
             return (
-              <Reveal key={item.q} delay={i * 60}>
-                <div
-                  className={`rounded-2xl border bg-white transition-all duration-300 ${
-                    isOpen ? 'border-blue-200 shadow-[0_10px_30px_rgba(37,99,235,0.1)]' : 'border-gray-200 shadow-sm'
-                  }`}
-                >
-                  <button
-                    onClick={() => setOpen(isOpen ? null : i)}
-                    className="w-full flex items-center justify-between gap-4 text-left px-6 py-5"
-                    aria-expanded={isOpen}
-                  >
-                    <span className="font-semibold text-slate-900">{item.q}</span>
-                    <span
-                      className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 ${
-                        isOpen ? 'bg-blue-600 text-white rotate-180' : 'bg-gray-100 text-gray-500'
-                      }`}
+              <Reveal key={item.q} delay={i * 50}>
+                <div className={`border-t border-ink/[0.09] ${i === faqItems.length - 1 ? 'border-b' : ''}`}>
+                  <h3>
+                    <button
+                      onClick={() => setOpen(isOpen ? null : i)}
+                      className="group flex w-full items-center justify-between gap-6 py-6 text-left sm:py-7"
+                      aria-expanded={isOpen}
                     >
-                      <ChevronDown size={16} />
-                    </span>
-                  </button>
+                      <span
+                        className={`font-display text-lg font-semibold tracking-snug transition-colors duration-300 sm:text-xl ${
+                          isOpen ? 'text-ink' : 'text-ink-600 group-hover:text-ink'
+                        }`}
+                      >
+                        {item.q}
+                      </span>
+                      <span
+                        className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full transition-all duration-500 ease-swift ${
+                          isOpen ? 'rotate-45 bg-ink text-white' : 'bg-white text-ink-400 ring-1 ring-ink/[0.09] group-hover:ring-ink/25'
+                        }`}
+                        aria-hidden="true"
+                      >
+                        <Plus size={15} />
+                      </span>
+                    </button>
+                  </h3>
                   <div
-                    className={`grid transition-all duration-300 ${
+                    className={`grid transition-all duration-500 ease-swift ${
                       isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
                     }`}
                   >
                     <div className="overflow-hidden">
-                      <p className="px-6 pb-6 text-gray-500 text-sm leading-relaxed">{item.a}</p>
+                      <p className="max-w-2xl pb-7 pr-14 text-[15px] leading-relaxed text-ink-500">{item.a}</p>
                     </div>
                   </div>
                 </div>
@@ -55,19 +77,6 @@ export default function FaqSection() {
             );
           })}
         </div>
-
-        <Reveal className="mt-10 text-center">
-          <p className="text-gray-500 text-sm mb-4">Still have questions?</p>
-          <a
-            href={WHATSAPP_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-xl bg-[#25d366] text-white text-sm font-semibold px-6 py-3.5 shadow-[0_6px_18px_rgba(37,211,102,0.35)] hover:shadow-[0_8px_24px_rgba(37,211,102,0.5)] hover:-translate-y-px transition-all"
-          >
-            <MessageCircle size={16} />
-            Chat With Us on WhatsApp
-          </a>
-        </Reveal>
       </div>
     </section>
   );

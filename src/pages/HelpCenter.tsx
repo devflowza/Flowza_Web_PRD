@@ -1,221 +1,186 @@
-import { useState } from 'react';
-import { Search, MessageSquare, Mail, Phone, Play, ChevronDown, ChevronUp, BookOpen, Zap, Settings, CreditCard, Users, Shield } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Plus, MessageCircle, Mail, ArrowUpRight } from 'lucide-react';
 import PageLayout from '../components/PageLayout';
-
-const topics = [
-  { icon: Zap, label: 'Getting Started', count: 14 },
-  { icon: Settings, label: 'Account & Settings', count: 22 },
-  { icon: CreditCard, label: 'Billing & Plans', count: 18 },
-  { icon: Users, label: 'Team Management', count: 11 },
-  { icon: BookOpen, label: 'Product Guides', count: 47 },
-  { icon: Shield, label: 'Security & Privacy', count: 9 },
-];
+import PageHero from '../components/PageHero';
+import Reveal from '../site/Reveal';
+import { WHATSAPP_URL } from '../site/data';
 
 const faqs: { question: string; answer: string; category: string }[] = [
   {
-    category: 'Getting Started',
+    category: 'Getting started',
     question: 'How long does it take to get up and running with FlowZa?',
-    answer: 'Most businesses are fully operational within 24–48 hours. Our onboarding team will guide you through data import, team setup, and initial configuration. Complex enterprise setups with custom integrations may take 3–5 business days.',
+    answer: 'Most businesses are fully operational within 24–48 hours. Our onboarding team guides you through data import, team setup and initial configuration. Complex enterprise setups with custom integrations may take 3–5 business days.',
   },
   {
-    category: 'Getting Started',
-    question: 'Can I use multiple FlowZa products under one account?',
-    answer: 'Yes. Your FlowZa account is your unified workspace. You can activate any combination of our seven platforms — Finance, FlowZa Spa Master, FlowZa LogisPro, FlowZa QRForge, FlowZa POS, FlowZa Fleetza, and FlowZa Club — and they share a common data layer and reporting dashboard.',
+    category: 'Getting started',
+    question: 'Can I use multiple FlowZa platforms under one account?',
+    answer: 'Yes. Your FlowZa account is your unified workspace. You can activate any combination of the seven platforms — they share a common data layer, so customers, inventory and ledger data flow between systems without re-entry.',
   },
   {
-    category: 'Billing & Plans',
-    question: 'How does pricing work for multiple products?',
-    answer: 'Each product is priced independently. Multi-product customers receive a 15% bundle discount automatically applied at checkout. Annual billing receives an additional 20% off compared to monthly plans.',
+    category: 'Billing & plans',
+    question: 'How does pricing work for multiple platforms?',
+    answer: 'Each platform is priced independently. Multi-platform customers receive a bundle discount applied at checkout, and yearly billing saves a further 25% compared to monthly plans.',
   },
   {
-    category: 'Billing & Plans',
+    category: 'Billing & plans',
     question: 'What payment methods do you accept?',
-    answer: 'We accept all major credit and debit cards (Visa, Mastercard, Amex), bank transfers, and local payment methods in UAE, KSA, Qatar, and Egypt including Mada and Knet.',
+    answer: 'We accept all major credit and debit cards (Visa, Mastercard, Amex) and bank transfers, plus local payment methods across the Gulf and India.',
   },
   {
-    category: 'Account & Settings',
-    question: 'How do I invite team members to my FlowZa workspace?',
-    answer: 'Go to Settings → Team → Invite Members. You can send email invitations and assign role-based access permissions (Admin, Manager, Operator, Read-only) per product. There\'s no limit on team members.',
+    category: 'Account & settings',
+    question: 'How do I invite team members to my workspace?',
+    answer: 'Go to Settings → Team → Invite members. You can send email invitations and assign role-based permissions (Admin, Manager, Operator, Read-only) per platform.',
   },
   {
-    category: 'Account & Settings',
+    category: 'Account & settings',
     question: 'Can I export all my data from FlowZa?',
-    answer: 'Yes, full data export is available at any time. Go to Settings → Data Export and select the products and date ranges you want. Exports are delivered as CSV, Excel, or JSON within minutes.',
+    answer: 'Yes, full data export is available at any time. Go to Settings → Data export and select the platforms and date ranges you want. Exports are delivered as CSV, Excel or JSON within minutes. Your data is yours — no lock-in.',
   },
   {
-    category: 'Security & Privacy',
+    category: 'Security & privacy',
     question: 'Where is my data stored?',
-    answer: 'Customer data is stored in ISO 27001-certified data centers in the UAE (primary) with encrypted backups in the EU. All data is encrypted at rest (AES-256) and in transit (TLS 1.3). GDPR and PDPL compliant.',
+    answer: 'Customer data is stored in certified data centres with encrypted backups. All data is encrypted at rest (AES-256) and in transit (TLS 1.3), with role-based access control and audit trails on every action.',
   },
   {
-    category: 'Security & Privacy',
+    category: 'Security & privacy',
     question: 'Does FlowZa support SSO / SAML?',
-    answer: 'Yes, SAML 2.0 and OAuth 2.0 SSO is available on Professional and Enterprise plans. We support integration with Okta, Azure AD, Google Workspace, and any standard SAML provider.',
+    answer: 'Yes — SAML 2.0 and OAuth 2.0 SSO are available on Professional and Enterprise plans. We support Okta, Azure AD, Google Workspace and any standard SAML provider.',
   },
-];
-
-const videos = [
-  { title: 'Complete FlowZa Finance Setup in 20 Minutes', duration: '20:14', product: 'Finance', thumb: 'https://images.pexels.com/photos/6801648/pexels-photo-6801648.jpeg?auto=compress&cs=tinysrgb&w=400' },
-  { title: 'FlowZa Spa Master Booking Engine Walkthrough', duration: '15:42', product: 'FlowZa Spa Master', thumb: '/product-spamaster-new.webp' },
-  { title: 'Setting Up FlowZa LogisPro Live Tracking', duration: '12:08', product: 'FlowZa LogisPro', thumb: 'https://images.pexels.com/photos/1427541/pexels-photo-1427541.jpeg?auto=compress&cs=tinysrgb&w=400' },
 ];
 
 export default function HelpCenter() {
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [activeCategory, setActiveCategory] = useState('All');
+
+  useEffect(() => {
+    document.title = 'Help center — FlowZa AI';
+    return () => {
+      document.title = 'FlowZa AI — Business Operating Systems';
+    };
+  }, []);
 
   const categories = ['All', ...new Set(faqs.map((f) => f.category))];
   const filtered = faqs.filter((f) => activeCategory === 'All' || f.category === activeCategory);
 
   return (
     <PageLayout>
-      <section className="relative pt-20 pb-24 px-6 overflow-hidden">
-        <div className="max-w-3xl mx-auto text-center">
-          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-sky-200 bg-sky-50 text-xs font-semibold uppercase tracking-widest text-sky-700 mb-6">
-            Help Center
-          </span>
-          <h1 className="font-display font-bold text-5xl md:text-6xl text-gray-900 leading-[1.1] mb-6">
-            We're here to <span className="text-gradient-violet">help</span>
-          </h1>
-          <p className="text-lg text-gray-600 mb-10">Search our knowledge base or browse by topic below.</p>
-          <div className="relative max-w-xl mx-auto">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
-            <input
-              type="text"
-              placeholder="Search for answers..."
-              className="w-full pl-12 pr-4 py-4 rounded-2xl bg-white border border-gray-200 text-gray-900 placeholder-gray-400 text-sm shadow-sm focus:outline-none focus:border-sky-400 focus:ring-2 focus:ring-sky-100 transition-all"
-            />
-          </div>
-        </div>
-      </section>
+      <PageHero
+        label="Help center"
+        title="How can we"
+        titleHighlight="help?"
+        subtitle="Answers to the questions operators ask most — and a fast line to a real person when you need one."
+      />
 
-      <section className="py-16 px-6 bg-white/40 backdrop-blur-sm">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-10">
-            <h2 className="font-display font-bold text-3xl text-gray-900">Browse by Topic</h2>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-            {topics.map(({ icon: Icon, label, count }) => (
-              <div key={label} className="group flex items-center gap-4 p-5 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md hover:border-sky-200 transition-all duration-200 cursor-pointer">
-                <div className="w-11 h-11 rounded-xl bg-sky-50 border border-sky-100 flex items-center justify-center">
-                  <Icon size={20} className="text-sky-600" />
-                </div>
-                <div>
-                  <p className="font-semibold text-gray-900 text-sm group-hover:text-sky-700 transition-colors">{label}</p>
-                  <p className="text-xs text-gray-400">{count} articles</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="py-20 px-6">
-        <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-12">
-            <span className="text-xs font-semibold uppercase tracking-widest text-sky-600 mb-3 block">Common Questions</span>
-            <h2 className="font-display font-bold text-3xl text-gray-900">FAQ</h2>
-          </div>
-          <div className="flex items-center gap-2 mb-8 flex-wrap">
+      {/* FAQ with category filter */}
+      <section className="px-4 pb-24 sm:px-6">
+        <div className="mx-auto max-w-3xl">
+          <Reveal className="mb-10 flex flex-wrap items-center gap-2" >
             {categories.map((cat) => (
               <button
                 key={cat}
-                onClick={() => setActiveCategory(cat)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+                onClick={() => {
+                  setActiveCategory(cat);
+                  setOpenFaq(null);
+                }}
+                aria-pressed={activeCategory === cat}
+                className={`rounded-full px-4 py-2 text-sm font-semibold transition-all duration-300 ease-swift ${
                   activeCategory === cat
-                    ? 'bg-sky-600 text-white'
-                    : 'bg-white text-gray-600 hover:bg-gray-50 hover:text-gray-900 border border-gray-200'
+                    ? 'bg-ink text-white shadow-pill'
+                    : 'bg-white text-ink-500 ring-1 ring-ink/[0.1] hover:ring-ink/25 hover:text-ink'
                 }`}
               >
                 {cat}
               </button>
             ))}
-          </div>
-          <div className="space-y-3">
-            {filtered.map((faq, i) => (
-              <div key={i} className="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm">
-                <button
-                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                  className="w-full flex items-center justify-between p-5 text-left"
-                >
-                  <span className="font-medium text-gray-900 text-sm pr-4">{faq.question}</span>
-                  {openFaq === i ? (
-                    <ChevronUp size={16} className="text-sky-600 shrink-0" />
-                  ) : (
-                    <ChevronDown size={16} className="text-gray-400 shrink-0" />
-                  )}
-                </button>
-                {openFaq === i && (
-                  <div className="px-5 pb-5">
-                    <p className="text-gray-600 text-sm leading-relaxed">{faq.answer}</p>
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+          </Reveal>
 
-      <section className="py-16 px-6 bg-white/40 backdrop-blur-sm">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-10">
-            <span className="text-xs font-semibold uppercase tracking-widest text-sky-600 mb-3 block">Video Tutorials</span>
-            <h2 className="font-display font-bold text-3xl text-gray-900">Watch & Learn</h2>
-          </div>
-          <div className="grid md:grid-cols-3 gap-6">
-            {videos.map((v) => (
-              <div key={v.title} className="group cursor-pointer">
-                <div className="relative overflow-hidden rounded-2xl mb-3">
-                  <img src={v.thumb} alt={v.title} className="w-full h-40 object-cover transition-transform duration-500 group-hover:scale-105" />
-                  <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
-                    <div className="w-12 h-12 rounded-full bg-white/90 flex items-center justify-center group-hover:scale-110 transition-transform duration-200">
-                      <Play size={18} className="text-sky-600 ml-0.5" />
+          <div>
+            {filtered.map((faq, i) => {
+              const isOpen = openFaq === i;
+              return (
+                <div key={faq.question} className={`border-t border-ink/[0.09] ${i === filtered.length - 1 ? 'border-b' : ''}`}>
+                  <h2>
+                    <button
+                      onClick={() => setOpenFaq(isOpen ? null : i)}
+                      className="group flex w-full items-center justify-between gap-6 py-6 text-left"
+                      aria-expanded={isOpen}
+                    >
+                      <span
+                        className={`font-display text-[17px] font-semibold tracking-snug transition-colors duration-300 ${
+                          isOpen ? 'text-ink' : 'text-ink-600 group-hover:text-ink'
+                        }`}
+                      >
+                        {faq.question}
+                      </span>
+                      <span
+                        className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full transition-all duration-500 ease-swift ${
+                          isOpen ? 'rotate-45 bg-ink text-white' : 'bg-white text-ink-400 ring-1 ring-ink/[0.09] group-hover:ring-ink/25'
+                        }`}
+                        aria-hidden="true"
+                      >
+                        <Plus size={15} />
+                      </span>
+                    </button>
+                  </h2>
+                  <div className={`grid transition-all duration-500 ease-swift ${isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}>
+                    <div className="overflow-hidden">
+                      <p className="max-w-2xl pb-6 pr-14 text-[15px] leading-relaxed text-ink-500">{faq.answer}</p>
                     </div>
                   </div>
-                  <div className="absolute bottom-2 right-2 px-2 py-1 bg-black/70 rounded text-white text-xs font-mono">{v.duration}</div>
                 </div>
-                <span className="text-xs text-sky-600 font-semibold">{v.product}</span>
-                <h3 className="font-semibold text-gray-900 text-sm mt-0.5 group-hover:text-sky-700 transition-colors">{v.title}</h3>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
 
-      <section className="py-20 px-6">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12">
-            <span className="text-xs font-semibold uppercase tracking-widest text-sky-600 mb-3 block">Still Need Help?</span>
-            <h2 className="font-display font-bold text-3xl text-gray-900">Contact Support</h2>
-          </div>
-          <div className="grid md:grid-cols-3 gap-6">
-            <div className="p-6 bg-white border border-gray-200 rounded-2xl text-center shadow-sm">
-              <div className="w-12 h-12 rounded-2xl bg-sky-50 border border-sky-100 flex items-center justify-center mx-auto mb-4">
-                <MessageSquare size={22} className="text-sky-600" />
-              </div>
-              <h3 className="font-semibold text-gray-900 mb-2">Live Chat</h3>
-              <p className="text-gray-600 text-sm mb-4">Chat with our support team directly in the app. Average response: under 3 minutes.</p>
-              <span className="inline-flex items-center gap-1.5 text-xs text-emerald-600">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                Online now
-              </span>
-            </div>
-            <div className="p-6 bg-white border border-gray-200 rounded-2xl text-center shadow-sm">
-              <div className="w-12 h-12 rounded-2xl bg-sky-50 border border-sky-100 flex items-center justify-center mx-auto mb-4">
-                <Mail size={22} className="text-sky-600" />
-              </div>
-              <h3 className="font-semibold text-gray-900 mb-2">Email Support</h3>
-              <p className="text-gray-600 text-sm mb-4">Send us a detailed request and we'll respond within 4 business hours.</p>
-              <a href="mailto:support@flowza.ai" className="text-sm text-sky-600 hover:text-sky-700 transition-colors">support@flowza.ai</a>
-            </div>
-            <div className="p-6 bg-white border border-gray-200 rounded-2xl text-center shadow-sm">
-              <div className="w-12 h-12 rounded-2xl bg-sky-50 border border-sky-100 flex items-center justify-center mx-auto mb-4">
-                <Phone size={22} className="text-sky-600" />
-              </div>
-              <h3 className="font-semibold text-gray-900 mb-2">Phone Support</h3>
-              <p className="text-gray-600 text-sm mb-4">Available for Professional and Enterprise plans. Call us Monday–Friday, 9AM–6PM GST.</p>
-              <a href="tel:+97142000000" className="text-sm text-sky-600 hover:text-sky-700 transition-colors">+971 4 200 0000</a>
-            </div>
+      {/* Contact support */}
+      <section className="bg-mist px-4 py-24 sm:px-6 sm:py-28">
+        <div className="mx-auto max-w-5xl">
+          <Reveal className="mb-12 text-center">
+            <span className="eyebrow justify-center">Still stuck?</span>
+            <h2 className="display-title mt-5 text-[2rem] text-ink sm:text-[2.6rem]">Talk to a human.</h2>
+          </Reveal>
+          <div className="grid gap-5 md:grid-cols-2">
+            <Reveal>
+              <a
+                href={WHATSAPP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="card-line group flex h-full flex-col bg-white p-8 hover:-translate-y-1"
+              >
+                <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-600">
+                  <MessageCircle size={19} strokeWidth={1.8} />
+                </span>
+                <h3 className="mt-5 font-display text-lg font-bold tracking-snug text-ink">WhatsApp</h3>
+                <p className="mt-2 flex-1 text-[15px] leading-relaxed text-ink-500">
+                  Our fastest channel — a real person, usually within minutes during business hours.
+                </p>
+                <p className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-emerald-700">
+                  <span className="relative flex h-1.5 w-1.5">
+                    <span className="absolute h-full w-full animate-ping rounded-full bg-emerald-500 opacity-70" />
+                    <span className="relative h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                  </span>
+                  Online now
+                  <ArrowUpRight size={13} className="text-ink-300 transition-transform duration-300 ease-swift group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </p>
+              </a>
+            </Reveal>
+            <Reveal delay={90}>
+              <a href="mailto:support@flowza.ai" className="card-line group flex h-full flex-col bg-white p-8 hover:-translate-y-1">
+                <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-accent-wash text-accent">
+                  <Mail size={19} strokeWidth={1.8} />
+                </span>
+                <h3 className="mt-5 font-display text-lg font-bold tracking-snug text-ink">Email support</h3>
+                <p className="mt-2 flex-1 text-[15px] leading-relaxed text-ink-500">
+                  Send us a detailed request and we'll respond within four business hours.
+                </p>
+                <p className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-ink-600 transition-colors group-hover:text-accent">
+                  support@flowza.ai
+                  <ArrowUpRight size={13} className="transition-transform duration-300 ease-swift group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </p>
+              </a>
+            </Reveal>
           </div>
         </div>
       </section>

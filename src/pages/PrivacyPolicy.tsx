@@ -112,14 +112,14 @@ export default function PrivacyPolicy() {
         />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-white" />
         <div className="relative max-w-4xl mx-auto">
-          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-sky-200 bg-sky-50 text-xs font-semibold uppercase tracking-widest text-sky-700 mb-6">
+          <span className="eyebrow mb-6">
             Legal
           </span>
           <div className="flex items-center gap-4 mb-4">
             <div className="w-12 h-12 rounded-2xl bg-sky-50 border border-sky-200 flex items-center justify-center">
-              <Shield size={22} className="text-sky-600" />
+              <Shield size={22} className="text-accent" />
             </div>
-            <h1 className="font-display font-bold text-5xl text-gray-900">Privacy Policy</h1>
+            <h1 className="display-hero text-4xl sm:text-5xl text-ink">Privacy Policy</h1>
           </div>
           <p className="text-gray-500 text-base">Last updated: <span className="text-gray-900 font-medium">February 1, 2026</span></p>
         </div>
@@ -156,7 +156,7 @@ export default function PrivacyPolicy() {
                       <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center shrink-0">
                         <Icon size={15} className="text-blue-600" />
                       </div>
-                      <h2 className="font-display font-bold text-lg text-gray-900">{section.title}</h2>
+                      <h2 className="font-display font-bold tracking-snug text-lg text-ink">{section.title}</h2>
                     </div>
                     {'content' in section && (
                       <p className="text-gray-600 text-sm leading-relaxed">{section.content}</p>
@@ -165,7 +165,7 @@ export default function PrivacyPolicy() {
                       <ul className="space-y-3">
                         {section.points.map((p) => (
                           <li key={p.label} className="flex gap-3">
-                            <span className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-2 shrink-0" />
+                            <span className="w-1.5 h-1.5 rounded-full bg-accent mt-2 shrink-0" />
                             <p className="text-sm text-gray-600 leading-relaxed">
                               <span className="font-semibold text-gray-800">{p.label}:</span>{' '}
                               {p.detail}

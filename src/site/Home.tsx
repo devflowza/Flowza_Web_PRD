@@ -10,6 +10,17 @@ import Pricing from '../components/Pricing';
 import TestimonialsSection from './home/TestimonialsSection';
 import ActionTrio from './home/ActionTrio';
 import FaqSection from './home/FaqSection';
+import { faqItems } from './data';
+
+const faqJsonLd = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+});
 
 export default function Home() {
   useEffect(() => {
@@ -18,6 +29,7 @@ export default function Home() {
 
   return (
     <SiteLayout>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: faqJsonLd }} />
       <HomeHero />
       <ClientsMarquee />
       <PlatformsGrid />
@@ -26,8 +38,8 @@ export default function Home() {
       <FinanceSpotlight />
       <Pricing />
       <TestimonialsSection />
-      <ActionTrio />
       <FaqSection />
+      <ActionTrio />
     </SiteLayout>
   );
 }

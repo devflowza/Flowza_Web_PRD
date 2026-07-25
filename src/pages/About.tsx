@@ -1,114 +1,179 @@
-import { Globe, Users, Zap, Target, Heart, TrendingUp, Shield } from 'lucide-react';
+import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { ArrowRight } from 'lucide-react';
 import PageLayout from '../components/PageLayout';
-import PageHero from '../components/PageHero';
+import Reveal from '../site/Reveal';
+import { landingProducts } from '../site/data';
 
 const stats = [
-  { value: '100+', label: 'Businesses Served' },
-  { value: 'MEA', label: 'Region & India' },
-  { value: '7', label: 'AI Platforms' },
+  { value: '100+', label: 'Businesses served' },
+  { value: '4+', label: 'Regions — MEA & India' },
+  { value: '7', label: 'Purpose-built platforms' },
   { value: '99.9%', label: 'Uptime SLA' },
 ];
 
 const values = [
-  { icon: Target, title: 'Purpose-Driven', description: 'Every product we build solves a real, tangible business problem. No fluff, no filler.' },
-  { icon: Zap, title: 'Speed & Reliability', description: 'Enterprise-grade infrastructure that moves at startup speed — always on, always fast.' },
-  { icon: Heart, title: 'Customer Obsession', description: 'We treat every client\'s success as our own. Their wins are our proudest moments.' },
-  { icon: Shield, title: 'Trust & Transparency', description: 'We earn trust through honest communication, clear SLAs, and accountable execution.' },
-  { icon: Globe, title: 'Global Thinking', description: 'Built for businesses in the Middle East and beyond, with local nuance in every feature.' },
-  { icon: TrendingUp, title: 'Continuous Improvement', description: 'AI is never finished. We iterate every week based on real-world feedback and data.' },
+  { title: 'Purpose-driven', description: 'Every product we build solves a real, tangible business problem. No fluff, no filler.' },
+  { title: 'Speed and reliability', description: 'Enterprise-grade infrastructure that moves at startup speed — always on, always fast.' },
+  { title: 'Customer obsession', description: "We treat every client's success as our own. Their wins are our proudest moments." },
+  { title: 'Trust and transparency', description: 'We earn trust through honest communication, clear SLAs and accountable execution.' },
+  { title: 'Local nuance', description: 'Built for businesses in the Middle East and India — tax regimes, currencies and workflows included.' },
+  { title: 'Continuous improvement', description: 'Software is never finished. We iterate every week on real-world feedback and data.' },
 ];
 
-
 export default function About() {
+  useEffect(() => {
+    document.title = 'About — FlowZa AI';
+    return () => {
+      document.title = 'FlowZa AI — Business Operating Systems';
+    };
+  }, []);
+
   return (
     <PageLayout>
-      <PageHero
-        label="Our Story"
-        title="Built to Transform"
-        titleHighlight="Every Business"
-        subtitle="FlowZa AI was founded on the belief that powerful AI tools shouldn't be reserved for enterprises with nine-figure budgets. We build for the rest."
-        imageUrl="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=1400"
-      />
+      {/* Hero */}
+      <section className="relative overflow-hidden wash-top px-4 pb-16 pt-16 sm:px-6 sm:pb-20 sm:pt-24">
+        <div className="relative mx-auto max-w-4xl text-center">
+          <span className="eyebrow justify-center">Our story</span>
+          <h1 className="display-hero mt-6 text-4xl text-ink sm:text-5xl lg:text-[64px]">
+            Built for the businesses
+            <span className="accent-word"> doing the work.</span>
+          </h1>
+          <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-ink-500 sm:text-xl">
+            FlowZa was founded on a simple belief: powerful operating software shouldn't be
+            reserved for enterprises with nine-figure budgets. We build for the rest.
+          </p>
+        </div>
+      </section>
 
-      <section className="py-16 px-6 bg-gray-50">
-        <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6">
-          {stats.map((stat) => (
-            <div key={stat.label} className="text-center p-6 rounded-2xl bg-white border border-gray-200 shadow-sm">
-              <p className="font-display font-bold text-4xl text-gray-900 mb-1">{stat.value}</p>
-              <p className="text-sm text-gray-500">{stat.label}</p>
-            </div>
+      {/* Stats */}
+      <section className="border-y border-ink/[0.06] bg-white px-4 py-14 sm:px-6 sm:py-16" aria-label="FlowZa in numbers">
+        <div className="mx-auto grid max-w-7xl grid-cols-2 gap-y-10 lg:grid-cols-4">
+          {stats.map((s, i) => (
+            <Reveal
+              key={s.label}
+              delay={i * 80}
+              className={`px-6 text-center sm:px-10 ${i > 0 ? 'border-l border-ink/[0.07]' : ''}`}
+            >
+              <p className="tabular font-display text-4xl font-extrabold leading-none tracking-tightest text-ink sm:text-5xl">
+                {s.value}
+              </p>
+              <p className="mt-3 text-[13px] font-medium text-ink-400">{s.label}</p>
+            </Reveal>
           ))}
         </div>
       </section>
 
-      <section className="py-20 px-6">
-        <div className="max-w-5xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-16 items-center">
-            <div>
-              <span className="text-xs font-semibold uppercase tracking-widest text-blue-600 mb-3 block">Our Mission</span>
-              <h2 className="font-display font-bold text-4xl text-gray-900 mb-6 leading-tight">
-                AI that works the way your business does
-              </h2>
-              <p className="text-gray-600 text-lg leading-relaxed mb-6">
-                Most software is built for an imaginary average customer. We build for real people — the spa owner managing 12 staff, the logistics company tracking 400 vehicles, the restaurant running a distributed POS network.
-              </p>
-              <p className="text-gray-600 text-lg leading-relaxed">
-                Seven purpose-built platforms. One unified vision. FlowZa AI is the operating system for businesses that refuse to stay behind.
-              </p>
-            </div>
-            <div className="relative">
-              <img
-                src="https://images.pexels.com/photos/3184325/pexels-photo-3184325.jpeg?auto=compress&cs=tinysrgb&w=800"
-                alt="FlowZa team"
-                className="w-full h-80 object-cover rounded-2xl shadow-[0_1px_3px_rgba(15,23,42,0.06),0_10px_30px_rgba(15,23,42,0.12)]"
-              />
-              <div className="absolute -bottom-4 -left-4 bg-white rounded-xl p-4 shadow-[0_1px_3px_rgba(15,23,42,0.06),0_10px_30px_rgba(15,23,42,0.05)] border border-gray-200">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center">
-                    <Users size={18} className="text-blue-600" />
-                  </div>
-                  <div>
-                    <p className="font-semibold text-gray-900 text-sm">Growing Fast</p>
-                    <p className="text-xs text-gray-500">50+ team members across 6 cities</p>
-                  </div>
+      {/* Mission */}
+      <section className="bg-mist px-4 py-24 sm:px-6 sm:py-32">
+        <div className="mx-auto grid max-w-7xl items-center gap-14 lg:grid-cols-2 lg:gap-24">
+          <Reveal>
+            <span className="eyebrow">Our mission</span>
+            <h2 className="display-title mt-5 text-[2rem] text-ink sm:text-[2.6rem]">
+              Software that works the way your business does.
+            </h2>
+            <p className="mt-6 text-lg leading-relaxed text-ink-500">
+              Most software is built for an imaginary average customer. We build for real
+              people — the spa owner managing twelve staff, the logistics company tracking
+              four hundred vehicles, the retailer running a distributed POS network.
+            </p>
+            <p className="mt-4 text-lg leading-relaxed text-ink-500">
+              Seven purpose-built platforms. One operating fabric. FlowZa is the operating
+              system for businesses that refuse to stay behind.
+            </p>
+          </Reveal>
+
+          {/* The fabric — seven systems as a quiet grid */}
+          <Reveal delay={120}>
+            <div className="rounded-[2rem] bg-white p-3 shadow-soft ring-1 ring-ink/[0.06]">
+              <div className="grid grid-cols-2 gap-1.5">
+                {landingProducts.map((p) => {
+                  const Icon = p.icon;
+                  return (
+                    <Link
+                      key={p.id}
+                      to={`/products/${p.id}`}
+                      className="group flex items-center gap-3.5 rounded-[1.35rem] p-4 transition-colors duration-300 hover:bg-mist"
+                    >
+                      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-mist text-ink-500 ring-1 ring-ink/[0.05] transition-colors duration-300 group-hover:bg-white">
+                        <Icon size={16} strokeWidth={1.8} />
+                      </span>
+                      <span className="min-w-0">
+                        <span className="flex items-center gap-1.5 truncate text-sm font-semibold text-ink">
+                          {p.short}
+                          {p.live && <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-500" aria-label="Live" />}
+                        </span>
+                        <span className="block truncate text-xs text-ink-400">{p.tagline}</span>
+                      </span>
+                    </Link>
+                  );
+                })}
+                <div className="flex items-center justify-center rounded-[1.35rem] bg-ink p-4">
+                  <p className="text-center font-display text-sm font-bold leading-snug tracking-snug text-white">
+                    One operating
+                    <br />
+                    fabric.
+                  </p>
                 </div>
               </div>
             </div>
-          </div>
+          </Reveal>
         </div>
       </section>
 
-      <section className="py-20 px-6 bg-gray-50">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-14">
-            <span className="text-xs font-semibold uppercase tracking-widest text-blue-600 mb-3 block">What We Stand For</span>
-            <h2 className="font-display font-bold text-4xl text-gray-900">Our Values</h2>
+      {/* Values — editorial rows */}
+      <section className="bg-white px-4 py-24 sm:px-6 sm:py-32">
+        <div className="mx-auto grid max-w-7xl gap-14 lg:grid-cols-[1fr_1.5fr] lg:gap-24">
+          <div className="lg:sticky lg:top-32 lg:self-start">
+            <Reveal>
+              <span className="eyebrow">What we stand for</span>
+              <h2 className="display-title mt-5 text-[2rem] text-ink sm:text-[2.6rem]">
+                The principles behind the product.
+              </h2>
+            </Reveal>
           </div>
-          <div className="grid md:grid-cols-3 gap-6">
-            {values.map(({ icon: Icon, title, description }) => (
-              <div key={title} className="p-6 rounded-2xl bg-white border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-200">
-                <div className="w-11 h-11 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center mb-4">
-                  <Icon size={20} className="text-blue-600" />
-                </div>
-                <h3 className="font-display font-semibold text-gray-900 mb-2">{title}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">{description}</p>
-              </div>
+          <div>
+            {values.map((v, i) => (
+              <Reveal key={v.title} delay={i * 60}>
+                <article className={`border-t border-ink/[0.08] py-7 sm:py-8 ${i === values.length - 1 ? 'border-b' : ''}`}>
+                  <h3 className="flex items-baseline gap-4 font-display text-lg font-bold tracking-snug text-ink sm:text-xl">
+                    <span className="tabular font-display text-[13px] font-semibold text-ink-300">
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                    {v.title}
+                  </h3>
+                  <p className="mt-2.5 pl-9 text-[15px] leading-relaxed text-ink-500">{v.description}</p>
+                </article>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="py-20 px-6">
-        <div className="max-w-3xl mx-auto text-center">
-          <h2 className="font-display font-bold text-4xl text-gray-900 mb-4">Ready to transform your business?</h2>
-          <p className="text-gray-600 text-lg mb-8">Join 100+ businesses already using FlowZa AI to work smarter.</p>
-          <a
-            href="mailto:sales@flowza.ai"
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-xl text-sm font-semibold text-white fx-gradient shadow-[0_8px_24px_rgba(37,99,235,0.35)] hover:shadow-[0_10px_30px_rgba(37,99,235,0.45)] transition-all duration-300 hover:-translate-y-0.5"
-          >
-            Get in Touch
-          </a>
-        </div>
+      {/* Closing CTA */}
+      <section className="bg-mist px-4 pb-24 pt-4 sm:px-6 sm:pb-28">
+        <Reveal className="mx-auto max-w-7xl">
+          <div className="relative overflow-hidden rounded-[2.5rem] bg-ink px-6 py-16 text-center text-white sm:px-12 sm:py-20 grain">
+            <div className="pointer-events-none absolute inset-0 wash-ink" aria-hidden="true" />
+            <div className="relative mx-auto max-w-2xl">
+              <h2 className="display-title text-3xl text-white sm:text-4xl">Ready to run in flow?</h2>
+              <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-white/60">
+                Join 100+ businesses already running their operations on FlowZa.
+              </p>
+              <div className="mt-9 flex flex-col items-center justify-center gap-3.5 sm:flex-row">
+                <Link to="/get-started" className="btn-inverse btn-lg group">
+                  Start free trial
+                  <span className="btn-orb bg-ink/[0.07] group-hover:translate-x-0.5">
+                    <ArrowRight size={14} />
+                  </span>
+                </Link>
+                <Link to="/contact" className="btn-outline-light btn-lg">
+                  Talk to us
+                </Link>
+              </div>
+            </div>
+          </div>
+        </Reveal>
       </section>
     </PageLayout>
   );

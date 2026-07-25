@@ -53,7 +53,7 @@ const cookieCategories = [
 
 const colorMap: Record<string, { bg: string; text: string; badge: string; badgeText: string; dot: string }> = {
   emerald: { bg: 'bg-emerald-50', text: 'text-emerald-600', badge: 'bg-emerald-100', badgeText: 'text-emerald-700', dot: 'bg-emerald-400' },
-  blue:    { bg: 'bg-blue-50',    text: 'text-blue-600',    badge: 'bg-blue-100',    badgeText: 'text-blue-700',    dot: 'bg-blue-400' },
+  blue:    { bg: 'bg-blue-50',    text: 'text-blue-600',    badge: 'bg-blue-100',    badgeText: 'text-blue-700',    dot: 'bg-accent' },
   amber:   { bg: 'bg-amber-50',   text: 'text-amber-600',   badge: 'bg-amber-100',   badgeText: 'text-amber-700',   dot: 'bg-amber-400' },
   rose:    { bg: 'bg-rose-50',    text: 'text-rose-600',    badge: 'bg-rose-100',    badgeText: 'text-rose-700',    dot: 'bg-rose-400' },
 };
@@ -80,14 +80,14 @@ export default function CookiePolicy() {
         />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-white" />
         <div className="relative max-w-4xl mx-auto">
-          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-sky-200 bg-sky-50 text-xs font-semibold uppercase tracking-widest text-sky-700 mb-6">
+          <span className="eyebrow mb-6">
             Legal
           </span>
           <div className="flex items-center gap-4 mb-4">
             <div className="w-12 h-12 rounded-2xl bg-sky-50 border border-sky-200 flex items-center justify-center">
-              <Cookie size={22} className="text-sky-600" />
+              <Cookie size={22} className="text-accent" />
             </div>
-            <h1 className="font-display font-bold text-5xl text-gray-900">Cookie Policy</h1>
+            <h1 className="display-hero text-4xl sm:text-5xl text-ink">Cookie Policy</h1>
           </div>
           <p className="text-gray-500 text-base mb-6">Last updated: <span className="text-gray-900 font-medium">February 1, 2026</span></p>
           <p className="text-gray-600 text-sm leading-relaxed max-w-2xl">
@@ -119,7 +119,7 @@ export default function CookiePolicy() {
                     <div className={`w-8 h-8 rounded-lg ${c.bg} flex items-center justify-center shrink-0`}>
                       <Icon size={15} className={c.text} />
                     </div>
-                    <h2 className="font-display font-bold text-lg text-gray-900">{category.name} Cookies</h2>
+                    <h2 className="font-display font-bold tracking-snug text-lg text-ink">{category.name} Cookies</h2>
                     <span className={`text-xs px-2.5 py-1 rounded-full font-semibold ${c.badge} ${c.badgeText}`}>
                       {category.required ? 'Always Active' : 'Optional'}
                     </span>
@@ -147,7 +147,7 @@ export default function CookiePolicy() {
           </div>
 
           <div className="mt-12 pt-8 border-t border-gray-100">
-            <h2 className="font-display font-bold text-lg text-gray-900 mb-3">Managing Your Preferences</h2>
+            <h2 className="font-display font-bold tracking-snug text-lg text-ink mb-3">Managing Your Preferences</h2>
             <p className="text-gray-500 text-sm mb-6 leading-relaxed">
               You can disable optional cookies through your browser settings. Note that disabling cookies may affect how some features work. Essential cookies cannot be turned off — they are required for the platform to operate securely.
             </p>

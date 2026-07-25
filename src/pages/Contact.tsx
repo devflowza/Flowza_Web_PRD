@@ -1,8 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
-import { Send, CheckCircle, Loader2, MapPin, MessageCircle, Clock, ArrowUpRight, Linkedin, Youtube } from 'lucide-react';
-import { useSearchParams } from 'react-router-dom';
+import { ArrowRight, CheckCircle2, Loader2, MapPin, MessageCircle, Clock, Linkedin, Youtube } from 'lucide-react';
+import { useSearchParams, Link } from 'react-router-dom';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
 import PageLayout from '../components/PageLayout';
+import { WHATSAPP_URL, OFFICE_ADDRESS, BUSINESS_HOURS } from '../site/data';
 
 interface FormData {
   companyName: string;
@@ -26,45 +27,10 @@ const services = [
   'FlowZa PMS',
 ];
 
-const contactCards = [
-  {
-    icon: MessageCircle,
-    label: 'WhatsApp',
-    value: 'Chat with us on WhatsApp',
-    href: 'https://web.whatsapp.com/send?phone=96892107562&text=Hello! FlowZa',
-    iconBg: '#22c55e22',
-    iconColor: '#22c55e',
-    borderColor: '#22c55e33',
-  },
-  {
-    icon: MapPin,
-    label: 'Office Address',
-    value: 'Ghala, Muscat, Oman',
-    href: null,
-    iconBg: '#f9731622',
-    iconColor: '#f97316',
-    borderColor: '#f9731633',
-  },
-  {
-    icon: Clock,
-    label: 'Business Hours',
-    value: 'Sun – Thu: 9:00 AM – 6:00 PM GST',
-    href: null,
-    iconBg: '#f9731622',
-    iconColor: '#f97316',
-    borderColor: '#f9731633',
-  },
-];
-
-const quickLinks = [
-  { label: 'General Inquiry', service: 'General Inquiry' },
-  { label: 'Sales', service: 'Sales Inquiry' },
-];
-
 const socials = [
   { icon: Linkedin, href: 'https://linkedin.com/company/flowzaai', label: 'LinkedIn' },
   { icon: Youtube, href: 'https://youtube.com/@flowzaai', label: 'YouTube' },
-  { icon: MessageCircle, href: 'https://web.whatsapp.com/send?phone=96892107562&text=Hello! FlowZa', label: 'WhatsApp' },
+  { icon: MessageCircle, href: WHATSAPP_URL, label: 'WhatsApp' },
 ];
 
 export default function Contact() {
@@ -84,6 +50,13 @@ export default function Contact() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    document.title = 'Contact — FlowZa AI';
+    return () => {
+      document.title = 'FlowZa AI — Business Operating Systems';
+    };
+  }, []);
+
+  useEffect(() => {
     const serviceParam = searchParams.get('service');
     if (serviceParam && services.includes(serviceParam)) {
       setFormData((prev) => ({ ...prev, product: serviceParam }));
@@ -93,11 +66,6 @@ export default function Contact() {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleQuickLink = (service: string) => {
-    setFormData((prev) => ({ ...prev, product: service }));
-    formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -124,7 +92,7 @@ export default function Contact() {
     setIsSubmitting(false);
 
     if (submitError) {
-      setError('Failed to submit. Please try again or reach us on WhatsApp.');
+      setError('We couldn\'t send your message. Please try again, or reach us on WhatsApp.');
       return;
     }
 
@@ -132,109 +100,63 @@ export default function Contact() {
   };
 
   const inputClass =
-    'w-full px-4 py-3 rounded-xl text-sm text-gray-900 placeholder-gray-400 outline-none transition-all focus:ring-2 focus:ring-blue-200 focus:border-blue-400';
-  const inputStyle = {
-    background: '#ffffff',
-    border: '1px solid #d1d5db',
-  };
+    'w-full h-12 px-4 rounded-xl bg-white text-[15px] text-ink placeholder:text-ink-300 ring-1 ring-ink/[0.12] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent hover:ring-ink/25';
+  const labelClass = 'mb-2 block text-[13px] font-semibold text-ink-600';
 
   return (
     <PageLayout>
-      <div
-        className="min-h-screen pt-14 pb-20 px-6"
-        style={{ background: 'linear-gradient(180deg, #f4faff 0%, #ffffff 70%)' }}
-      >
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background: 'radial-gradient(ellipse 80% 60% at 50% 0%, rgba(14,165,233,0.12) 0%, transparent 70%)',
-          }}
-        />
-
-        <div className="relative max-w-6xl mx-auto">
-          <div className="text-center mb-14">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-sm text-blue-600 mb-5 font-semibold">
-              Get in Touch
-            </div>
-            <h1 className="font-bold text-4xl sm:text-5xl lg:text-[52px] text-slate-900 tracking-tight leading-[1.08] mb-4">
-              Let's Build Something <span className="fx-gradient-text">Together</span>
+      <div className="relative overflow-hidden wash-top px-4 pb-24 pt-16 sm:px-6 sm:pt-20">
+        <div className="relative mx-auto max-w-6xl">
+          <div className="mb-14 text-center">
+            <span className="eyebrow justify-center">Contact</span>
+            <h1 className="display-hero mt-6 text-4xl text-ink sm:text-5xl lg:text-[60px]">
+              Let's build something
+              <span className="accent-word"> together.</span>
             </h1>
-            <p className="text-gray-600 text-base max-w-xl mx-auto leading-relaxed">
-              Whether you're exploring a product, ready to buy, or just have a question — our team responds within one business day.
+            <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-ink-500">
+              Whether you're exploring a platform, ready to buy, or just have a question —
+              we respond within one business day.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 items-start">
-            <div className="lg:col-span-2 space-y-4">
-              <div
-                className="rounded-2xl p-6"
-                style={{
-                  background: '#ffffff',
-                  border: '1px solid #e5e7eb',
-                  boxShadow: '0 1px 3px rgba(15,23,42,0.06), 0 10px 30px rgba(15,23,42,0.05)',
-                }}
-              >
-                <h2 className="text-gray-900 font-bold text-lg mb-1">FlowZa.ai</h2>
-                <p className="text-gray-400 text-xs uppercase tracking-widest font-semibold mb-5">Contact Information</p>
-
-                <div className="space-y-3">
-                  {contactCards.map(({ icon: Icon, label, value, href, iconBg, iconColor, borderColor }) => (
-                    <div
-                      key={label}
-                      className="flex items-start gap-4 p-4 rounded-xl"
-                      style={{ background: '#f9fafb', border: '1px solid #f3f4f6' }}
-                    >
-                      <div
-                        className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
-                        style={{ background: iconBg, border: `1.5px solid ${borderColor}` }}
-                      >
-                        <Icon size={16} style={{ color: iconColor }} />
-                      </div>
-                      <div className="min-w-0">
-                        <p className="text-gray-500 text-xs font-medium mb-0.5">{label}</p>
-                        {href ? (
-                          <a
-                            href={href}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-gray-900 text-sm font-medium hover:text-sky-600 transition-colors break-words"
-                          >
-                            {value}
-                          </a>
-                        ) : (
-                          <p className="text-gray-900 text-sm font-medium break-words">{value}</p>
-                        )}
-                      </div>
-                    </div>
-                  ))}
+          <div className="grid grid-cols-1 items-start gap-5 lg:grid-cols-5">
+            {/* Left rail */}
+            <div className="space-y-5 lg:col-span-2">
+              <div className="rounded-[1.5rem] bg-ink p-7 text-white shadow-lift grain relative overflow-hidden">
+                <div className="pointer-events-none absolute inset-0 wash-ink" aria-hidden="true" />
+                <div className="relative">
+                  <h2 className="font-display text-lg font-bold tracking-snug">Prefer to talk now?</h2>
+                  <p className="mt-2 text-sm leading-relaxed text-white/60">
+                    WhatsApp is our fastest channel — a real person, usually within minutes
+                    during business hours.
+                  </p>
+                  <a
+                    href={WHATSAPP_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-inverse btn-md group mt-6 w-full"
+                  >
+                    <MessageCircle size={15} className="text-emerald-600" />
+                    Chat on WhatsApp
+                  </a>
                 </div>
               </div>
 
-              <div
-                className="rounded-2xl p-6"
-                style={{
-                  background: '#ffffff',
-                  border: '1px solid #e5e7eb',
-                  boxShadow: '0 1px 3px rgba(15,23,42,0.06), 0 10px 30px rgba(15,23,42,0.05)',
-                }}
-              >
-                <div className="space-y-2.5 mb-5">
-                  {quickLinks.map(({ label, service }) => (
-                    <button
-                      key={label}
-                      type="button"
-                      onClick={() => handleQuickLink(service)}
-                      className="flex items-center gap-2 text-sky-600 text-sm hover:text-sky-700 transition-colors w-full text-left"
-                    >
-                      <MessageCircle size={13} />
-                      {label}
-                    </button>
-                  ))}
-                </div>
-
-                <div className="pt-5 border-t" style={{ borderColor: '#e5e7eb' }}>
-                  <p className="text-gray-400 text-xs font-semibold uppercase tracking-widest mb-3">Follow Us</p>
-                  <div className="flex items-center gap-2.5">
+              <div className="rounded-[1.5rem] bg-white p-7 ring-1 ring-ink/[0.07]">
+                <p className="text-[12px] font-bold uppercase tracking-[0.18em] text-ink-400">Office</p>
+                <ul className="mt-4 space-y-4">
+                  <li className="flex items-start gap-3.5 text-sm text-ink-600">
+                    <MapPin size={16} className="mt-0.5 shrink-0 text-ink-300" />
+                    {OFFICE_ADDRESS}
+                  </li>
+                  <li className="flex items-start gap-3.5 text-sm text-ink-600">
+                    <Clock size={16} className="mt-0.5 shrink-0 text-ink-300" />
+                    {BUSINESS_HOURS}
+                  </li>
+                </ul>
+                <div className="mt-6 border-t border-ink/[0.07] pt-5">
+                  <p className="text-[12px] font-bold uppercase tracking-[0.18em] text-ink-400">Follow us</p>
+                  <div className="mt-3.5 flex items-center gap-2">
                     {socials.map(({ icon: Icon, href, label }) => (
                       <a
                         key={label}
@@ -242,10 +164,9 @@ export default function Contact() {
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label={label}
-                        className="w-9 h-9 rounded-xl flex items-center justify-center text-gray-400 hover:text-sky-600 transition-all"
-                        style={{ background: '#f9fafb', border: '1px solid #e5e7eb' }}
+                        className="flex h-10 w-10 items-center justify-center rounded-full text-ink-400 ring-1 ring-ink/[0.1] transition-all duration-300 ease-swift hover:bg-ink hover:text-white hover:ring-ink"
                       >
-                        <Icon size={14} />
+                        <Icon size={15} strokeWidth={1.8} />
                       </a>
                     ))}
                   </div>
@@ -253,166 +174,161 @@ export default function Contact() {
               </div>
             </div>
 
+            {/* Form */}
             <div
               ref={formRef}
-              className="lg:col-span-3 rounded-2xl overflow-hidden"
-              style={{
-                background: '#ffffff',
-                border: '1px solid #e5e7eb',
-                boxShadow: '0 1px 3px rgba(15,23,42,0.06), 0 10px 30px rgba(15,23,42,0.05)',
-              }}
+              className="overflow-hidden rounded-[1.75rem] bg-white shadow-soft ring-1 ring-ink/[0.07] lg:col-span-3"
             >
-              <div className="px-8 py-6 border-b" style={{ borderColor: '#e5e7eb' }}>
-                <h2 className="text-gray-900 font-bold text-xl">Send Us a Message</h2>
-                <p className="text-gray-500 text-sm mt-1">Fill in the details below and we'll be in touch shortly.</p>
+              <div className="border-b border-ink/[0.06] px-8 py-6">
+                <h2 className="font-display text-xl font-bold tracking-snug text-ink">Send us a message</h2>
+                <p className="mt-1 text-sm text-ink-400">Tell us a little about your operation — we'll take it from there.</p>
               </div>
 
               {isSuccess ? (
                 <div className="p-12 text-center">
-                  <div
-                    className="w-20 h-20 mx-auto mb-6 rounded-full flex items-center justify-center"
-                    style={{ background: 'rgba(34,197,94,0.15)', border: '1.5px solid rgba(34,197,94,0.3)' }}
-                  >
-                    <CheckCircle className="w-10 h-10 text-emerald-400" />
+                  <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-emerald-50 ring-1 ring-emerald-200">
+                    <CheckCircle2 className="h-8 w-8 text-emerald-600" strokeWidth={1.8} />
                   </div>
-                  <h3 className="font-display font-bold text-2xl text-gray-900 mb-3">Message Received!</h3>
-                  <p className="text-gray-600 text-base max-w-sm mx-auto leading-relaxed">
-                    Thank you for reaching out. A member of our team will get back to you within one business day.
+                  <h3 className="font-display text-2xl font-bold tracking-snug text-ink">Message received.</h3>
+                  <p className="mx-auto mt-3 max-w-sm text-[15px] leading-relaxed text-ink-500">
+                    Thanks for reaching out. A member of our team will get back to you within
+                    one business day.
                   </p>
-                  <a
-                    href="/"
-                    className="inline-flex items-center gap-2 mt-8 px-6 py-3 rounded-xl text-sm font-semibold text-white fx-gradient shadow-[0_6px_18px_rgba(37,99,235,0.35)] transition-all hover:-translate-y-0.5"
-                  >
-                    Back to Home
-                    <ArrowUpRight size={14} />
-                  </a>
+                  <Link to="/" className="btn-primary btn-md group mt-8 inline-flex">
+                    Back to home
+                    <span className="btn-orb bg-white/15 group-hover:translate-x-0.5">
+                      <ArrowRight size={13} />
+                    </span>
+                  </Link>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="p-8 space-y-5">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <form onSubmit={handleSubmit} className="space-y-5 p-8">
+                  <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Full Name <span className="text-red-400">*</span>
+                      <label htmlFor="contactName" className={labelClass}>
+                        Full name <span className="text-accent">*</span>
                       </label>
                       <input
+                        id="contactName"
                         type="text"
                         name="contactName"
                         value={formData.contactName}
                         onChange={handleChange}
                         required
-                        placeholder="John Doe"
+                        autoComplete="name"
+                        placeholder="Amina Al-Busaidi"
                         className={inputClass}
-                        style={inputStyle}
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Email Address <span className="text-red-400">*</span>
+                      <label htmlFor="email" className={labelClass}>
+                        Work email <span className="text-accent">*</span>
                       </label>
                       <input
+                        id="email"
                         type="email"
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
                         required
-                        placeholder="john@company.com"
+                        autoComplete="email"
+                        placeholder="amina@company.com"
                         className={inputClass}
-                        style={inputStyle}
                       />
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
+                      <label htmlFor="phone" className={labelClass}>Phone</label>
                       <input
+                        id="phone"
                         type="tel"
                         name="phone"
                         value={formData.phone}
                         onChange={handleChange}
-                        placeholder="+968 ..."
+                        autoComplete="tel"
+                        placeholder="+968 9210 0000"
                         className={inputClass}
-                        style={inputStyle}
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Company Name</label>
+                      <label htmlFor="companyName" className={labelClass}>Company</label>
                       <input
+                        id="companyName"
                         type="text"
                         name="companyName"
                         value={formData.companyName}
                         onChange={handleChange}
-                        placeholder="Your Company Ltd"
+                        autoComplete="organization"
+                        placeholder="Your company LLC"
                         className={inputClass}
-                        style={inputStyle}
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Service of Interest <span className="text-red-400">*</span>
+                    <label htmlFor="product" className={labelClass}>
+                      What's this about? <span className="text-accent">*</span>
                     </label>
                     <select
+                      id="product"
                       name="product"
                       value={formData.product}
                       onChange={handleChange}
-                      className={inputClass}
-                      style={{ ...inputStyle, colorScheme: 'light' }}
+                      className={`${inputClass} appearance-none bg-[url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%2366779E' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E")] bg-[position:right_1rem_center] bg-no-repeat pr-10`}
+                      style={{ colorScheme: 'light' }}
                     >
                       {services.map((s) => (
-                        <option key={s} value={s} style={{ background: '#ffffff', color: '#0f172a' }}>{s}</option>
+                        <option key={s} value={s}>{s}</option>
                       ))}
                     </select>
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Message <span className="text-red-400">*</span>
+                    <label htmlFor="message" className={labelClass}>
+                      Message <span className="text-accent">*</span>
                     </label>
                     <textarea
+                      id="message"
                       name="message"
                       value={formData.message}
                       onChange={handleChange}
                       rows={5}
                       required
-                      placeholder="Tell us about your project or requirements..."
-                      className={`${inputClass} resize-none`}
-                      style={inputStyle}
+                      placeholder="Tell us about your operation — team size, locations, what you're running today…"
+                      className={`${inputClass} h-auto resize-none py-3.5`}
                     />
                   </div>
 
                   {error && (
-                    <div
-                      className="p-4 rounded-xl text-red-600 text-sm"
-                      style={{ background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.2)' }}
-                    >
+                    <div role="alert" className="rounded-xl bg-red-50 p-4 text-sm text-red-700 ring-1 ring-red-100">
                       {error}
                     </div>
                   )}
 
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full py-3.5 px-6 rounded-xl text-sm font-semibold text-white fx-gradient shadow-[0_6px_18px_rgba(37,99,235,0.35)] flex items-center justify-center gap-2.5 transition-all duration-300 hover:-translate-y-0.5 disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none"
-                  >
+                  <button type="submit" disabled={isSubmitting} className="btn-primary btn-lg group w-full disabled:cursor-not-allowed disabled:opacity-60">
                     {isSubmitting ? (
                       <>
                         <Loader2 size={17} className="animate-spin" />
-                        Sending...
+                        Sending…
                       </>
                     ) : (
                       <>
-                        <Send size={17} />
-                        Send Message
+                        Send message
+                        <span className="btn-orb bg-white/15 group-hover:translate-x-0.5">
+                          <ArrowRight size={13} />
+                        </span>
                       </>
                     )}
                   </button>
 
-                  <p className="text-center text-xs text-gray-400">
+                  <p className="text-center text-xs text-ink-400">
                     By submitting, you agree to our{' '}
-                    <a href="/privacy" className="text-sky-600 hover:text-sky-700 transition-colors">Privacy Policy</a>.
-                    We never share your data.
+                    <Link to="/privacy" className="font-medium text-ink-600 underline decoration-ink-200 underline-offset-2 transition-colors hover:text-accent">
+                      privacy policy
+                    </Link>
+                    . We never share your data.
                   </p>
                 </form>
               )}

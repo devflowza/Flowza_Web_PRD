@@ -1,78 +1,83 @@
-import { MessagesSquare, Settings2, Rocket, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import SectionHeading from '../SectionHeading';
 import Reveal from '../Reveal';
 
 const steps = [
   {
-    icon: MessagesSquare,
-    color: '#2563eb',
-    title: 'Tell Us About Your Business',
+    number: '01',
+    title: 'Tell us how you operate',
     description:
-      'Pick your platform and share how you operate. We map your workflows — companies, teams, catalogs, facilities — before anything goes live.',
+      'Pick your platform and walk us through the way you work. We map your companies, teams, catalogs and facilities before anything goes live.',
   },
   {
-    icon: Settings2,
-    color: '#9333ea',
-    title: 'Guided Setup & Migration',
+    number: '02',
+    title: 'Guided setup and migration',
     description:
-      'Pre-built templates and setup wizards configure your organisation. Import contacts, items and history from Zoho or spreadsheets with the built-in migration tools.',
+      'Pre-built templates and setup wizards configure your organisation. Contacts, items and history import from Zoho or spreadsheets with the built-in migration tools.',
   },
   {
-    icon: Rocket,
-    color: '#10b981',
-    title: 'Go Live & Grow with Insights',
+    number: '03',
+    title: 'Go live and grow with insight',
     description:
-      'Go live in hours, not weeks. Watch dashboards update in real time and act on AI insights that explain what the numbers mean.',
+      'Live in hours, not weeks. Dashboards update in real time, and the system explains what the numbers mean — not just what they are.',
   },
 ];
 
-/** Numbered process steps with colored circle icons and a connecting line. */
+/** Editorial numbered rows with a sticky chapter heading. */
 export default function HowItWorks() {
   return (
-    <section id="how-it-works" className="scroll-mt-28 py-20 sm:py-24 px-4 sm:px-6 bg-white">
-      <div className="max-w-6xl mx-auto">
-        <SectionHeading
-          badge="How It Works"
-          title="From First Call to Full Flow"
-          subtitle="Zero-complexity onboarding — pre-built templates, guided setup and dedicated onboarding support included."
-        />
-
-        <div className="relative grid sm:grid-cols-3 gap-10 sm:gap-6">
-          {/* Connecting line (desktop) */}
-          <div className="hidden sm:block absolute top-9 left-[16%] right-[16%] h-px bg-gradient-to-r from-blue-200 via-purple-200 to-emerald-200" />
-
-          {steps.map((step, i) => {
-            const Icon = step.icon;
-            return (
-              <Reveal key={step.title} delay={i * 120} className="relative flex flex-col items-center text-center">
-                <div className="relative mb-6">
-                  <span
-                    className="w-[72px] h-[72px] rounded-full flex items-center justify-center text-white shadow-lg"
-                    style={{ background: step.color, boxShadow: `0 10px 26px ${step.color}4d` }}
-                  >
-                    <Icon size={26} />
-                  </span>
-                  <span className="absolute -top-1 -right-2 w-7 h-7 rounded-full bg-white shadow-md border border-gray-100 flex items-center justify-center text-[11px] font-bold text-slate-700">
-                    {String(i + 1).padStart(2, '0')}
-                  </span>
-                </div>
-                <h3 className="font-bold text-slate-900 text-lg mb-3">{step.title}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed max-w-[36ch]">{step.description}</p>
-              </Reveal>
-            );
-          })}
+    <section id="how-it-works" className="scroll-mt-24 bg-white px-4 py-24 sm:px-6 sm:py-32">
+      <div className="mx-auto grid max-w-7xl gap-14 lg:grid-cols-[1fr_1.4fr] lg:gap-24">
+        {/* Sticky chapter heading */}
+        <div className="lg:sticky lg:top-32 lg:self-start">
+          <Reveal>
+            <span className="eyebrow">How it works</span>
+            <h2 className="display-title mt-5 text-[2rem] text-ink sm:text-[2.6rem] lg:text-[3rem]">
+              From first call to full flow.
+            </h2>
+            <p className="mt-5 max-w-md text-base leading-relaxed text-ink-500 sm:text-lg">
+              Zero-complexity onboarding — templates, guided setup and a dedicated
+              onboarding engineer are part of every plan.
+            </p>
+            <Link to="/contact" className="btn-primary btn-md group mt-9 hidden lg:inline-flex">
+              Start your onboarding
+              <span className="btn-orb bg-white/15 group-hover:translate-x-0.5">
+                <ArrowRight size={13} />
+              </span>
+            </Link>
+          </Reveal>
         </div>
 
-        <Reveal className="mt-14 text-center">
-          <Link
-            to="/contact"
-            className="inline-flex items-center gap-2 rounded-xl bg-blue-600 text-white font-semibold px-8 py-4 shadow-[0_8px_24px_rgba(37,99,235,0.35)] hover:bg-blue-700 hover:shadow-[0_10px_30px_rgba(37,99,235,0.45)] hover:-translate-y-px transition-all"
-          >
-            Start Your Onboarding
-            <ArrowRight size={17} />
-          </Link>
-        </Reveal>
+        {/* Numbered rows */}
+        <div>
+          {steps.map((step, i) => (
+            <Reveal key={step.number} delay={i * 100}>
+              <article
+                className={`group flex gap-7 border-t border-ink/[0.08] py-10 transition-colors duration-500 sm:gap-10 sm:py-12 ${
+                  i === steps.length - 1 ? 'border-b' : ''
+                }`}
+              >
+                <span className="font-display text-4xl font-extrabold leading-none tracking-tightest text-ink-100 transition-colors duration-500 group-hover:text-accent sm:text-6xl">
+                  {step.number}
+                </span>
+                <div className="pt-1">
+                  <h3 className="font-display text-xl font-bold tracking-snug text-ink sm:text-2xl">{step.title}</h3>
+                  <p className="mt-3 max-w-lg text-[15px] leading-relaxed text-ink-500 sm:text-base">
+                    {step.description}
+                  </p>
+                </div>
+              </article>
+            </Reveal>
+          ))}
+          <Reveal className="mt-10 lg:hidden">
+            <Link to="/contact" className="btn-primary btn-md group">
+              Start your onboarding
+              <span className="btn-orb bg-white/15 group-hover:translate-x-0.5">
+                <ArrowRight size={13} />
+              </span>
+            </Link>
+          </Reveal>
+        </div>
       </div>
     </section>
   );

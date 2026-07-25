@@ -215,7 +215,7 @@ const productDetailsMap: Record<string, ProductDetail> = {
       { value: '94%', label: 'Client satisfaction score average' },
     ],
     testimonial: {
-      quote: "FlowZa Spa Master transformed how we run our three locations. The staff scheduling alone saves us 10+ hours a week, and our clients love the seamless booking experience. Rebooking rates went up 35% in the first quarter.",
+      quote: "FlowZa Spa Master transformed how we run our three locations. The staff scheduling alone saves us 10+ hours a week, and our clients love how easy booking is now. Rebooking rates went up 35% in the first quarter.",
       name: 'Priya Nair',
       role: 'Owner',
       company: 'Serenity Wellness Studios',
@@ -400,9 +400,9 @@ const productDetailsMap: Record<string, ProductDetail> = {
   pos: {
     id: 'pos',
     name: 'FlowZa POS',
-    tagline: 'Next-Gen Point of Sale',
-    description: 'A blazing-fast POS system with offline mode, multi-location inventory, and deep customer analytics. Works on any device, anywhere.',
-    longDescription: 'FlowZa POS is the modern point-of-sale system built for businesses that cannot afford downtime. Lightning-fast transactions, seamless offline operation, and deep customer intelligence make it the most reliable and insightful POS platform for retail, food and beverage, and service businesses.',
+    tagline: 'Point of Sale, Built for Speed',
+    description: 'A point of sale that never slows the queue — offline mode, multi-location inventory and customer analytics, on any device.',
+    longDescription: 'FlowZa POS is the modern point-of-sale system built for businesses that cannot afford downtime. Fast transactions, dependable offline operation, and clear customer intelligence make it the most reliable and insightful POS platform for retail, food and beverage, and service businesses.',
     color: '#8b5cf6',
     colorSecondary: '#7c3aed',
     icon: ShoppingCart,
@@ -436,7 +436,7 @@ const productDetailsMap: Record<string, ProductDetail> = {
       },
       {
         icon: ArrowUpRight,
-        title: 'Seamless Integrations',
+        title: 'Connected Integrations',
         description: 'Native connections to FlowZa Finance for accounting, delivery platforms, eCommerce channels, and your existing CRM — all data flows without manual entry.',
       },
     ],
