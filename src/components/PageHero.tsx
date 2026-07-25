@@ -7,59 +7,48 @@ interface PageHeroProps {
   children?: React.ReactNode;
 }
 
-/** Secondary-page hero: light grid backdrop (or image with navy overlay), pill label, bold heading. */
+/** Inner-page hero: eyebrow, display headline with accent close, measured subtitle. */
 export default function PageHero({ label, title, titleHighlight, subtitle, imageUrl, children }: PageHeroProps) {
   const onImage = Boolean(imageUrl);
   return (
-    <section className="relative pt-20 pb-20 px-4 sm:px-6 overflow-hidden">
-      {imageUrl ? (
+    <section className={`relative overflow-hidden px-4 pb-16 pt-16 sm:px-6 sm:pb-20 sm:pt-24 ${onImage ? 'bg-ink grain' : 'wash-top'}`}>
+      {imageUrl && (
         <>
           <div
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-25"
             style={{ backgroundImage: `url(${imageUrl})` }}
+            aria-hidden="true"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-navy-950/90 via-navy-950/70 to-navy-950/40" />
-        </>
-      ) : (
-        <>
-          <div className="absolute inset-0 bg-gradient-to-b from-blue-50/80 via-slate-50 to-white" />
-          <div className="absolute inset-0 fx-grid fx-grid-fade pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-b from-ink/60 via-ink/40 to-ink" aria-hidden="true" />
         </>
       )}
-      <div className="relative max-w-4xl mx-auto text-center">
+      <div className="relative mx-auto max-w-4xl text-center">
         {label && (
-          <span
-            className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-semibold mb-6 ${
-              onImage
-                ? 'border border-white/20 bg-white/10 backdrop-blur-sm text-white'
-                : 'bg-blue-50 border border-blue-100 text-blue-600'
-            }`}
-          >
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-            {label}
+          <span className="rise-block block" style={{ animationDelay: '40ms' }}>
+            <span className={`eyebrow justify-center ${onImage ? 'eyebrow-light' : ''}`}>{label}</span>
           </span>
         )}
         <h1
-          className={`font-bold text-4xl sm:text-5xl lg:text-[56px] leading-[1.08] tracking-tight mb-6 ${
-            onImage ? 'text-white' : 'text-slate-900'
-          }`}
+          className={`rise-block-media display-hero mt-6 text-4xl sm:text-5xl lg:text-[64px] ${onImage ? 'text-white' : 'text-ink'}`}
+          style={{ animationDelay: '80ms' }}
         >
           {title}
           {titleHighlight && (
             <>
               {' '}
-              <span className={onImage ? 'text-cyan-300' : 'fx-gradient-text'}>{titleHighlight}</span>
+              <span className={`accent-word ${onImage ? 'text-accent-soft' : ''}`}>{titleHighlight}</span>
             </>
           )}
         </h1>
         <p
-          className={`text-lg md:text-xl leading-relaxed max-w-2xl mx-auto ${
-            onImage ? 'text-white/80' : 'text-gray-500'
+          className={`rise-block mx-auto mt-6 max-w-2xl text-lg leading-relaxed sm:text-xl ${
+            onImage ? 'text-white/65' : 'text-ink-500'
           }`}
+          style={{ animationDelay: '180ms' }}
         >
           {subtitle}
         </p>
-        {children && <div className="mt-8">{children}</div>}
+        {children && <div className="mt-9">{children}</div>}
       </div>
     </section>
   );

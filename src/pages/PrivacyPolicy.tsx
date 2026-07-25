@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Shield, Lock, Eye, Trash2, Download, Mail, Globe, UserCheck } from 'lucide-react';
 import PageLayout from '../components/PageLayout';
+import usePageMeta from '../lib/usePageMeta';
 
 const sections = [
   {
@@ -77,6 +78,11 @@ const sections = [
 export default function PrivacyPolicy() {
   const [activeSection, setActiveSection] = useState('overview');
 
+  usePageMeta({
+    title: 'Privacy policy — FlowZa AI',
+    description: 'How FlowZa collects, uses and protects your data across all seven platforms.',
+  });
+
   useEffect(() => {
     const handleScroll = () => {
       for (const section of sections) {
@@ -93,42 +99,25 @@ export default function PrivacyPolicy() {
 
   return (
     <PageLayout>
-      <div
-        className="relative pt-16 pb-20 px-6 overflow-hidden"
-        style={{
-          background: 'linear-gradient(180deg, #f0f7ff 0%, #ffffff 70%)',
-        }}
-      >
-        <img
-          src="https://images.pexels.com/photos/60504/security-protection-anti-virus-software-60504.jpeg"
-          alt="Data security"
-          className="absolute inset-0 w-full h-full object-cover mix-blend-luminosity opacity-5"
-        />
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background: 'radial-gradient(ellipse 80% 60% at 50% 0%, rgba(14,165,233,0.12) 0%, transparent 70%)',
-          }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-white" />
+      <div className="relative overflow-hidden wash-top pt-16 pb-20 px-6">
         <div className="relative max-w-4xl mx-auto">
-          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-sky-200 bg-sky-50 text-xs font-semibold uppercase tracking-widest text-sky-700 mb-6">
+          <span className="eyebrow mb-6">
             Legal
           </span>
           <div className="flex items-center gap-4 mb-4">
-            <div className="w-12 h-12 rounded-2xl bg-sky-50 border border-sky-200 flex items-center justify-center">
-              <Shield size={22} className="text-sky-600" />
+            <div className="w-12 h-12 rounded-2xl bg-accent-wash flex items-center justify-center">
+              <Shield size={22} className="text-accent" />
             </div>
-            <h1 className="font-display font-bold text-5xl text-gray-900">Privacy Policy</h1>
+            <h1 className="display-hero text-4xl sm:text-5xl text-ink">Privacy Policy</h1>
           </div>
-          <p className="text-gray-500 text-base">Last updated: <span className="text-gray-900 font-medium">February 1, 2026</span></p>
+          <p className="text-ink-400 text-base">Last updated: <span className="text-ink font-medium">February 1, 2026</span></p>
         </div>
       </div>
 
       <div className="bg-white">
         <div className="max-w-5xl mx-auto px-6 py-16 flex gap-12 items-start">
           <aside className="hidden lg:block w-52 shrink-0 sticky top-28">
-            <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-4">Contents</p>
+            <p className="text-xs font-semibold uppercase tracking-widest text-ink-400 mb-4">Contents</p>
             <nav className="space-y-0.5">
               {sections.map((s) => (
                 <a
@@ -136,8 +125,8 @@ export default function PrivacyPolicy() {
                   href={`#${s.id}`}
                   className={`block text-sm py-2 px-3 rounded-lg transition-all duration-150 ${
                     activeSection === s.id
-                      ? 'bg-blue-50 text-blue-700 font-medium'
-                      : 'text-gray-500 hover:text-gray-800 hover:bg-gray-50'
+                      ? 'bg-accent-wash text-accent font-medium'
+                      : 'text-ink-400 hover:text-ink hover:bg-mist'
                   }`}
                 >
                   {s.title}
@@ -152,22 +141,22 @@ export default function PrivacyPolicy() {
                 const Icon = section.icon;
                 return (
                   <div key={section.id} id={section.id} className="scroll-mt-32">
-                    <div className="flex items-center gap-3 mb-4 pb-3 border-b border-gray-100">
-                      <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center shrink-0">
-                        <Icon size={15} className="text-blue-600" />
+                    <div className="flex items-center gap-3 mb-4 pb-3 border-b border-ink/[0.08]">
+                      <div className="w-8 h-8 rounded-lg bg-accent-wash flex items-center justify-center shrink-0">
+                        <Icon size={15} className="text-accent" />
                       </div>
-                      <h2 className="font-display font-bold text-lg text-gray-900">{section.title}</h2>
+                      <h2 className="font-display font-bold tracking-snug text-lg text-ink">{section.title}</h2>
                     </div>
                     {'content' in section && (
-                      <p className="text-gray-600 text-sm leading-relaxed">{section.content}</p>
+                      <p className="text-ink-500 text-sm leading-relaxed">{section.content}</p>
                     )}
                     {'points' in section && section.points && (
                       <ul className="space-y-3">
                         {section.points.map((p) => (
                           <li key={p.label} className="flex gap-3">
-                            <span className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-2 shrink-0" />
-                            <p className="text-sm text-gray-600 leading-relaxed">
-                              <span className="font-semibold text-gray-800">{p.label}:</span>{' '}
+                            <span className="w-1.5 h-1.5 rounded-full bg-accent mt-2 shrink-0" />
+                            <p className="text-sm text-ink-500 leading-relaxed">
+                              <span className="font-semibold text-ink">{p.label}:</span>{' '}
                               {p.detail}
                             </p>
                           </li>
@@ -179,14 +168,14 @@ export default function PrivacyPolicy() {
               })}
             </div>
 
-            <div className="mt-12 pt-8 border-t border-gray-100">
-              <div className="flex items-center gap-4 p-5 bg-blue-50 rounded-2xl border border-blue-100">
-                <div className="w-10 h-10 rounded-xl bg-blue-100 flex items-center justify-center shrink-0">
-                  <Mail size={16} className="text-blue-600" />
+            <div className="mt-12 pt-8 border-t border-ink/[0.08]">
+              <div className="flex items-center gap-4 p-5 bg-accent-wash rounded-2xl border border-accent/10">
+                <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center shrink-0">
+                  <Mail size={16} className="text-accent" />
                 </div>
                 <div>
-                  <p className="text-gray-900 font-medium text-sm">Questions about your privacy?</p>
-                  <p className="text-gray-500 text-sm">Email our data protection team at <a href="mailto:privacy@flowza.ai" className="text-blue-600 hover:text-blue-700 transition-colors font-medium">privacy@flowza.ai</a></p>
+                  <p className="text-ink font-medium text-sm">Questions about your privacy?</p>
+                  <p className="text-ink-500 text-sm">Email our data protection team at <a href="mailto:privacy@flowza.ai" className="text-accent transition-colors font-medium hover:underline">privacy@flowza.ai</a></p>
                 </div>
               </div>
             </div>
@@ -194,13 +183,13 @@ export default function PrivacyPolicy() {
         </div>
       </div>
 
-      <div className="bg-gray-50 py-10 px-6 border-t border-gray-100">
+      <div className="bg-mist py-10 px-6 border-t border-ink/[0.08]">
         <div className="max-w-5xl mx-auto flex flex-wrap gap-6 items-center justify-between">
           <div className="flex items-center gap-3">
-            <Download size={15} className="text-gray-400" />
-            <p className="text-sm text-gray-500">To export or delete your data, contact us at <a href="mailto:privacy@flowza.ai" className="text-blue-600 hover:underline">privacy@flowza.ai</a></p>
+            <Download size={15} className="text-ink-400" />
+            <p className="text-sm text-ink-500">To export or delete your data, contact us at <a href="mailto:privacy@flowza.ai" className="text-accent hover:underline">privacy@flowza.ai</a></p>
           </div>
-          <p className="text-xs text-gray-400">© 2026 FlowZa AI FZ-LLC · Dubai Internet City, UAE</p>
+          <p className="text-xs text-ink-400">© 2026 FlowZa AI FZ-LLC · Dubai Internet City, UAE</p>
         </div>
       </div>
     </PageLayout>

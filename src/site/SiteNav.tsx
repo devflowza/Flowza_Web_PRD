@@ -1,197 +1,294 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, ChevronDown, ArrowRight } from 'lucide-react';
-import { landingProducts } from './data';
+import { ChevronDown, ArrowRight, ArrowUpRight, MessageCircle, Mail } from 'lucide-react';
+import { landingProducts, WHATSAPP_URL, WHATSAPP_DISPLAY, CONTACT_EMAIL } from './data';
 
 const navLinks = [
-  { label: 'Home', to: '/' },
-  { label: 'About', to: '/about' },
   { label: 'Pricing', to: '/#pricing' },
+  { label: 'About', to: '/about' },
   { label: 'FAQ', to: '/#faq' },
   { label: 'Contact', to: '/contact' },
 ];
 
-/** White sticky navbar: logo block, center links with Platforms dropdown, gradient CTA. */
+/** Glass nav: wordmark, Platforms panel, quiet links, ink pill CTA. */
 export default function SiteNav() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [platformsOpen, setPlatformsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+  const toggleRef = useRef<HTMLButtonElement>(null);
+  const firstMenuItemRef = useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {
     setMobileOpen(false);
     setPlatformsOpen(false);
-  }, [location.pathname]);
+  }, [location.pathname, location.hash]);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   useEffect(() => {
     const close = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       if (!target.closest('[data-platforms-menu]')) setPlatformsOpen(false);
     };
-    document.addEventListener('mousedown', close);
-    return () => document.removeEventListener('mousedown', close);
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setPlatformsOpen(false);
+        setMobileOpen(false);
+      }
+    };
+    document.addEventListener('click', close);
+    document.addEventListener('keydown', onKey);
+    return () => {
+      document.removeEventListener('click', close);
+      document.removeEventListener('keydown', onKey);
+    };
   }, []);
 
+  /* Real modal behaviour for the mobile sheet: lock scroll, make the page
+     behind it inert, move focus in on open and back to the toggle on close. */
+  const wasOpenRef = useRef(false);
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? 'hidden' : '';
+    const main = document.querySelector('main');
+    const footer = document.querySelector('footer');
+    for (const el of [main, footer]) el?.toggleAttribute('inert', mobileOpen);
+    if (mobileOpen) {
+      firstMenuItemRef.current?.focus();
+    } else if (wasOpenRef.current) {
+      toggleRef.current?.focus({ preventScroll: true });
+    }
+    wasOpenRef.current = mobileOpen;
+    return () => {
+      document.body.style.overflow = '';
+      for (const el of [main, footer]) el?.removeAttribute('inert');
+    };
+  }, [mobileOpen]);
+
+  const isActive = (to: string) => !to.includes('#') && location.pathname === to;
+
   return (
-    <nav className="bg-white border-b border-gray-100 shadow-[0_1px_3px_rgba(15,23,42,0.04)]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 h-[72px] flex items-center justify-between gap-4">
-        {/* Logo block */}
-        <Link to="/" className="flex items-center gap-3 shrink-0 group" aria-label="FlowZa AI — home">
-          <span className="w-11 h-11 rounded-xl overflow-hidden ring-1 ring-blue-100 shadow-[0_2px_10px_rgba(37,99,235,0.18)] group-hover:shadow-[0_2px_16px_rgba(37,99,235,0.3)] transition-shadow">
-            <img src="/Logo_Final_-_Focused.jpeg" alt="" className="w-full h-full object-cover" />
+    <>
+    <header
+      className={`sticky top-0 z-50 backdrop-blur-md transition-[background-color,box-shadow] duration-500 ease-swift ${
+        scrolled
+          ? 'bg-white/90 shadow-[0_1px_0_rgba(11,18,33,0.07),0_8px_28px_-16px_rgba(11,18,33,0.14)]'
+          : 'bg-white/70'
+      }`}
+    >
+      <nav aria-label="Main" className="mx-auto flex h-[76px] max-w-7xl items-center justify-between gap-4 px-4 sm:px-6">
+        {/* Wordmark */}
+        <Link to="/" className="group flex shrink-0 items-center gap-3" aria-label="FlowZa AI — home">
+          <span className="h-10 w-10 overflow-hidden rounded-xl ring-1 ring-ink/[0.08] transition-transform duration-300 ease-swift group-hover:scale-105">
+            <img src="/logo-mark.webp" alt="" width="40" height="40" className="h-full w-full object-cover" />
           </span>
-          <span className="leading-tight">
-            <span className="block font-bold text-lg text-slate-900 tracking-tight">
-              FlowZa <span className="fx-gradient-text">AI</span>
-            </span>
-            <span className="block text-[11px] text-gray-400 font-medium">Business Operating Systems</span>
+          <span className="font-display text-[21px] font-bold tracking-snug text-ink">
+            FlowZa<span className="text-accent"> AI</span>
           </span>
         </Link>
 
         {/* Desktop links */}
-        <div className="hidden lg:flex items-center gap-1">
-          <Link
-            to="/"
-            className="px-3.5 py-2 text-[15px] text-slate-800 font-medium hover:text-blue-600 transition-colors"
-          >
-            Home
-          </Link>
-
+        <div className="hidden items-center gap-0.5 lg:flex">
           <div data-platforms-menu className="relative">
             <button
               onClick={() => setPlatformsOpen((v) => !v)}
-              className="flex items-center gap-1 px-3.5 py-2 text-[15px] text-slate-800 font-medium hover:text-blue-600 transition-colors"
+              className="flex items-center gap-1.5 rounded-full px-4 py-2 text-[15px] font-medium text-ink-600 transition-colors duration-300 hover:bg-mist hover:text-ink"
               aria-expanded={platformsOpen}
+              aria-haspopup="true"
             >
               Platforms
-              <ChevronDown size={14} className={`transition-transform duration-200 ${platformsOpen ? 'rotate-180' : ''}`} />
+              <ChevronDown
+                size={14}
+                className={`transition-transform duration-300 ease-swift ${platformsOpen ? 'rotate-180' : ''}`}
+              />
             </button>
+
             {platformsOpen && (
-              <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 w-[560px] rounded-2xl border border-gray-100 bg-white shadow-[0_24px_60px_rgba(15,23,42,0.14)] overflow-hidden">
-                <div className="p-3 grid grid-cols-2 gap-1">
+              <div className="absolute left-1/2 top-full mt-3 w-[600px] -translate-x-1/2 origin-top animate-slide-up-fast overflow-hidden rounded-[1.5rem] bg-white shadow-frame ring-1 ring-ink/[0.07]">
+                <div className="grid grid-cols-2 gap-0.5 p-2.5">
                   {landingProducts.map((p) => {
                     const Icon = p.icon;
                     return (
                       <Link
                         key={p.id}
                         to={`/products/${p.id}`}
-                        className="flex items-center gap-3 p-3 rounded-xl hover:bg-blue-50/70 transition-colors group/item"
+                        className="group/item flex items-center gap-3.5 rounded-2xl p-3.5 transition-colors duration-200 hover:bg-mist"
                         onClick={() => setPlatformsOpen(false)}
                       >
-                        <span
-                          className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
-                          style={{ background: `${p.color}14`, border: `1px solid ${p.color}33`, color: p.color }}
-                        >
-                          <Icon size={17} />
+                        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-mist text-ink-500 ring-1 ring-ink/[0.05] transition-colors duration-200 group-hover/item:bg-white">
+                          <Icon size={17} strokeWidth={1.8} />
                         </span>
-                        <span>
-                          <span className="flex items-center gap-2 text-sm font-semibold text-slate-900 group-hover/item:text-blue-600 transition-colors leading-tight">
-                            {p.name}
+                        <span className="min-w-0">
+                          <span className="flex items-center gap-2 text-sm font-semibold leading-tight text-ink">
+                            {p.short}
                             {p.live && (
-                              <span className="text-[10px] font-semibold uppercase tracking-wide text-emerald-600 bg-emerald-50 border border-emerald-200 rounded-full px-1.5 py-px">
+                              <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-emerald-700">
+                                <span className="h-1 w-1 rounded-full bg-emerald-500" />
                                 Live
                               </span>
                             )}
                           </span>
-                          <span className="block text-xs text-gray-500 leading-tight mt-0.5">{p.tagline}</span>
+                          <span className="mt-0.5 block truncate text-[13px] leading-tight text-ink-400">{p.tagline}</span>
                         </span>
                       </Link>
                     );
                   })}
                 </div>
-                <div className="px-5 py-3 bg-gray-50 border-t border-gray-100 flex items-center justify-between">
-                  <span className="text-xs text-gray-500">Seven systems. One operating fabric.</span>
+                <div className="flex items-center justify-between border-t border-ink/[0.06] bg-mist/60 px-6 py-3.5">
+                  <span className="text-[13px] text-ink-400">Seven systems, one operating fabric</span>
                   <Link
                     to="/#platforms"
-                    className="inline-flex items-center gap-1 text-xs text-blue-600 font-semibold hover:text-blue-700 transition-colors"
+                    className="group/all inline-flex items-center gap-1.5 text-[13px] font-semibold text-ink transition-colors hover:text-accent"
                     onClick={() => setPlatformsOpen(false)}
                   >
-                    All platforms <ArrowRight size={12} />
+                    All platforms
+                    <ArrowRight size={13} className="transition-transform duration-300 ease-swift group-hover/all:translate-x-0.5" />
                   </Link>
                 </div>
               </div>
             )}
           </div>
 
-          {navLinks.slice(1).map((l) => (
+          {navLinks.map((l) => (
             <Link
               key={l.label}
               to={l.to}
-              className="px-3.5 py-2 text-[15px] text-slate-800 font-medium hover:text-blue-600 transition-colors"
+              aria-current={isActive(l.to) ? 'page' : undefined}
+              className={`rounded-full px-4 py-2 text-[15px] font-medium transition-colors duration-300 ${
+                isActive(l.to) ? 'text-ink bg-mist' : 'text-ink-600 hover:bg-mist hover:text-ink'
+              }`}
             >
               {l.label}
             </Link>
           ))}
         </div>
 
-        {/* CTA + mobile toggle */}
-        <div className="flex items-center gap-3">
+        {/* CTA cluster + mobile toggle */}
+        <div className="flex items-center gap-2.5">
           <Link
-            to="/get-started"
-            className="hidden sm:inline-flex items-center gap-2 fx-gradient text-white text-sm font-semibold px-5 py-2.5 rounded-xl shadow-[0_4px_14px_rgba(37,99,235,0.35)] hover:shadow-[0_6px_20px_rgba(37,99,235,0.45)] hover:-translate-y-px transition-all"
+            to="/contact"
+            className="hidden text-[15px] font-medium text-ink-500 transition-colors duration-300 hover:text-ink md:inline-flex md:px-3"
           >
-            Start Free Trial
+            Talk to sales
+          </Link>
+          <Link to="/get-started" className="btn-primary btn-md group hidden sm:inline-flex">
+            Start free trial
+            <span className="btn-orb bg-white/15 group-hover:translate-x-0.5">
+              <ArrowRight size={13} />
+            </span>
           </Link>
           <button
+            ref={toggleRef}
             onClick={() => setMobileOpen((v) => !v)}
-            className="lg:hidden p-2 rounded-lg text-slate-700 hover:bg-gray-100 transition-colors"
-            aria-label="Toggle menu"
+            className="relative flex h-11 w-11 items-center justify-center rounded-full transition-colors duration-300 hover:bg-mist lg:hidden"
+            aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-menu"
           >
-            {mobileOpen ? <X size={22} /> : <Menu size={22} />}
+            <span
+              className={`absolute h-[1.5px] w-[18px] rounded-full bg-ink transition-all duration-300 ease-swift ${
+                mobileOpen ? 'rotate-45' : '-translate-y-[3.5px]'
+              }`}
+            />
+            <span
+              className={`absolute h-[1.5px] w-[18px] rounded-full bg-ink transition-all duration-300 ease-swift ${
+                mobileOpen ? '-rotate-45' : 'translate-y-[3.5px]'
+              }`}
+            />
           </button>
         </div>
-      </div>
+      </nav>
+    </header>
 
-      {/* Mobile menu */}
-      {mobileOpen && (
-        <div className="lg:hidden border-t border-gray-100 bg-white max-h-[calc(100vh-110px)] overflow-y-auto">
-          <div className="px-4 py-4">
-            <p className="text-xs text-gray-400 font-semibold uppercase tracking-widest px-2 mb-2">Platforms</p>
-            <div className="grid grid-cols-1 gap-0.5 mb-4">
-              {landingProducts.map((p) => {
-                const Icon = p.icon;
-                return (
-                  <Link
-                    key={p.id}
-                    to={`/products/${p.id}`}
-                    className="flex items-center gap-3 px-2 py-2.5 rounded-xl hover:bg-blue-50/70 transition-colors"
-                    onClick={() => setMobileOpen(false)}
-                  >
-                    <span
-                      className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0"
-                      style={{ background: `${p.color}14`, border: `1px solid ${p.color}33`, color: p.color }}
-                    >
-                      <Icon size={15} />
-                    </span>
-                    <span>
-                      <span className="block text-sm font-semibold text-slate-900">{p.name}</span>
-                      <span className="block text-xs text-gray-500">{p.tagline}</span>
-                    </span>
-                  </Link>
-                );
-              })}
-            </div>
-            <div className="border-t border-gray-100 pt-3 grid grid-cols-2 gap-0.5">
-              {navLinks.map((l) => (
+      {/* Mobile overlay — sibling of the blurred header: backdrop-filter would
+          otherwise make the header the containing block and collapse this. */}
+      <div
+        id="mobile-menu"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Menu"
+        className={`fixed inset-x-0 bottom-0 top-[76px] z-40 overflow-y-auto bg-white transition-all duration-500 ease-swift lg:hidden ${
+          mobileOpen ? 'visible opacity-100' : 'invisible opacity-0'
+        }`}
+      >
+        <div className="flex min-h-full flex-col px-6 pb-10 pt-4">
+          <p className="eyebrow mb-2 px-1 pt-2">Platforms</p>
+          <div className="mb-6">
+            {landingProducts.map((p, i) => {
+              const Icon = p.icon;
+              return (
                 <Link
-                  key={l.label}
-                  to={l.to}
-                  className="px-3 py-2.5 text-sm font-medium text-slate-800 hover:text-blue-600 rounded-xl hover:bg-blue-50/70 transition-colors"
+                  key={p.id}
+                  ref={i === 0 ? firstMenuItemRef : undefined}
+                  to={`/products/${p.id}`}
                   onClick={() => setMobileOpen(false)}
+                  className={`flex items-center gap-4 border-b border-ink/[0.06] py-4 transition-all duration-500 ease-swift ${
+                    mobileOpen ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
+                  }`}
+                  style={{ transitionDelay: mobileOpen ? `${80 + i * 40}ms` : '0ms' }}
                 >
-                  {l.label}
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-mist text-ink-500 ring-1 ring-ink/[0.05]">
+                    <Icon size={17} strokeWidth={1.8} />
+                  </span>
+                  <span className="flex-1">
+                    <span className="flex items-center gap-2 text-[15px] font-semibold text-ink">
+                      {p.short}
+                      {p.live && <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" aria-label="Live" />}
+                    </span>
+                    <span className="block text-[13px] text-ink-400">{p.tagline}</span>
+                  </span>
+                  <ArrowUpRight size={16} className="text-ink-300" />
                 </Link>
-              ))}
-            </div>
-            <Link
-              to="/get-started"
-              className="mt-4 flex items-center justify-center gap-2 fx-gradient text-white text-sm font-semibold px-5 py-3 rounded-xl shadow-[0_4px_14px_rgba(37,99,235,0.35)]"
-              onClick={() => setMobileOpen(false)}
-            >
-              Start Free Trial
+              );
+            })}
+          </div>
+
+          <div className="grid grid-cols-2 gap-x-4">
+            {navLinks.map((l, i) => (
+              <Link
+                key={l.label}
+                to={l.to}
+                onClick={() => setMobileOpen(false)}
+                className={`border-b border-ink/[0.06] py-4 text-[15px] font-semibold text-ink transition-all duration-500 ease-swift ${
+                  mobileOpen ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
+                }`}
+                style={{ transitionDelay: mobileOpen ? `${380 + i * 40}ms` : '0ms' }}
+              >
+                {l.label}
+              </Link>
+            ))}
+          </div>
+
+          <div
+            className={`mt-8 transition-all duration-500 ease-swift ${
+              mobileOpen ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
+            }`}
+            style={{ transitionDelay: mobileOpen ? '540ms' : '0ms' }}
+          >
+            <Link to="/get-started" onClick={() => setMobileOpen(false)} className="btn-primary btn-lg group w-full">
+              Start free trial
+              <span className="btn-orb bg-white/15 group-hover:translate-x-0.5">
+                <ArrowRight size={13} />
+              </span>
             </Link>
+            <div className="mt-6 flex flex-col gap-3 text-sm text-ink-500">
+              <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2.5">
+                <MessageCircle size={15} className="text-emerald-600" />
+                {WHATSAPP_DISPLAY}
+              </a>
+              <a href={`mailto:${CONTACT_EMAIL}`} className="inline-flex items-center gap-2.5">
+                <Mail size={15} className="text-ink-400" />
+                {CONTACT_EMAIL}
+              </a>
+            </div>
           </div>
         </div>
-      )}
-    </nav>
+      </div>
+    </>
   );
 }

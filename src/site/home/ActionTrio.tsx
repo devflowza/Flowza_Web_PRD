@@ -1,83 +1,49 @@
 import { Link } from 'react-router-dom';
-import { Zap, DollarSign, MessageCircle } from 'lucide-react';
-import SectionHeading from '../SectionHeading';
+import { ArrowRight, MessageCircle } from 'lucide-react';
 import Reveal from '../Reveal';
 import { WHATSAPP_URL } from '../data';
 
-const actions = [
-  {
-    icon: Zap,
-    title: 'Start Free Trial',
-    description: 'Spin up your workspace and see your operation in flow — before you pay anything.',
-    badge: 'No Card Required',
-    gradient: 'from-blue-600 to-blue-700',
-    href: '/get-started',
-    external: false,
-  },
-  {
-    icon: DollarSign,
-    title: 'View Pricing',
-    description: 'Transparent plans from $15/mo — save 25% when you pay yearly.',
-    badge: 'No Hidden Fees',
-    gradient: 'from-emerald-500 to-emerald-700',
-    href: '/#pricing',
-    external: false,
-  },
-  {
-    icon: MessageCircle,
-    title: 'Talk to Us',
-    description: 'Chat directly with our team on WhatsApp for immediate assistance.',
-    badge: 'Fastest Response',
-    gradient: 'from-purple-500 to-purple-700',
-    href: WHATSAPP_URL,
-    external: true,
-  },
-];
-
-/** Three gradient action cards — the reference's "How Would You Like to Proceed?" pattern. */
+/** Closing CTA: one ink panel, one decision. */
 export default function ActionTrio() {
   return (
-    <section className="py-20 sm:py-24 px-4 sm:px-6 bg-white">
-      <div className="max-w-5xl mx-auto">
-        <SectionHeading
-          badge="Get Started Today"
-          title="How Would You Like to Begin?"
-          subtitle="Choose what works best for you — free trial, transparent pricing, or talk to us directly."
-        />
+    <section className="bg-mist px-4 pb-24 sm:px-6 sm:pb-32">
+      <Reveal className="mx-auto max-w-7xl">
+        <div className="relative overflow-hidden rounded-[2.5rem] bg-ink px-6 py-20 text-center text-white shadow-frame sm:px-12 sm:py-28 grain">
+          <div className="pointer-events-none absolute inset-0 wash-ink" aria-hidden="true" />
 
-        <div className="grid sm:grid-cols-3 gap-5">
-          {actions.map((a, i) => {
-            const Icon = a.icon;
-            const inner = (
-              <span
-                className={`flex h-full flex-col items-center text-center rounded-2xl bg-gradient-to-b ${a.gradient} p-8 shadow-[0_14px_38px_rgba(15,23,42,0.18)] hover:shadow-[0_20px_50px_rgba(15,23,42,0.28)] hover:-translate-y-1 transition-all duration-300`}
-              >
-                <span className="w-14 h-14 rounded-xl bg-white/15 backdrop-blur-sm border border-white/20 flex items-center justify-center text-white mb-5">
-                  <Icon size={22} />
+          <div className="relative mx-auto max-w-3xl">
+            <span className="eyebrow eyebrow-light justify-center">Get started</span>
+            <h2 className="display-hero mt-6 text-4xl text-white sm:text-6xl lg:text-[4.5rem]">
+              Ready when
+              <span className="accent-word text-accent-soft"> you are.</span>
+            </h2>
+            <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-white/60 sm:text-lg">
+              Spin up your workspace and see your operation in flow before you pay
+              anything. Plans from $15/month — 25% off paid yearly, no hidden fees.
+            </p>
+            <div className="mt-10 flex flex-col items-center justify-center gap-3.5 sm:flex-row">
+              <Link to="/get-started" className="btn-inverse btn-lg group w-full sm:w-auto">
+                Start free trial
+                <span className="btn-orb bg-ink/[0.07] transition-transform group-hover:translate-x-0.5">
+                  <ArrowRight size={14} />
                 </span>
-                <span className="font-bold text-white text-xl mb-2.5">{a.title}</span>
-                <span className="text-white/80 text-sm leading-relaxed flex-1">{a.description}</span>
-                <span className="mt-6 rounded-full bg-white/15 backdrop-blur-sm border border-white/20 px-4 py-1.5 text-xs font-semibold text-white">
-                  {a.badge}
-                </span>
-              </span>
-            );
-            return (
-              <Reveal key={a.title} delay={i * 100}>
-                {a.external ? (
-                  <a href={a.href} target="_blank" rel="noopener noreferrer" className="block h-full">
-                    {inner}
-                  </a>
-                ) : (
-                  <Link to={a.href} className="block h-full">
-                    {inner}
-                  </Link>
-                )}
-              </Reveal>
-            );
-          })}
+              </Link>
+              <Link to="/contact" className="btn-outline-light btn-lg w-full sm:w-auto">
+                Talk to sales
+              </Link>
+            </div>
+            <a
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-white/50 transition-colors hover:text-white"
+            >
+              <MessageCircle size={14} />
+              Fastest response on WhatsApp
+            </a>
+          </div>
         </div>
-      </div>
+      </Reveal>
     </section>
   );
 }

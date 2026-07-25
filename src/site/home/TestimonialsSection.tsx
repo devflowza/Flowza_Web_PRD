@@ -1,58 +1,79 @@
-import { Star } from 'lucide-react';
 import Reveal from '../Reveal';
 import { homeTestimonials } from '../data';
 
-/** Star-rated quote cards from operators running on FlowZa. */
+/** Two voices, both from live platforms — one featured, one supporting. */
 export default function TestimonialsSection() {
+  const [featured, supporting] = homeTestimonials;
+
   return (
-    <section id="testimonials" className="scroll-mt-28 py-20 sm:py-24 px-4 sm:px-6 bg-gray-50">
-      <div className="max-w-6xl mx-auto">
-        <Reveal className="text-center mb-12 sm:mb-16">
-          <span className="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-semibold mb-5 bg-blue-50 text-blue-600">
-            Customer Stories
-          </span>
-          <h2 className="font-bold text-3xl sm:text-4xl lg:text-[44px] leading-tight tracking-tight text-slate-900">
-            What Our Clients Say
-          </h2>
-          <span className="mt-4 inline-flex items-center gap-2">
-            <span className="flex gap-0.5" aria-label="5 out of 5 stars">
-              {Array.from({ length: 5 }).map((_, i) => (
-                <Star key={i} size={18} className="text-amber-400 fill-amber-400" />
-              ))}
-            </span>
-            <span className="text-gray-500 text-sm font-medium">Trusted by 100+ businesses across MEA &amp; India</span>
-          </span>
+    <section id="testimonials" className="scroll-mt-24 bg-mist px-4 py-24 sm:px-6 sm:py-32">
+      <div className="mx-auto max-w-7xl">
+        <Reveal className="mb-14 flex flex-wrap items-end justify-between gap-6 sm:mb-16">
+          <div>
+            <span className="eyebrow">Customer stories</span>
+            <h2 className="display-title mt-5 text-[2rem] text-ink sm:text-[2.6rem] lg:text-[3rem]">
+              Operators, in their own words.
+            </h2>
+          </div>
+          <p className="max-w-xs pb-2 text-sm leading-relaxed text-ink-500">
+            From the people running FlowZa Finance and FlowZa Club in production today.
+          </p>
         </Reveal>
 
-        <div className="grid md:grid-cols-3 gap-5">
-          {homeTestimonials.map((t, i) => (
-            <Reveal key={t.name} delay={i * 100}>
-              <figure className="h-full flex flex-col rounded-2xl bg-white border border-gray-200 p-6 shadow-sm hover:shadow-md transition-shadow">
-                <span className="flex gap-0.5 mb-4" aria-hidden="true">
-                  {Array.from({ length: 5 }).map((_, j) => (
-                    <Star key={j} size={14} className="text-amber-400 fill-amber-400" />
-                  ))}
+        <div className="grid gap-5 lg:grid-cols-[1.5fr_1fr]">
+          {/* Featured quote */}
+          <Reveal>
+            <figure className="relative flex h-full flex-col justify-between overflow-hidden rounded-[2rem] bg-white p-8 shadow-soft ring-1 ring-ink/[0.06] sm:p-12">
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute -top-7 right-6 select-none font-display text-[11rem] font-extrabold leading-none text-ink/[0.05]"
+              >
+                ”
+              </span>
+              <blockquote className="relative">
+                <p className="display-title text-[1.55rem] leading-[1.25] text-ink sm:text-[2rem]">
+                  {featured.quote}
+                </p>
+              </blockquote>
+              <figcaption className="relative mt-10 flex items-center gap-4">
+                <span
+                  className="flex h-12 w-12 items-center justify-center rounded-2xl text-sm font-bold text-white"
+                  style={{ background: featured.color }}
+                >
+                  {featured.initials}
                 </span>
-                <blockquote className="text-slate-700 text-[15px] leading-relaxed flex-1">
-                  “{t.quote}”
-                </blockquote>
-                <figcaption className="mt-6 pt-5 border-t border-gray-100 flex items-center gap-3">
-                  <span
-                    className="w-10 h-10 rounded-full flex items-center justify-center text-xs font-bold text-white shrink-0"
-                    style={{ background: t.color }}
-                  >
-                    {t.initials}
+                <span>
+                  <span className="block font-semibold text-ink">{featured.name}</span>
+                  <span className="block text-sm text-ink-400">
+                    {featured.role}, {featured.company}
                   </span>
-                  <span>
-                    <span className="block font-semibold text-slate-900 text-sm">{t.name}</span>
-                    <span className="block text-xs text-gray-500">
-                      {t.role} · {t.company}
-                    </span>
+                </span>
+              </figcaption>
+            </figure>
+          </Reveal>
+
+          {/* Supporting quote */}
+          <Reveal delay={120}>
+            <figure className="flex h-full flex-col justify-between rounded-[2rem] bg-white p-8 ring-1 ring-ink/[0.07]">
+              <blockquote>
+                <p className="text-[15px] leading-relaxed text-ink-600 sm:text-base">“{supporting.quote}”</p>
+              </blockquote>
+              <figcaption className="mt-8 flex items-center gap-3.5">
+                <span
+                  className="flex h-10 w-10 items-center justify-center rounded-xl text-xs font-bold text-white"
+                  style={{ background: supporting.color }}
+                >
+                  {supporting.initials}
+                </span>
+                <span>
+                  <span className="block text-sm font-semibold text-ink">{supporting.name}</span>
+                  <span className="block text-[13px] text-ink-400">
+                    {supporting.role}, {supporting.company}
                   </span>
-                </figcaption>
-              </figure>
-            </Reveal>
-          ))}
+                </span>
+              </figcaption>
+            </figure>
+          </Reveal>
         </div>
       </div>
     </section>

@@ -1,22 +1,16 @@
-import { useState } from 'react';
-import { Check, Sparkles, Crown, Play, ShoppingCart, Mail, FileText } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import { Check, ArrowRight, ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import SectionHeading from '../site/SectionHeading';
 import Reveal from '../site/Reveal';
-
-interface PlanFeature {
-  id: string;
-  text: string;
-}
 
 interface PricingPlan {
   id: string;
   name: string;
   monthlyPrice: number;
   description: string;
-  iconType: 'sparkle' | 'crown';
   isHighlighted: boolean;
-  features: PlanFeature[];
+  limits: { value: string; label: string }[];
   trialUrl: string;
   purchaseUrl: string;
 }
@@ -28,91 +22,96 @@ const plans: PricingPlan[] = [
     id: 'starter',
     name: 'Starter',
     monthlyPrice: 15,
-    description: 'For small businesses ready to streamline their finances',
-    iconType: 'sparkle',
+    description: 'Best for one- and two-person operations getting off spreadsheets.',
     isHighlighted: false,
     trialUrl: 'https://finance.flowza.ai/trial?plan=starter',
     purchaseUrl: 'https://finance.flowza.ai/checkout?plan=starter',
-    features: [
-      { id: '0', text: '1 company' },
-      { id: '1', text: '2 team members' },
-      { id: '2', text: '1,000 contacts' },
-      { id: '3', text: '50 invoices/month' },
-      { id: '4', text: '50 quotes/month' },
-      { id: '5', text: '50 bills/month' },
-      { id: '6', text: '1,000 catalog items' },
-      { id: '7', text: 'Purchase management' },
-      { id: '8', text: 'Banking & reconciliation' },
-      { id: '9', text: 'Budget tracking' },
-      { id: '10', text: 'Financial reports' },
-      { id: '11', text: 'Multi-currency support' },
-      { id: '12', text: 'Inventory tracking' },
-      { id: '13', text: 'Recurring invoices' },
+    limits: [
+      { value: '1', label: 'company' },
+      { value: '2', label: 'team members' },
+      { value: '1,000', label: 'contacts' },
+      { value: '50', label: 'invoices / month' },
+      { value: '50', label: 'quotes & bills / month' },
+      { value: '1,000', label: 'catalog items' },
     ],
   },
   {
     id: 'professional',
     name: 'Professional',
     monthlyPrice: 40,
-    description: 'For growing businesses that need the full toolkit',
-    iconType: 'crown',
+    description: 'Best for growing teams that invoice every week and run stock.',
     isHighlighted: true,
     trialUrl: 'https://finance.flowza.ai/trial?plan=professional',
     purchaseUrl: 'https://finance.flowza.ai/checkout?plan=professional',
-    features: [
-      { id: '20', text: '3 companies' },
-      { id: '14', text: '5 team members' },
-      { id: '15', text: '3,000 contacts' },
-      { id: '16', text: '125 invoices/month' },
-      { id: '17', text: '125 quotes/month' },
-      { id: '18', text: '125 bills/month' },
-      { id: '19', text: '3,000 catalog items' },
-      { id: '21', text: 'Purchase management' },
-      { id: '22', text: 'Banking & reconciliation' },
-      { id: '23', text: 'Budget tracking' },
-      { id: '24', text: 'Financial reports' },
-      { id: '25', text: 'Multi-currency support' },
-      { id: '26', text: 'Inventory tracking' },
-      { id: '27', text: 'Recurring invoices' },
+    limits: [
+      { value: '3', label: 'companies' },
+      { value: '5', label: 'team members' },
+      { value: '3,000', label: 'contacts' },
+      { value: '125', label: 'invoices / month' },
+      { value: '125', label: 'quotes & bills / month' },
+      { value: '3,000', label: 'catalog items' },
     ],
   },
   {
     id: 'enterprise',
-    name: 'Enterprise',
+    name: 'Scale',
     monthlyPrice: 60,
-    description: 'For established businesses with advanced requirements',
-    iconType: 'crown',
+    description: 'Best for multi-entity operations with heavier volumes.',
     isHighlighted: false,
     trialUrl: 'https://finance.flowza.ai/trial?plan=enterprise',
     purchaseUrl: 'https://finance.flowza.ai/checkout?plan=enterprise',
-    features: [
-      { id: '34', text: '5 companies' },
-      { id: '28', text: '10 team members' },
-      { id: '29', text: '6,000 contacts' },
-      { id: '30', text: '335 invoices/month' },
-      { id: '31', text: '335 quotes/month' },
-      { id: '32', text: '335 bills/month' },
-      { id: '33', text: '6,000 catalog items' },
-      { id: '35', text: 'Purchase management' },
-      { id: '36', text: 'Banking & reconciliation' },
-      { id: '37', text: 'Budget tracking' },
-      { id: '38', text: 'Financial reports' },
-      { id: '39', text: 'Multi-currency support' },
-      { id: '40', text: 'Inventory tracking' },
-      { id: '41', text: 'Recurring invoices' },
+    limits: [
+      { value: '5', label: 'companies' },
+      { value: '10', label: 'team members' },
+      { value: '6,000', label: 'contacts' },
+      { value: '335', label: 'invoices / month' },
+      { value: '335', label: 'quotes & bills / month' },
+      { value: '6,000', label: 'catalog items' },
     ],
   },
 ];
+
+const sharedFeatures = [
+  'Purchase management',
+  'Banking & reconciliation',
+  'Budget tracking',
+  'Financial reports',
+  'Multi-currency support',
+  'Inventory tracking',
+  'Recurring invoices',
+];
+
+function AnimatedPrice({ value, className }: { value: number; className: string }) {
+  const [display, setDisplay] = useState(value);
+  const prevRef = useRef(value);
+
+  useEffect(() => {
+    const from = prevRef.current;
+    prevRef.current = value;
+    if (from === value || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setDisplay(value);
+      return;
+    }
+    const start = performance.now();
+    const duration = 350;
+    let raf = 0;
+    const tick = (now: number) => {
+      const t = Math.min(1, (now - start) / duration);
+      const eased = 1 - Math.pow(1 - t, 3);
+      setDisplay(Math.round(from + (value - from) * eased));
+      if (t < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [value]);
+
+  return <span className={className}>${display}</span>;
+}
 
 function calculateYearlyPrice(monthlyPrice: number): number {
   const yearlyTotal = monthlyPrice * 12;
   const discount = yearlyTotal * (YEARLY_DISCOUNT_PERCENT / 100);
   return Math.round((yearlyTotal - discount) / 12);
-}
-
-function PlanIcon({ type, className }: { type: 'sparkle' | 'crown'; className?: string }) {
-  if (type === 'sparkle') return <Sparkles className={className} />;
-  return <Crown className={className} />;
 }
 
 export default function Pricing() {
@@ -122,135 +121,167 @@ export default function Pricing() {
     billingPeriod === 'yearly' ? calculateYearlyPrice(monthlyPrice) : monthlyPrice;
 
   return (
-    <section id="pricing" className="scroll-mt-28 py-20 sm:py-24 px-4 sm:px-6 bg-white">
-      <div className="max-w-6xl mx-auto">
+    <section id="pricing" className="scroll-mt-24 bg-white px-4 py-24 sm:px-6 sm:py-32">
+      <div className="mx-auto max-w-7xl">
         <SectionHeading
-          badge="Pricing"
-          title="Simple, Transparent Pricing"
-          subtitle="Start free, scale as you grow. Every plan includes purchase management, banking, reports and multi-currency support."
+          badge="Pricing · FlowZa Finance"
+          title="Simple, transparent pricing."
+          subtitle="FlowZa Finance plans differ only in capacity — every feature ships with every plan. FlowZa Club has its own 14-day trial; the rest of the fabric is priced on request."
         />
 
         {/* Billing toggle */}
-        <Reveal className="flex justify-center mb-12">
-          <div className="inline-flex items-center p-1 bg-gray-100 rounded-full border border-gray-200">
+        <Reveal className="mb-14 flex justify-center">
+          <div className="relative inline-flex items-center rounded-full bg-mist p-1 ring-1 ring-ink/[0.07]" role="group" aria-label="Billing period">
+            <span
+              aria-hidden="true"
+              className={`absolute bottom-1 top-1 w-[calc(50%-4px)] rounded-full bg-ink shadow-pill transition-transform duration-500 ease-swift ${
+                billingPeriod === 'yearly' ? 'translate-x-[calc(100%+0px)]' : 'translate-x-0'
+              }`}
+              style={{ left: '4px' }}
+            />
             <button
               onClick={() => setBillingPeriod('monthly')}
-              className={`px-6 py-2.5 text-sm font-semibold rounded-full transition-all duration-200 ${
-                billingPeriod === 'monthly' ? 'bg-white text-slate-900 shadow-sm' : 'text-gray-500 hover:text-gray-700'
+              aria-pressed={billingPeriod === 'monthly'}
+              className={`relative z-10 w-32 rounded-full py-2.5 text-sm font-semibold transition-colors duration-300 ${
+                billingPeriod === 'monthly' ? 'text-white' : 'text-ink-500 hover:text-ink'
               }`}
             >
               Monthly
             </button>
             <button
               onClick={() => setBillingPeriod('yearly')}
-              className={`px-6 py-2.5 text-sm font-semibold rounded-full transition-all duration-200 flex items-center gap-2 ${
-                billingPeriod === 'yearly' ? 'bg-white text-slate-900 shadow-sm' : 'text-gray-500 hover:text-gray-700'
+              aria-pressed={billingPeriod === 'yearly'}
+              className={`relative z-10 w-32 rounded-full py-2.5 text-sm font-semibold transition-colors duration-300 ${
+                billingPeriod === 'yearly' ? 'text-white' : 'text-ink-500 hover:text-ink'
               }`}
             >
               Yearly
-              <span className="text-xs text-emerald-600 font-semibold">Save {YEARLY_DISCOUNT_PERCENT}%</span>
+              <span className={`ml-1.5 text-xs font-bold ${billingPeriod === 'yearly' ? 'text-white/80' : 'text-accent'}`}>
+                −25%
+              </span>
             </button>
           </div>
         </Reveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
+        {/* Plan cards */}
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
           {plans.map((plan, i) => (
-            <Reveal key={plan.id} delay={i * 90} className="relative h-full">
-              {plan.isHighlighted && (
-                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 z-10">
-                  <span className="px-4 py-1.5 rounded-full text-xs font-bold text-white fx-gradient shadow-[0_4px_14px_rgba(37,99,235,0.4)]">
-                    Most Popular
-                  </span>
-                </div>
-              )}
-              <div
-                className={`relative h-full p-7 rounded-2xl border bg-white transition-all duration-300 ${
+            <Reveal
+              key={plan.id}
+              delay={i * 90}
+              className={`h-full ${plan.isHighlighted ? 'md:order-first md:col-span-2 lg:order-none lg:col-span-1' : ''}`}
+            >
+              <article
+                className={`relative flex h-full flex-col rounded-[1.75rem] p-8 transition-all duration-500 ease-swift ${
                   plan.isHighlighted
-                    ? 'border-blue-200 shadow-[0_20px_50px_rgba(37,99,235,0.14)]'
-                    : 'border-gray-200 shadow-sm hover:border-gray-300 hover:shadow-md'
+                    ? 'bg-ink text-white shadow-frame grain overflow-hidden'
+                    : 'bg-white ring-1 ring-ink/[0.08] hover:ring-ink/20 hover:shadow-soft'
                 }`}
               >
-                <div className="flex items-center gap-2 mb-4">
-                  <span
-                    className={`w-9 h-9 rounded-xl flex items-center justify-center ${
-                      plan.isHighlighted ? 'bg-blue-50 border border-blue-100' : 'bg-gray-50 border border-gray-100'
-                    }`}
-                  >
-                    <PlanIcon type={plan.iconType} className="w-[18px] h-[18px] text-blue-600" />
-                  </span>
-                  <span className="text-lg font-bold text-slate-900">{plan.name}</span>
-                </div>
+                {plan.isHighlighted && (
+                  <div className="pointer-events-none absolute inset-0 wash-ink" aria-hidden="true" />
+                )}
 
-                <div className="mb-3">
-                  <span className="text-[42px] font-bold text-slate-900 tracking-tight">
-                    ${getDisplayPrice(plan.monthlyPrice)}
-                  </span>
-                  <span className="text-gray-500 text-sm ml-1">/mo</span>
-                  {billingPeriod === 'yearly' && (
-                    <span className="ml-2 text-xs font-semibold text-emerald-600">billed yearly</span>
-                  )}
-                </div>
+                <div className="relative">
+                  <div className="flex items-center justify-between">
+                    <h3 className={`font-display text-xl font-bold tracking-snug ${plan.isHighlighted ? 'text-white' : 'text-ink'}`}>
+                      {plan.name}
+                    </h3>
+                    {plan.isHighlighted && (
+                      <span className="rounded-full bg-white/10 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.14em] text-white ring-1 ring-white/20">
+                        Most popular
+                      </span>
+                    )}
+                  </div>
 
-                <p className="text-sm text-gray-500 mb-6 leading-relaxed">{plan.description}</p>
+                  <p className={`mt-2 text-sm leading-relaxed ${plan.isHighlighted ? 'text-white/60' : 'text-ink-400'}`}>
+                    {plan.description}
+                  </p>
 
-                <div className="flex flex-col sm:flex-row gap-3 mb-7">
+                  <div className="mt-7 flex items-baseline gap-1.5">
+                    <AnimatedPrice
+                      value={getDisplayPrice(plan.monthlyPrice)}
+                      className={`tabular font-display text-[3.25rem] font-extrabold leading-none tracking-tightest ${plan.isHighlighted ? 'text-white' : 'text-ink'}`}
+                    />
+                    <span className={`text-sm font-medium ${plan.isHighlighted ? 'text-white/50' : 'text-ink-400'}`}>
+                      /month
+                    </span>
+                  </div>
+                  <p className={`mt-1.5 h-4 text-xs font-medium ${plan.isHighlighted ? 'text-accent-soft' : 'text-accent'}`}>
+                    {billingPeriod === 'yearly' ? `billed yearly — saving ${YEARLY_DISCOUNT_PERCENT}%` : ''}
+                  </p>
+
                   <a
                     href={plan.trialUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 py-3 px-4 rounded-xl text-sm font-semibold flex items-center justify-center gap-2 border border-gray-200 text-slate-700 hover:border-blue-300 hover:text-blue-700 transition-all"
+                    className={`${plan.isHighlighted ? 'btn-inverse' : 'btn-primary'} btn-md group mt-6 w-full`}
                   >
-                    <Play size={15} />
-                    Start Trial
+                    Start free trial
+                    <span className={`btn-orb ${plan.isHighlighted ? 'bg-ink/[0.07]' : 'bg-white/15'} group-hover:translate-x-0.5`}>
+                      <ArrowRight size={13} />
+                    </span>
                   </a>
                   <a
                     href={plan.purchaseUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`flex-1 py-3 px-4 rounded-xl text-sm font-semibold flex items-center justify-center gap-2 text-white transition-all ${
-                      plan.isHighlighted
-                        ? 'fx-gradient shadow-[0_6px_18px_rgba(37,99,235,0.35)] hover:shadow-[0_8px_24px_rgba(37,99,235,0.45)]'
-                        : 'bg-slate-900 hover:bg-slate-800'
+                    className={`group mt-1.5 inline-flex w-full items-center justify-center gap-1.5 py-2.5 text-sm font-semibold transition-colors duration-300 ${
+                      plan.isHighlighted ? 'text-white/70 hover:text-white' : 'text-ink-500 hover:text-ink'
                     }`}
                   >
-                    <ShoppingCart size={15} />
-                    Buy Now
+                    or buy now
+                    <ArrowUpRight size={13} className="transition-transform duration-300 ease-swift group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                   </a>
-                </div>
 
-                <ul className="space-y-3">
-                  {plan.features.map((feature) => (
-                    <li key={feature.id} className="flex items-start gap-2.5">
-                      <span className="w-[18px] h-[18px] rounded-full bg-emerald-50 border border-emerald-200 flex items-center justify-center shrink-0 mt-0.5">
-                        <Check size={11} className="text-emerald-600" />
-                      </span>
-                      <span className="text-sm text-slate-700">{feature.text}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+                  <ul className={`mt-7 border-t pt-6 ${plan.isHighlighted ? 'border-white/15' : 'border-ink/[0.07]'}`}>
+                    {plan.limits.map((limit) => (
+                      <li
+                        key={limit.label}
+                        className={`flex items-baseline justify-between py-1.5 text-sm ${
+                          plan.isHighlighted ? 'text-white/60' : 'text-ink-500'
+                        }`}
+                      >
+                        <span>{limit.label}</span>
+                        <span className={`tabular font-semibold ${plan.isHighlighted ? 'text-white' : 'text-ink'}`}>
+                          {limit.value}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </article>
             </Reveal>
           ))}
         </div>
 
+        {/* Shared feature strip */}
+        <Reveal delay={120} className="mt-5">
+          <div className="rounded-[1.5rem] bg-mist px-7 py-7 ring-1 ring-ink/[0.06] sm:px-9">
+            <p className="text-[12px] font-bold uppercase tracking-[0.18em] text-ink-400">Every plan includes</p>
+            <ul className="mt-4 flex flex-wrap gap-x-8 gap-y-2.5">
+              {sharedFeatures.map((feature) => (
+                <li key={feature} className="flex items-center gap-2 text-sm font-medium text-ink-600">
+                  <Check size={14} className="text-ink" strokeWidth={2.5} />
+                  {feature}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </Reveal>
+
         {/* Enterprise Plus */}
-        <Reveal className="mt-10">
-          <div className="rounded-2xl border border-gray-200 bg-gray-50 p-6 md:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-            <div className="flex items-center gap-4">
-              <span className="w-12 h-12 rounded-xl bg-white border border-gray-200 flex items-center justify-center shadow-sm">
-                <FileText className="w-5 h-5 text-blue-600" />
-              </span>
-              <span>
-                <span className="block text-lg font-bold text-slate-900">Enterprise Plus</span>
-                <span className="block text-sm text-gray-500">Tailored for your enterprise needs — custom pricing</span>
-              </span>
+        <Reveal delay={160} className="mt-5">
+          <div className="flex flex-col items-start justify-between gap-6 rounded-[1.5rem] px-7 py-7 ring-1 ring-ink/[0.08] sm:px-9 md:flex-row md:items-center">
+            <div>
+              <h3 className="font-display text-lg font-bold tracking-snug text-ink">Enterprise Plus</h3>
+              <p className="mt-1 text-sm text-ink-400">
+                Custom capacity, dedicated infrastructure and white-glove onboarding — priced for your scale.
+              </p>
             </div>
-            <Link
-              to="/contact"
-              className="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-slate-900 text-white text-sm font-semibold rounded-xl hover:bg-slate-800 transition-colors shrink-0"
-            >
-              <Mail size={15} />
-              Contact Sales
+            <Link to="/contact" className="btn-secondary btn-md group shrink-0">
+              Contact sales
+              <ArrowRight size={14} className="transition-transform duration-300 ease-swift group-hover:translate-x-0.5" />
             </Link>
           </div>
         </Reveal>

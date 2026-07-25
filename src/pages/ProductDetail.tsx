@@ -1,172 +1,195 @@
 import { useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { ArrowLeft, ArrowRight, ExternalLink, MessageCircle, Star } from 'lucide-react';
+import { ArrowLeft, ArrowRight, ArrowUpRight, MessageCircle, Star, Play } from 'lucide-react';
 import SiteLayout from '../site/SiteLayout';
 import SectionHeading from '../site/SectionHeading';
 import Reveal from '../site/Reveal';
+import ProductCover from '../site/ProductCover';
 import Pricing from '../components/Pricing';
+import ClosingCta from '../site/ClosingCta';
 import productDetailsMap from '../data/productDetails';
 import { productImages } from '../assets/productImages';
-import { WHATSAPP_URL } from '../site/data';
+import { landingProducts, whatsappUrl } from '../site/data';
+import usePageMeta from '../lib/usePageMeta';
 
 export default function ProductDetail() {
   const { productId } = useParams<{ productId: string }>();
   const navigate = useNavigate();
 
   const product = productId ? productDetailsMap[productId] : null;
+  const isLive = product ? landingProducts.find((p) => p.id === product.id)?.live ?? false : false;
 
   useEffect(() => {
     if (!product) navigate('/', { replace: true });
   }, [product, navigate]);
 
-  useEffect(() => {
-    if (product) document.title = `${product.name} — FlowZa AI`;
-    return () => {
-      document.title = 'FlowZa AI — Business Operating Systems';
-    };
-  }, [product]);
+  usePageMeta({
+    title: product ? `${product.name} — ${product.tagline} | FlowZa AI` : 'FlowZa AI',
+    description: product?.description,
+    ogImage: product ? productImages[product.id] || undefined : undefined,
+  });
 
   if (!product) return null;
 
-  const ProductIcon = product.icon;
-  const image = productImages[product.id] ?? product.related[0]?.pexelsImage;
+  const shortName = product.name.replace('FlowZa ', '');
+  const image = productImages[product.id];
+
+  const productJsonLd = JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: product.name,
+    applicationCategory: 'BusinessApplication',
+    operatingSystem: 'Web',
+    description: product.description,
+    url: `https://flowza.ai/products/${product.id}`,
+    offers:
+      product.id === 'finance'
+        ? { '@type': 'Offer', price: '15', priceCurrency: 'USD', description: 'Starter plan, per month' }
+        : undefined,
+  });
 
   return (
     <SiteLayout>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: productJsonLd }} />
       {/* Hero */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-blue-50/70 via-slate-50 to-white">
-        <div className="absolute inset-0 fx-grid fx-grid-fade pointer-events-none" />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 pt-10 pb-16 lg:pt-14 lg:pb-24">
+      <section className="relative overflow-hidden wash-top">
+        <div className="relative mx-auto max-w-7xl px-4 pb-20 pt-10 sm:px-6 lg:pb-24 lg:pt-14">
           <Link
             to="/#platforms"
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-gray-500 hover:text-blue-600 transition-colors mb-8"
+            className="group mb-10 inline-flex items-center gap-2 text-sm font-medium text-ink-400 transition-colors hover:text-ink"
           >
-            <ArrowLeft size={15} />
+            <ArrowLeft size={15} className="transition-transform duration-300 ease-swift group-hover:-translate-x-0.5" />
             All platforms
           </Link>
 
-          <div className="grid lg:grid-cols-[1.05fr_1fr] gap-12 lg:gap-10 items-center">
+          <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_1fr] lg:gap-16">
             <div>
-              <span
-                className="inline-flex items-center gap-2.5 rounded-full bg-white border shadow-sm px-4 py-1.5 text-sm font-semibold mb-7"
-                style={{ borderColor: `${product.color}44`, color: product.color }}
-              >
-                <span className="w-6 h-6 rounded-lg flex items-center justify-center" style={{ background: `${product.color}18` }}>
-                  <ProductIcon size={13} />
-                </span>
+              <span className="eyebrow">
                 {product.tagline}
+                {!isLive && (
+                  <span className="ml-2 rounded-full bg-accent-wash px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-[0.14em] text-accent-deep normal-case">
+                    Rolling out
+                  </span>
+                )}
               </span>
 
-              <h1 className="font-bold text-slate-900 text-4xl sm:text-5xl lg:text-[54px] leading-[1.08] tracking-tight mb-6">
-                {product.name}
-              </h1>
+              <h1 className="display-hero mt-6 text-[42px] text-ink sm:text-5xl lg:text-[62px]">{product.name}</h1>
 
-              <p className="text-lg text-gray-600 leading-relaxed max-w-xl mb-7">{product.description}</p>
+              <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink-500">{product.description}</p>
 
-              <div className="flex flex-wrap gap-2.5 mb-9">
+              <ul className="mt-7 flex flex-wrap gap-x-6 gap-y-2.5">
                 {product.badges.map((b) => (
-                  <span
-                    key={b}
-                    className="inline-flex items-center gap-1.5 rounded-full bg-white border border-gray-200 px-3.5 py-1.5 text-[13px] font-medium text-slate-700 shadow-sm"
-                  >
-                    <span className="w-1.5 h-1.5 rounded-full" style={{ background: product.color }} />
+                  <li key={b} className="flex items-center gap-2 text-sm font-medium text-ink-500">
+                    <span className="h-1 w-1 rounded-full" style={{ background: product.color }} aria-hidden="true" />
                     {b}
-                  </span>
+                  </li>
                 ))}
-              </div>
+              </ul>
 
-              <div className="flex flex-col sm:flex-row flex-wrap gap-3">
-                <a
-                  href={product.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 rounded-xl text-white text-sm font-semibold px-6 py-3.5 hover:-translate-y-px transition-all"
-                  style={{
-                    background: `linear-gradient(120deg, ${product.color}, ${product.colorSecondary})`,
-                    boxShadow: `0 8px 24px ${product.color}59`,
-                  }}
-                >
-                  Launch {product.name.replace('FlowZa ', '')}
-                  <ExternalLink size={15} />
-                </a>
-                <a
-                  href={WHATSAPP_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#25d366] text-white text-sm font-semibold px-6 py-3.5 shadow-[0_6px_18px_rgba(37,211,102,0.35)] hover:shadow-[0_8px_24px_rgba(37,211,102,0.5)] hover:-translate-y-px transition-all"
-                >
-                  <MessageCircle size={16} />
-                  Ask on WhatsApp
-                </a>
-                <Link
-                  to="/contact"
-                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-white border border-gray-200 text-slate-800 text-sm font-semibold px-6 py-3.5 shadow-sm hover:border-blue-300 hover:text-blue-700 transition-all"
-                >
-                  Talk to Sales
+              <div className="mt-9 flex flex-col gap-3.5 sm:flex-row sm:flex-wrap">
+                {isLive ? (
+                  <a href={product.href} target="_blank" rel="noopener noreferrer" className="btn-primary btn-lg group">
+                    Launch {shortName}
+                    <span className="btn-orb bg-white/15 group-hover:translate-x-0.5">
+                      <ArrowUpRight size={14} />
+                    </span>
+                  </a>
+                ) : (
+                  <Link to={`/contact?service=${encodeURIComponent(product.name)}`} className="btn-primary btn-lg group">
+                    Get early access
+                    <span className="btn-orb bg-white/15 group-hover:translate-x-0.5">
+                      <ArrowRight size={14} />
+                    </span>
+                  </Link>
+                )}
+                <Link to="/contact" className="btn-secondary btn-lg">
+                  Talk to sales
                 </Link>
+                {product.id === 'finance' && (
+                  <Link to="/finance-demo" className="btn-secondary btn-lg group">
+                    <Play size={14} className="text-accent" />
+                    Try the live demo
+                  </Link>
+                )}
               </div>
+              <a
+                href={whatsappUrl(`Hello! I'm interested in ${product.name}.`)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-5 inline-flex items-center gap-2 py-2 text-sm font-medium text-ink-400 transition-colors duration-300 hover:text-ink"
+              >
+                <MessageCircle size={14} />
+                or ask us anything on WhatsApp
+              </a>
             </div>
 
-            {/* Visual */}
-            <div className="relative">
-              <div className="relative rounded-2xl overflow-hidden shadow-[0_24px_70px_rgba(15,23,42,0.2)] ring-1 ring-slate-900/5 bg-white">
-                <img
-                  src={image}
-                  alt={`${product.name} interface`}
-                  className="w-full h-[300px] sm:h-[400px] object-cover object-left-top"
-                />
-                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-navy-950/85 via-navy-950/35 to-transparent pt-14 pb-4 px-5">
-                  <p className="text-white font-bold text-lg leading-tight">{product.name}</p>
-                  <p className="text-white/70 text-sm">{product.tagline}</p>
+            {/* Visual — opacity never gated: this is the page's LCP element */}
+            <div className="rise-block-media relative" style={{ animationDelay: '80ms' }}>
+              <div className="bezel shadow-frame">
+                <div className="bezel-inner relative h-[300px] sm:h-[400px]">
+                  <ProductCover
+                    name={product.name}
+                    icon={product.icon}
+                    image={image}
+                    priority
+                    imgClassName="absolute inset-0 h-full w-full object-cover object-left-top"
+                  />
                 </div>
               </div>
-              <div className="absolute -top-5 -right-2 sm:-right-4 rounded-2xl bg-white shadow-[0_12px_36px_rgba(15,23,42,0.16)] border border-gray-100 px-4 py-3">
-                <span className="block font-bold text-slate-900 text-lg leading-none">{product.stats[0].value}</span>
-                <span className="block text-xs text-gray-500 mt-1 max-w-[16ch]">{product.stats[0].label}</span>
+              {isLive && (
+              <div className="absolute -bottom-5 left-8 rounded-2xl bg-white/90 px-5 py-4 shadow-lift ring-1 ring-ink/[0.06] backdrop-blur-md">
+                <span className="tabular block font-display text-xl font-bold leading-none text-ink">
+                  {product.stats[0].value}
+                </span>
+                <span className="mt-1 block max-w-[18ch] text-xs text-ink-400">{product.stats[0].label}</span>
               </div>
+              )}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Stats band */}
-      <section
-        className="relative overflow-hidden py-14 px-4 sm:px-6"
-        style={{ background: `linear-gradient(110deg, ${product.colorSecondary}, ${product.color})` }}
-      >
-        <div className="relative max-w-6xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-10">
-          {product.stats.map((s, i) => (
-            <Reveal key={s.label} delay={i * 80} className="text-center">
-              <p className="font-bold text-white text-3xl sm:text-4xl tracking-tight">{s.value}</p>
-              <span className="block w-8 h-0.5 bg-white/50 mx-auto mt-3 mb-3 rounded-full" />
-              <p className="text-white/85 text-xs sm:text-sm font-semibold uppercase tracking-[0.12em]">{s.label}</p>
+      {/* Stats — editorial numbers, hairline separated (live products only) */}
+      {isLive && (
+      <section className="border-y border-ink/[0.06] bg-white px-4 py-14 sm:px-6 sm:py-16" aria-label={`${product.name} in numbers`}>
+        <div className="mx-auto grid max-w-7xl grid-cols-2 gap-y-10 lg:grid-cols-3">
+          {product.stats.slice(1).map((s, i) => (
+            <Reveal
+              key={s.label}
+              delay={i * 80}
+              className={`px-6 text-center sm:px-10 ${i % 2 === 1 ? 'border-l border-ink/[0.07]' : ''} ${
+                i === 2 ? 'border-t border-ink/[0.07] pt-10 lg:border-l lg:border-ink/[0.07] lg:border-t-0 lg:pt-0' : ''
+              }`}
+            >
+              <p className="tabular font-display text-4xl font-extrabold leading-none tracking-tightest text-ink sm:text-5xl">
+                {s.value}
+              </p>
+              <p className="mt-3 text-[13px] font-medium text-ink-400">{s.label}</p>
             </Reveal>
           ))}
         </div>
       </section>
+      )}
 
       {/* Features */}
-      <section className="py-20 sm:py-24 px-4 sm:px-6 bg-gray-50">
-        <div className="max-w-6xl mx-auto">
+      <section className="bg-mist px-4 py-24 sm:px-6 sm:py-32">
+        <div className="mx-auto max-w-7xl">
           <SectionHeading
             badge="Capabilities"
-            title={`Everything ${product.name.replace('FlowZa ', '')} Does for You`}
+            title={`Everything ${shortName} does for you.`}
             subtitle={product.longDescription}
           />
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {product.features.map((f, i) => {
               const Icon = f.icon;
               return (
-                <Reveal key={f.title} delay={(i % 3) * 90}>
-                  <article className="h-full rounded-2xl bg-white border border-gray-200 p-6 shadow-sm hover:shadow-[0_14px_36px_rgba(15,23,42,0.1)] hover:-translate-y-1 transition-all duration-300">
-                    <span
-                      className="w-12 h-12 rounded-xl flex items-center justify-center mb-5"
-                      style={{ background: `${product.color}12`, border: `1px solid ${product.color}30`, color: product.color }}
-                    >
-                      <Icon size={20} />
+                <Reveal key={f.title} delay={(i % 3) * 80}>
+                  <article className="card-line h-full bg-white p-7 hover:-translate-y-1">
+                    <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-mist text-ink-500 ring-1 ring-ink/[0.05]">
+                      <Icon size={18} strokeWidth={1.7} />
                     </span>
-                    <h3 className="font-bold text-slate-900 text-lg mb-2.5">{f.title}</h3>
-                    <p className="text-gray-500 text-sm leading-relaxed">{f.description}</p>
+                    <h3 className="mt-5 font-display text-lg font-bold tracking-snug text-ink">{f.title}</h3>
+                    <p className="mt-2 text-sm leading-relaxed text-ink-500">{f.description}</p>
                   </article>
                 </Reveal>
               );
@@ -175,57 +198,72 @@ export default function ProductDetail() {
         </div>
       </section>
 
-      {/* Steps */}
-      <section className="py-20 sm:py-24 px-4 sm:px-6 bg-white">
-        <div className="max-w-6xl mx-auto">
-          <SectionHeading badge="How It Works" title="Up and Running in Three Steps" />
-          <div className="relative grid sm:grid-cols-3 gap-10 sm:gap-6">
-            <div
-              className="hidden sm:block absolute top-9 left-[16%] right-[16%] h-px"
-              style={{ background: `linear-gradient(90deg, ${product.color}33, ${product.color}66, ${product.color}33)` }}
-            />
+      {/* Steps — editorial rows */}
+      <section className="bg-white px-4 py-24 sm:px-6 sm:py-32">
+        <div className="mx-auto grid max-w-7xl gap-14 lg:grid-cols-[1fr_1.4fr] lg:gap-24">
+          <div className="lg:sticky lg:top-32 lg:self-start">
+            <Reveal>
+              <span className="eyebrow">How it works</span>
+              <h2 className="display-title mt-5 text-[2rem] text-ink sm:text-[2.6rem]">
+                Up and running in three steps.
+              </h2>
+            </Reveal>
+          </div>
+          <div>
             {product.steps.map((step, i) => (
-              <Reveal key={step.number} delay={i * 120} className="relative flex flex-col items-center text-center">
-                <div className="relative mb-6">
-                  <span
-                    className="w-[72px] h-[72px] rounded-full flex items-center justify-center text-white font-bold text-xl"
-                    style={{ background: product.color, boxShadow: `0 10px 26px ${product.color}4d` }}
-                  >
-                    {step.number}
+              <Reveal key={step.number} delay={i * 100}>
+                <article
+                  className={`group flex gap-7 border-t border-ink/[0.08] py-10 sm:gap-10 sm:py-12 ${
+                    i === product.steps.length - 1 ? 'border-b' : ''
+                  }`}
+                >
+                  <span aria-hidden="true" className="font-display text-4xl font-extrabold leading-none tracking-tightest text-ink-100 sm:text-6xl">
+                    {String(step.number).padStart(2, '0')}
                   </span>
-                </div>
-                <h3 className="font-bold text-slate-900 text-lg mb-3">{step.title}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed max-w-[38ch]">{step.description}</p>
+                  <div className="pt-1">
+                    <h3 className="font-display text-xl font-bold tracking-snug text-ink sm:text-2xl">{step.title}</h3>
+                    <p className="mt-3 max-w-lg text-[15px] leading-relaxed text-ink-500">{step.description}</p>
+                  </div>
+                </article>
               </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Testimonial */}
-      <section className="py-20 px-4 sm:px-6 bg-gray-50">
-        <div className="max-w-3xl mx-auto">
+      {/* Testimonial — live products only */}
+      {isLive && (
+      <section className="bg-mist px-4 py-24 sm:px-6 sm:py-28">
+        <div className="mx-auto max-w-3xl">
           <Reveal>
-            <figure className="rounded-2xl bg-white border border-gray-200 shadow-[0_14px_40px_rgba(15,23,42,0.08)] p-8 sm:p-10 text-center">
-              <span className="flex justify-center gap-1 mb-6" aria-label="5 out of 5 stars">
+            <figure className="relative overflow-hidden rounded-[2rem] bg-white p-8 shadow-soft ring-1 ring-ink/[0.06] sm:p-12">
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute -top-6 right-8 select-none font-display text-[10rem] font-extrabold leading-none text-ink/[0.04]"
+              >
+                ”
+              </span>
+              <span className="relative flex gap-1" aria-label="Rated 5 out of 5">
                 {Array.from({ length: 5 }).map((_, i) => (
-                  <Star key={i} size={18} className="text-amber-400 fill-amber-400" />
+                  <Star key={i} size={15} className="fill-ink text-ink" />
                 ))}
               </span>
-              <blockquote className="text-slate-800 text-lg sm:text-xl leading-relaxed font-medium">
-                “{product.testimonial.quote}”
+              <blockquote className="relative mt-6">
+                <p className="display-title text-xl leading-[1.35] text-ink sm:text-2xl">
+                  “{product.testimonial.quote}”
+                </p>
               </blockquote>
-              <figcaption className="mt-8 flex items-center justify-center gap-3">
+              <figcaption className="relative mt-8 flex items-center gap-4">
                 <span
-                  className="w-11 h-11 rounded-full flex items-center justify-center text-sm font-bold text-white"
+                  className="flex h-12 w-12 items-center justify-center rounded-2xl text-sm font-bold text-white"
                   style={{ background: product.color }}
                 >
                   {product.testimonial.initials}
                 </span>
-                <span className="text-left">
-                  <span className="block font-semibold text-slate-900 text-sm">{product.testimonial.name}</span>
-                  <span className="block text-xs text-gray-500">
-                    {product.testimonial.role} · {product.testimonial.company}
+                <span>
+                  <span className="block font-semibold text-ink">{product.testimonial.name}</span>
+                  <span className="block text-sm text-ink-400">
+                    {product.testimonial.role}, {product.testimonial.company}
                   </span>
                 </span>
               </figcaption>
@@ -233,36 +271,37 @@ export default function ProductDetail() {
           </Reveal>
         </div>
       </section>
+      )}
 
       {/* Pricing — plans are FlowZa Finance plans */}
       {product.id === 'finance' && <Pricing />}
 
       {/* Related platforms */}
-      <section className="py-20 sm:py-24 px-4 sm:px-6 bg-white">
-        <div className="max-w-7xl mx-auto">
+      <section className="bg-white px-4 py-24 sm:px-6 sm:py-32">
+        <div className="mx-auto max-w-7xl">
           <SectionHeading
-            badge="One Fabric"
-            title="Works Better Together"
+            badge="One fabric"
+            title="Works better together."
             subtitle="Every FlowZa platform shares the same operating fabric — customers, inventory and ledger data flow between systems without manual re-entry."
           />
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {product.related.slice(0, 3).map((r, i) => (
-              <Reveal key={r.id} delay={i * 90}>
+              <Reveal key={r.id} delay={i * 80}>
                 <Link
                   to={`/products/${r.id}`}
-                  className="group relative block rounded-2xl overflow-hidden bg-navy-900 shadow-[0_4px_20px_rgba(15,23,42,0.1)] hover:shadow-[0_16px_44px_rgba(15,23,42,0.22)] hover:-translate-y-1 transition-all duration-300 h-[220px]"
+                  className="group relative block h-[240px] overflow-hidden rounded-[1.75rem] bg-ink shadow-soft transition-all duration-500 ease-swift hover:-translate-y-1 hover:shadow-lift"
                 >
-                  <img
-                    src={productImages[r.id] ?? r.pexelsImage}
-                    alt={r.name}
-                    loading="lazy"
-                    className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-60 group-hover:scale-[1.04] transition-all duration-500"
+                  <ProductCover
+                    name={r.name}
+                    icon={productDetailsMap[r.id]?.icon ?? product.icon}
+                    image={productImages[r.id]}
+                    imgClassName="absolute inset-0 h-full w-full object-cover opacity-80 transition-all duration-700 ease-swift group-hover:scale-[1.04] group-hover:opacity-60"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-navy-950/95 via-navy-950/35 to-navy-950/10" />
-                  <div className="absolute inset-x-0 bottom-0 p-5">
-                    <p className="text-white font-bold text-lg leading-tight">{r.name}</p>
-                    <p className="text-white/70 text-sm mt-1">{r.tagline}</p>
-                    <span className="mt-3 inline-flex items-center gap-1.5 text-[13px] font-semibold text-cyan-300 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
+                  <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/30 to-ink/10" aria-hidden="true" />
+                  <div className="absolute inset-x-0 bottom-0 p-6">
+                    <p className="font-display text-lg font-bold tracking-snug text-white">{r.name}</p>
+                    <p className="mt-1 text-sm text-white/65">{r.tagline}</p>
+                    <span className="mt-3 inline-flex -translate-x-1 items-center gap-1.5 text-[13px] font-semibold text-white opacity-0 transition-all duration-300 ease-swift group-hover:translate-x-0 group-hover:opacity-100">
                       Explore platform <ArrowRight size={13} />
                     </span>
                   </div>
@@ -272,6 +311,12 @@ export default function ProductDetail() {
           </div>
         </div>
       </section>
+
+      <ClosingCta
+        title="See your operation"
+        accent="in flow."
+        subtitle={`Try ${shortName} with your own data — guided setup, no card required, and a real person on WhatsApp when you need one.`}
+      />
     </SiteLayout>
   );
 }

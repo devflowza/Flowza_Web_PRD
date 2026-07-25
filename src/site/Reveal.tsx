@@ -14,10 +14,15 @@ export default function Reveal({ children, className = '', delay = 0 }: RevealPr
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+    const clearDelay = () => {
+      el.style.transitionDelay = '';
+      el.removeEventListener('transitionend', clearDelay);
+    };
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           el.classList.add('fx-visible');
+          el.addEventListener('transitionend', clearDelay);
           observer.disconnect();
         }
       },

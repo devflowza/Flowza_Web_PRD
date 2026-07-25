@@ -9,7 +9,6 @@ interface LocationCardProps {
   phone?: string;
   email?: string;
   description?: string;
-  accentColor: string;
 }
 
 export default function LocationCard({
@@ -21,10 +20,9 @@ export default function LocationCard({
   phone,
   email,
   description,
-  accentColor,
 }: LocationCardProps) {
   const renderAddressWithFormatting = (addr: string) => {
-    const lines = addr.split('\n').filter(line => line.trim());
+    const lines = addr.split('\n').filter((line) => line.trim());
     return lines.map((line, index) => {
       const highlightText = companyHighlight ? companyHighlight.trim() : '';
       if (highlightText && line.includes(highlightText)) {
@@ -33,7 +31,7 @@ export default function LocationCard({
           <div key={index} className="whitespace-pre-wrap">
             {parts.map((part, idx) =>
               part === highlightText ? (
-                <span key={idx} className="font-semibold text-gray-900">
+                <span key={idx} className="font-semibold text-ink">
                   {part}
                 </span>
               ) : (
@@ -50,60 +48,39 @@ export default function LocationCard({
       );
     });
   };
+
   return (
-    <div className="group p-8 rounded-2xl border border-gray-100 bg-white shadow-sm hover:shadow-lg hover:border-sky-200 transition-all duration-300 hover:-translate-y-1">
-      <div className="flex items-start gap-4 mb-6">
-        <div
-          className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0"
-          style={{
-            backgroundColor: `${accentColor}18`,
-            border: `1.5px solid ${accentColor}40`,
-          }}
-        >
-          <MapPin size={20} style={{ color: accentColor }} strokeWidth={2} />
+    <div className="card-line h-full p-8 hover:-translate-y-1">
+      <div className="mb-6 flex items-start gap-4">
+        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-mist text-ink-500 ring-1 ring-ink/[0.05]">
+          <MapPin size={18} strokeWidth={1.7} />
         </div>
         <div className="flex-1">
-          <h3 className="font-display font-bold text-lg text-gray-900 leading-tight">
-            {company}
-          </h3>
-          <p className="text-sm text-gray-500 mt-1">
+          <h3 className="font-display text-lg font-bold leading-tight tracking-snug text-ink">{company}</h3>
+          <p className="mt-1 text-sm text-ink-400">
             {city}, {country}
           </p>
         </div>
       </div>
 
-      {description && (
-        <p className="text-sm text-gray-600 mb-4 leading-relaxed">{description}</p>
-      )}
+      {description && <p className="mb-4 text-sm leading-relaxed text-ink-500">{description}</p>}
 
-      <div className="space-y-3 mb-6">
-        <div className="text-sm text-gray-700 leading-relaxed">
-          <span className="block text-xs font-semibold text-gray-500 uppercase tracking-widest mb-2">
-            Address
-          </span>
-          <div className="space-y-1">
-            {renderAddressWithFormatting(address)}
-          </div>
-        </div>
+      <div className="mb-2 text-sm leading-relaxed text-ink-600">
+        <span className="mb-2.5 block text-[11px] font-bold uppercase tracking-[0.18em] text-ink-300">Address</span>
+        <div className="space-y-1">{renderAddressWithFormatting(address)}</div>
       </div>
 
       {(phone || email) && (
-        <div className="border-t border-gray-100 pt-4 space-y-2">
+        <div className="mt-5 space-y-2 border-t border-ink/[0.07] pt-4">
           {phone && (
-            <a
-              href={`tel:${phone}`}
-              className="flex items-center gap-3 text-sm text-gray-600 hover:text-sky-700 transition-colors group/link"
-            >
-              <Phone size={16} className="shrink-0" />
+            <a href={`tel:${phone}`} className="flex items-center gap-3 text-sm text-ink-500 transition-colors hover:text-ink">
+              <Phone size={15} className="shrink-0 text-ink-300" />
               <span>{phone}</span>
             </a>
           )}
           {email && (
-            <a
-              href={`mailto:${email}`}
-              className="flex items-center gap-3 text-sm text-gray-600 hover:text-sky-700 transition-colors group/link"
-            >
-              <Mail size={16} className="shrink-0" />
+            <a href={`mailto:${email}`} className="flex items-center gap-3 text-sm text-ink-500 transition-colors hover:text-ink">
+              <Mail size={15} className="shrink-0 text-ink-300" />
               <span>{email}</span>
             </a>
           )}

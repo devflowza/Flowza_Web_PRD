@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { FileText, Users, CreditCard, Code, AlertTriangle, Gavel, Mail } from 'lucide-react';
 import PageLayout from '../components/PageLayout';
+import usePageMeta from '../lib/usePageMeta';
 
 const sections = [
   {
@@ -87,6 +88,11 @@ const sections = [
 export default function TermsOfService() {
   const [activeSection, setActiveSection] = useState('acceptance');
 
+  usePageMeta({
+    title: 'Terms of service — FlowZa AI',
+    description: 'The terms that govern your use of FlowZa platforms and services.',
+  });
+
   useEffect(() => {
     const handleScroll = () => {
       for (const section of sections) {
@@ -103,42 +109,25 @@ export default function TermsOfService() {
 
   return (
     <PageLayout>
-      <div
-        className="relative pt-16 pb-20 px-6 overflow-hidden"
-        style={{
-          background: 'linear-gradient(180deg, #f0fdf9 0%, #ffffff 70%)',
-        }}
-      >
-        <img
-          src="https://images.pexels.com/photos/5668858/pexels-photo-5668858.jpeg"
-          alt="Legal documents"
-          className="absolute inset-0 w-full h-full object-cover mix-blend-luminosity opacity-5"
-        />
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background: 'radial-gradient(ellipse 80% 60% at 50% 0%, rgba(14,165,233,0.12) 0%, transparent 70%)',
-          }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-white" />
+      <div className="relative overflow-hidden wash-top pt-16 pb-20 px-6">
         <div className="relative max-w-4xl mx-auto">
-          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-sky-200 bg-sky-50 text-xs font-semibold uppercase tracking-widest text-sky-700 mb-6">
+          <span className="eyebrow mb-6">
             Legal
           </span>
           <div className="flex items-center gap-4 mb-4">
-            <div className="w-12 h-12 rounded-2xl bg-sky-50 border border-sky-200 flex items-center justify-center">
-              <FileText size={22} className="text-sky-600" />
+            <div className="w-12 h-12 rounded-2xl bg-accent-wash flex items-center justify-center">
+              <FileText size={22} className="text-accent" />
             </div>
-            <h1 className="font-display font-bold text-5xl text-gray-900">Terms of Service</h1>
+            <h1 className="display-hero text-4xl sm:text-5xl text-ink">Terms of Service</h1>
           </div>
-          <p className="text-gray-500 text-base">Last updated: <span className="text-gray-900 font-medium">February 1, 2026</span> · Version 3.2</p>
+          <p className="text-ink-400 text-base">Last updated: <span className="text-ink font-medium">February 1, 2026</span> · Version 3.2</p>
         </div>
       </div>
 
       <div className="bg-white">
         <div className="max-w-5xl mx-auto px-6 py-16 flex gap-12 items-start">
           <aside className="hidden lg:block w-52 shrink-0 sticky top-28">
-            <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-4">Contents</p>
+            <p className="text-xs font-semibold uppercase tracking-widest text-ink-400 mb-4">Contents</p>
             <nav className="space-y-0.5">
               {sections.map((s) => (
                 <a
@@ -146,8 +135,8 @@ export default function TermsOfService() {
                   href={`#${s.id}`}
                   className={`block text-sm py-2 px-3 rounded-lg transition-all duration-150 ${
                     activeSection === s.id
-                      ? 'bg-emerald-50 text-emerald-700 font-medium'
-                      : 'text-gray-500 hover:text-gray-800 hover:bg-gray-50'
+                      ? 'bg-accent-wash text-accent font-medium'
+                      : 'text-ink-400 hover:text-ink hover:bg-mist'
                   }`}
                 >
                   {s.title}
@@ -162,22 +151,22 @@ export default function TermsOfService() {
                 const Icon = section.icon;
                 return (
                   <div key={section.id} id={section.id} className="scroll-mt-32">
-                    <div className="flex items-center gap-3 mb-4 pb-3 border-b border-gray-100">
-                      <div className="w-8 h-8 rounded-lg bg-emerald-50 flex items-center justify-center shrink-0">
-                        <Icon size={15} className="text-emerald-600" />
+                    <div className="flex items-center gap-3 mb-4 pb-3 border-b border-ink/[0.08]">
+                      <div className="w-8 h-8 rounded-lg bg-accent-wash flex items-center justify-center shrink-0">
+                        <Icon size={15} className="text-accent" />
                       </div>
-                      <h2 className="font-display font-bold text-lg text-gray-900">{section.title}</h2>
+                      <h2 className="font-display font-bold tracking-snug text-lg text-ink">{section.title}</h2>
                     </div>
                     {'content' in section && (
-                      <p className="text-gray-600 text-sm leading-relaxed">{section.content}</p>
+                      <p className="text-ink-500 text-sm leading-relaxed">{section.content}</p>
                     )}
                     {'points' in section && section.points && (
                       <ul className="space-y-3">
                         {section.points.map((p) => (
                           <li key={p.label} className="flex gap-3">
-                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 mt-2 shrink-0" />
-                            <p className="text-sm text-gray-600 leading-relaxed">
-                              <span className="font-semibold text-gray-800">{p.label}:</span>{' '}
+                            <span className="w-1.5 h-1.5 rounded-full bg-accent mt-2 shrink-0" />
+                            <p className="text-sm text-ink-500 leading-relaxed">
+                              <span className="font-semibold text-ink">{p.label}:</span>{' '}
                               {p.detail}
                             </p>
                           </li>
@@ -189,9 +178,9 @@ export default function TermsOfService() {
               })}
             </div>
 
-            <div className="mt-12 pt-8 border-t border-gray-100">
-              <div className="bg-gray-50 rounded-2xl border border-gray-200 p-5 mb-6">
-                <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-3">Version History</p>
+            <div className="mt-12 pt-8 border-t border-ink/[0.08]">
+              <div className="bg-mist rounded-2xl border border-ink/[0.08] p-5 mb-6">
+                <p className="text-xs font-semibold uppercase tracking-widest text-ink-400 mb-3">Version History</p>
                 <div className="space-y-2">
                   {[
                     { version: 'v3.2', date: 'Feb 1, 2026', note: 'Added AI output disclaimer; updated liability caps.' },
@@ -199,21 +188,21 @@ export default function TermsOfService() {
                     { version: 'v3.0', date: 'Mar 1, 2025', note: 'Major rewrite aligning with UAE PDPL requirements.' },
                   ].map((v) => (
                     <div key={v.version} className="flex items-center gap-4 text-sm">
-                      <span className="font-mono text-emerald-600 w-10 shrink-0">{v.version}</span>
-                      <span className="text-gray-400 w-24 shrink-0 text-xs">{v.date}</span>
-                      <span className="text-gray-500 text-xs">{v.note}</span>
+                      <span className="font-mono text-accent w-10 shrink-0">{v.version}</span>
+                      <span className="text-ink-400 w-24 shrink-0 text-xs">{v.date}</span>
+                      <span className="text-ink-500 text-xs">{v.note}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
-              <div className="flex items-center gap-4 p-5 bg-emerald-50 rounded-2xl border border-emerald-100">
-                <div className="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center shrink-0">
-                  <Mail size={16} className="text-emerald-600" />
+              <div className="flex items-center gap-4 p-5 bg-accent-wash rounded-2xl border border-accent/10">
+                <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center shrink-0">
+                  <Mail size={16} className="text-accent" />
                 </div>
                 <div>
-                  <p className="text-gray-900 font-medium text-sm">Legal questions?</p>
-                  <p className="text-gray-500 text-sm">Contact our legal team at <a href="mailto:legal@flowza.ai" className="text-emerald-600 hover:text-emerald-700 transition-colors font-medium">legal@flowza.ai</a></p>
+                  <p className="text-ink font-medium text-sm">Legal questions?</p>
+                  <p className="text-ink-500 text-sm">Contact our legal team at <a href="mailto:legal@flowza.ai" className="text-accent transition-colors font-medium hover:underline">legal@flowza.ai</a></p>
                 </div>
               </div>
             </div>

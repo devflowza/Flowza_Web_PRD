@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
+import usePageMeta from '../lib/usePageMeta';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, TrendingUp, FileText, BarChart3, Package, CreditCard, Activity, ChevronLeft, ChevronRight, Check, Star, Play, ArrowRight, DollarSign, Shield, Globe, MessageCircle, FolderKanban, Ligature as FileSignature, Receipt, FileCheck, ShoppingCart, Truck, Boxes, BookOpen, Wallet, Users, PieChart, Hash, Mail, Fingerprint, Calendar, Download, ShieldCheck, KeyRound, Lock, ScrollText, RotateCcw, UserCheck, Layers, Repeat } from 'lucide-react';
-import Dashboard1 from '../assets/01_Dashboard.png';
+import Dashboard1 from '../assets/01_Dashboard.webp';
 import Dashboard2 from '../assets/02_Dashboard.png';
 import Items3 from '../assets/03_Items.png';
 import PL4 from '../assets/04_p&l.png';
@@ -264,6 +265,7 @@ function StatCounter({
 }
 
 export default function FinanceDemo() {
+  usePageMeta({ title: 'FlowZa Finance — interactive demo', noindex: true });
   const [activeIndex, setActiveIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [progressKey, setProgressKey] = useState(0);
