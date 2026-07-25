@@ -6,7 +6,11 @@ import { productImages } from '../assets/productImages';
 
 /* ——— Contact & company constants ——— */
 
-export const WHATSAPP_URL = 'https://web.whatsapp.com/send?phone=96892107562&text=Hello! FlowZa';
+/** wa.me deep link — works on mobile app, desktop app and web, unlike web.whatsapp.com. */
+export const whatsappUrl = (prefill: string) =>
+  `https://wa.me/96892107562?text=${encodeURIComponent(prefill)}`;
+
+export const WHATSAPP_URL = whatsappUrl("Hello! I'd like to learn about FlowZa.");
 export const WHATSAPP_DISPLAY = '+968 9210 7562';
 export const CONTACT_EMAIL = 'sales@flowza.ai';
 export const OFFICE_ADDRESS = 'Ghala, Muscat, Oman';
@@ -127,7 +131,7 @@ export const landingProducts: LandingProduct[] = [
 export const heroStats = [
   { value: '100+', label: 'Active businesses' },
   { value: '4+', label: 'Regions — MEA & India' },
-  { value: '94%', label: 'Automation rate' },
+  { value: '24–48h', label: 'Typical go-live time' },
   { value: '99.9%', label: 'Uptime SLA' },
 ];
 
@@ -183,30 +187,21 @@ export const clients = [
 export const homeTestimonials = [
   {
     quote:
-      "FlowZa Finance cut our month-end close from 5 days to just 6 hours. The AI catches errors we used to miss entirely. It's not just software — it's a financial partner.",
-    name: 'Khalid Al-Rashid',
+      'FlowZa Finance cut our monthly close from 5 days to 6 hours. The AI categorization is eerily accurate and the real-time dashboards have completely changed how our board reviews performance.',
+    name: 'Amara Osei',
     role: 'CFO',
-    company: 'AlNoor Retail Group',
-    initials: 'KA',
+    company: 'Brightline Retail Group',
+    initials: 'AO',
     color: '#10b981',
   },
   {
     quote:
-      'FlowZa Spa Master transformed how we run our five locations. Online bookings went up 230% in the first month. Staff actually enjoy using it — that alone is priceless.',
-    name: 'Lena Voss',
-    role: 'Operations Director',
-    company: 'Serenity Wellness',
-    initials: 'LV',
-    color: '#f43f5e',
-  },
-  {
-    quote:
-      "FlowZa Fleetza gave us visibility we didn't know we were missing. Fuel costs dropped 22% within 90 days just from the route and behavior insights. The ROI was immediate.",
-    name: 'Omar Hassan',
-    role: 'Fleet Manager',
-    company: 'Swift Logistics MENA',
-    initials: 'OH',
-    color: '#06b6d4',
+      'We replaced four disconnected systems with FlowZa Club. Members book courts and dining over WhatsApp, every charge flows to one ledger that actually ties out, and reconciliation takes an afternoon instead of a week.',
+    name: 'Rohan Mehta',
+    role: 'General Manager',
+    company: 'Whitefield Golf & Country Club',
+    initials: 'RM',
+    color: '#9333ea',
   },
 ];
 

@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import Reveal from '../Reveal';
-import dashboardImg from '../../assets/01_Dashboard.webp';
+import plImg from '../../assets/04_p_l.webp';
 
 const capabilities = [
   {
@@ -65,8 +65,8 @@ export default function FinanceSpotlight() {
             <div className="bezel-dark relative shadow-frame">
               <div className="bezel-inner">
                 <img
-                  src={dashboardImg}
-                  alt="FlowZa Finance dashboard — live P&L, receivables, payables and cash flow"
+                  src={plImg}
+                  alt="FlowZa Finance profit and loss report — revenue, margins and operating expenses"
                   loading="lazy"
                   width="1510"
                   height="1013"

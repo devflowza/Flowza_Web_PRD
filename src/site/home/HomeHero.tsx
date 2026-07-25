@@ -1,7 +1,9 @@
 import { ArrowRight, MessageCircle, TrendingUp, Clock3 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { WHATSAPP_URL } from '../data';
-import dashboardImg from '../../assets/01_Dashboard.webp';
+
+/* Stable public URL (not a hashed import) so index.html can preload it. */
+const dashboardImg = '/hero-dashboard.webp';
 
 const headlineWords = ['Run', 'your', 'whole', 'business'];
 
@@ -61,10 +63,10 @@ export default function HomeHero() {
             href={WHATSAPP_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="rise-block mt-5 inline-flex items-center gap-2 text-sm font-medium text-ink-400 transition-colors hover:text-ink"
+            className="rise-block mt-4 inline-flex items-center gap-2 py-2 text-sm font-medium text-ink-400 transition-colors duration-300 hover:text-ink"
             style={{ animationDelay: '600ms' }}
           >
-            <MessageCircle size={14} className="text-emerald-600" />
+            <MessageCircle size={14} />
             or chat with us on WhatsApp
           </a>
         </div>
@@ -77,7 +79,7 @@ export default function HomeHero() {
             className="absolute -inset-x-8 -top-10 bottom-0 rounded-[3rem] bg-[radial-gradient(60%_60%_at_50%_30%,rgba(46,91,255,0.10)_0%,transparent_70%)]"
           />
 
-          <div className="rise-block relative" style={{ animationDelay: '680ms' }}>
+          <div className="rise-block-media relative" style={{ animationDelay: '80ms' }}>
             <div className="bezel shadow-frame">
               <div className="bezel-inner">
                 {/* Browser chrome */}
@@ -104,20 +106,20 @@ export default function HomeHero() {
               </div>
             </div>
 
-            {/* Floating KPI chips */}
-            <div className="absolute -left-3 top-[22%] hidden animate-float-slow rounded-2xl bg-white/85 px-5 py-4 shadow-lift ring-1 ring-ink/[0.06] backdrop-blur-md md:block lg:-left-10">
+            {/* Floating KPI chips — outboard of the frame so they never cover data */}
+            <div className="absolute top-[38%] hidden animate-float-slow rounded-2xl bg-white/95 px-5 py-4 shadow-lift ring-1 ring-ink/[0.06] lg:-left-12 lg:block">
               <div className="flex items-center gap-3.5">
                 <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600">
                   <TrendingUp size={17} strokeWidth={1.8} />
                 </span>
                 <span>
-                  <span className="tabular block font-display text-xl font-bold leading-none text-ink">94%</span>
-                  <span className="mt-1 block text-xs text-ink-400">of busywork automated</span>
+                  <span className="tabular block font-display text-xl font-bold leading-none text-ink">Up to 85%</span>
+                  <span className="mt-1 block text-xs text-ink-400">less manual work in 90 days</span>
                 </span>
               </div>
             </div>
             <div
-              className="absolute -right-3 bottom-[16%] hidden animate-float-slow rounded-2xl bg-white/85 px-5 py-4 shadow-lift ring-1 ring-ink/[0.06] backdrop-blur-md md:block lg:-right-10"
+              className="absolute hidden animate-float-slow rounded-2xl bg-white/95 px-5 py-4 shadow-lift ring-1 ring-ink/[0.06] lg:-right-12 lg:-bottom-4 lg:block"
               style={{ animationDelay: '-3.5s' }}
             >
               <div className="flex items-center gap-3.5">
@@ -129,6 +131,28 @@ export default function HomeHero() {
                   <span className="mt-1 block text-xs text-ink-400">month-end close, was 5 days</span>
                 </span>
               </div>
+            </div>
+          </div>
+
+          {/* The same proof, statically, where the floating chips are hidden */}
+          <div className="mx-auto mt-6 grid max-w-xl grid-cols-1 gap-3.5 sm:grid-cols-2 lg:hidden">
+            <div className="flex items-center gap-3.5 rounded-2xl bg-white px-5 py-4 ring-1 ring-ink/[0.07]">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600">
+                <TrendingUp size={17} strokeWidth={1.8} />
+              </span>
+              <span>
+                <span className="tabular block font-display text-lg font-bold leading-none text-ink">Up to 85%</span>
+                <span className="mt-1 block text-xs text-ink-400">less manual work in 90 days</span>
+              </span>
+            </div>
+            <div className="flex items-center gap-3.5 rounded-2xl bg-white px-5 py-4 ring-1 ring-ink/[0.07]">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-accent-wash text-accent">
+                <Clock3 size={17} strokeWidth={1.8} />
+              </span>
+              <span>
+                <span className="tabular block font-display text-lg font-bold leading-none text-ink">6 hrs</span>
+                <span className="mt-1 block text-xs text-ink-400">month-end close, was 5 days</span>
+              </span>
             </div>
           </div>
         </div>

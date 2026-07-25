@@ -2,6 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ——— Self-hosted variable fonts (single origin, preloaded from index.html) ——— */
+@font-face {
+  font-family: 'Bricolage Grotesque';
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url('/fonts/bricolage-grotesque-var.woff2') format('woff2-variations');
+}
+
+@font-face {
+  font-family: 'Hanken Grotesk';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/hanken-grotesk-var.woff2') format('woff2-variations');
+}
+
+@font-face {
+  font-family: 'Hanken Grotesk';
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/hanken-grotesk-var-italic.woff2') format('woff2-variations');
+}
+
 /* Admin portal dark mode — scoped to .admin-dark on <html> */
 .admin-dark body,
 .admin-dark .admin-root {
@@ -25,8 +50,10 @@
    ———————————————————————————————————————————————— */
 
 @layer base {
-  html {
-    scroll-behavior: smooth;
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
   }
 
   body {
@@ -40,6 +67,8 @@
 
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Bricolage Grotesque', 'Hanken Grotesk', -apple-system, sans-serif;
+    /* Bricolage ships no italic — never let the browser fake one */
+    font-synthesis-style: none;
   }
 
   ::selection {
@@ -151,9 +180,13 @@
     font-variant-numeric: tabular-nums;
   }
 
-  /* Accent italic word inside display headlines */
+  /* Accent italic word inside display headlines — Hanken carries a true italic
+     (Bricolage has none, so using it would ship a faux-sheared roman). */
   .accent-word {
-    @apply font-display italic font-semibold text-accent;
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-style: italic;
+    font-weight: 650;
+    @apply text-accent;
   }
 
   /* ——— Ambient washes (replace the old grid + aurora backgrounds) ——— */
@@ -228,7 +261,9 @@
     animation: marquee 42s linear infinite;
   }
 
-  .fx-marquee-paused:hover .fx-marquee {
+  .fx-marquee-paused:hover .fx-marquee,
+  .fx-marquee-paused:focus-within .fx-marquee,
+  .fx-marquee-stopped .fx-marquee {
     animation-play-state: paused;
   }
 
@@ -293,6 +328,23 @@
   .rise-block {
     opacity: 0;
     animation: wordRise 0.85s cubic-bezier(0.32, 0.72, 0, 1) forwards;
+  }
+
+  /* LCP-safe entrance: never animate the largest element from opacity 0 —
+     an invisible element can't record a largest-contentful-paint. */
+  @keyframes mediaRise {
+    0% {
+      transform: translateY(14px);
+      filter: blur(6px);
+    }
+    100% {
+      transform: translateY(0);
+      filter: blur(0);
+    }
+  }
+
+  .rise-block-media {
+    animation: mediaRise 0.85s cubic-bezier(0.32, 0.72, 0, 1) both;
   }
 
   @media (prefers-reduced-motion: reduce) {

@@ -40,7 +40,7 @@ export default function SiteFooter() {
           <div className="max-w-xs">
             <Link to="/" className="flex items-center gap-3" aria-label="FlowZa AI — home">
               <span className="h-10 w-10 overflow-hidden rounded-xl ring-1 ring-white/10">
-                <img src="/Logo_Final_-_Focused.jpeg" alt="" width="40" height="40" className="h-full w-full object-cover" />
+                <img src="/logo-mark.webp" alt="" width="40" height="40" className="h-full w-full object-cover" />
               </span>
               <span className="font-display text-xl font-bold tracking-snug text-white">
                 FlowZa<span className="text-accent-soft"> AI</span>
@@ -54,11 +54,11 @@ export default function SiteFooter() {
                 href={WHATSAPP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block text-ink-300 transition-colors hover:text-white"
+                className="block py-1 text-ink-300 transition-colors duration-300 hover:text-white"
               >
                 {WHATSAPP_DISPLAY} · WhatsApp
               </a>
-              <a href={`mailto:${CONTACT_EMAIL}`} className="block text-ink-300 transition-colors hover:text-white">
+              <a href={`mailto:${CONTACT_EMAIL}`} className="block py-1 text-ink-300 transition-colors duration-300 hover:text-white">
                 {CONTACT_EMAIL}
               </a>
               <p className="text-ink-400">{OFFICE_ADDRESS}</p>
@@ -88,7 +88,7 @@ export default function SiteFooter() {
                 <li key={p.id}>
                   <Link
                     to={`/products/${p.id}`}
-                    className="inline-flex items-center gap-2 text-[15px] text-ink-200 transition-colors hover:text-white"
+                    className="inline-flex items-center gap-2 py-1.5 -my-1.5 text-[15px] text-ink-200 transition-colors duration-300 hover:text-white"
                   >
                     {p.short}
                     {p.live && <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" aria-label="Live" />}
@@ -104,7 +104,7 @@ export default function SiteFooter() {
             <ul className="mt-5 space-y-3">
               {companyLinks.map((l) => (
                 <li key={l.label}>
-                  <Link to={l.to} className="text-[15px] text-ink-200 transition-colors hover:text-white">
+                  <Link to={l.to} className="inline-block py-1.5 -my-1.5 text-[15px] text-ink-200 transition-colors duration-300 hover:text-white">
                     {l.label}
                   </Link>
                 </li>
@@ -118,7 +118,7 @@ export default function SiteFooter() {
             <ul className="mt-5 space-y-3">
               {resourceLinks.map((l) => (
                 <li key={l.label}>
-                  <Link to={l.to} className="text-[15px] text-ink-200 transition-colors hover:text-white">
+                  <Link to={l.to} className="inline-block py-1.5 -my-1.5 text-[15px] text-ink-200 transition-colors duration-300 hover:text-white">
                     {l.label}
                   </Link>
                 </li>
@@ -138,11 +138,11 @@ export default function SiteFooter() {
         </div>
 
         {/* Legal bar */}
-        <div className="flex flex-col items-start justify-between gap-4 border-t border-white/[0.08] py-7 text-[13px] text-ink-400 sm:flex-row sm:items-center">
+        <div className="flex flex-col items-start justify-between gap-4 border-t border-white/[0.08] py-7 text-[13px] text-white/50 sm:flex-row sm:items-center">
           <p>© {new Date().getFullYear()} FlowZa AI. All rights reserved.</p>
           <div className="flex items-center gap-6">
             {policies.map((l) => (
-              <Link key={l.label} to={l.to} className="transition-colors hover:text-white">
+              <Link key={l.label} to={l.to} className="py-1.5 -my-1.5 transition-colors duration-300 hover:text-white">
                 {l.label}
               </Link>
             ))}

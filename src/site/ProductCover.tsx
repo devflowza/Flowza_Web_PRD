@@ -9,18 +9,21 @@ interface ProductCoverProps {
   alt?: string;
   className?: string;
   imgClassName?: string;
+  /** Set on above-the-fold usage: eager load + high fetch priority (LCP candidates). */
+  priority?: boolean;
 }
 
 const isLocal = (src?: string) => Boolean(src && src.startsWith('/'));
 
 /** Product artwork: local screenshot when available, designed ink cover otherwise. */
-export default function ProductCover({ name, icon: Icon, index, image, alt, className = '', imgClassName = '' }: ProductCoverProps) {
+export default function ProductCover({ name, icon: Icon, index, image, alt, className = '', imgClassName = '', priority = false }: ProductCoverProps) {
   if (isLocal(image)) {
     return (
       <img
         src={image}
         alt={alt ?? `${name} interface`}
-        loading="lazy"
+        loading={priority ? 'eager' : 'lazy'}
+        {...(priority ? ({ fetchpriority: 'high' } as React.ImgHTMLAttributes<HTMLImageElement>) : {})}
         className={imgClassName || 'absolute inset-0 h-full w-full object-cover'}
       />
     );

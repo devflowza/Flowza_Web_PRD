@@ -1,16 +1,11 @@
-import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, ArrowLeft } from 'lucide-react';
 import SiteLayout from '../site/SiteLayout';
+import usePageMeta from '../lib/usePageMeta';
 
 /** Branded 404 — a dead end that still points somewhere useful. */
 export default function NotFound() {
-  useEffect(() => {
-    document.title = 'Page not found — FlowZa AI';
-    return () => {
-      document.title = 'FlowZa AI — Business Operating Systems';
-    };
-  }, []);
+  usePageMeta({ title: 'Page not found — FlowZa AI', noindex: true });
 
   return (
     <SiteLayout>

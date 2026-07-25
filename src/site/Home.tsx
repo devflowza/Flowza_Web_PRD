@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import SiteLayout from './SiteLayout';
 import HomeHero from './home/HomeHero';
 import ClientsMarquee from './home/ClientsMarquee';
@@ -11,6 +10,7 @@ import TestimonialsSection from './home/TestimonialsSection';
 import ActionTrio from './home/ActionTrio';
 import FaqSection from './home/FaqSection';
 import { faqItems } from './data';
+import usePageMeta from '../lib/usePageMeta';
 
 const faqJsonLd = JSON.stringify({
   '@context': 'https://schema.org',
@@ -23,9 +23,7 @@ const faqJsonLd = JSON.stringify({
 });
 
 export default function Home() {
-  useEffect(() => {
-    document.title = 'FlowZa AI — Business Operating Systems';
-  }, []);
+  usePageMeta({ title: 'FlowZa AI — Business Operating Systems' });
 
   return (
     <SiteLayout>

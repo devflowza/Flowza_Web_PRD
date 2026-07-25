@@ -1,10 +1,10 @@
-import { useEffect } from 'react';
 import { ArrowRight, ArrowUpRight, MessageCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import PageLayout from '../components/PageLayout';
 import PageHero from '../components/PageHero';
 import Reveal from '../site/Reveal';
 import { landingProducts, WHATSAPP_URL } from '../site/data';
+import usePageMeta from '../lib/usePageMeta';
 
 const quickStart = [
   { step: '01', title: 'Create your account', description: 'Sign up and verify your organisation details. Takes less than five minutes.' },
@@ -15,12 +15,10 @@ const quickStart = [
 ];
 
 export default function Documentation() {
-  useEffect(() => {
-    document.title = 'Documentation — FlowZa AI';
-    return () => {
-      document.title = 'FlowZa AI — Business Operating Systems';
-    };
-  }, []);
+  usePageMeta({
+    title: 'Documentation — FlowZa AI',
+    description: 'Guides, setup walkthroughs and product references for every FlowZa platform — written for operators, not engineers.',
+  });
 
   return (
     <PageLayout>
@@ -53,11 +51,29 @@ export default function Documentation() {
                       />
                     </div>
                     <h2 className="mt-5 font-display text-lg font-bold tracking-snug text-ink">{p.short}</h2>
-                    <p className="mt-1.5 flex-1 text-sm leading-relaxed text-ink-500">{p.tagline}</p>
+                    <p className="mt-1.5 flex-1 text-sm leading-relaxed text-ink-500">{p.tagline} — platform overview &amp; setup guide</p>
                   </Link>
                 </Reveal>
               );
             })}
+            <Reveal delay={210}>
+              <a
+                href={WHATSAPP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative flex h-full flex-col overflow-hidden rounded-3xl bg-ink p-6 text-white shadow-soft transition-all duration-500 ease-swift hover:-translate-y-1 hover:shadow-lift grain"
+              >
+                <div className="pointer-events-none absolute inset-0 wash-ink" aria-hidden="true" />
+                <h2 className="relative font-display text-lg font-bold tracking-snug">Can't find a guide?</h2>
+                <p className="relative mt-1.5 flex-1 text-sm leading-relaxed text-white/60">
+                  Ask us directly on WhatsApp — a real person, usually within minutes.
+                </p>
+                <p className="relative mt-4 inline-flex items-center gap-1.5 text-sm font-semibold">
+                  Start a chat
+                  <ArrowUpRight size={13} className="transition-transform duration-300 ease-swift group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </p>
+              </a>
+            </Reveal>
           </div>
         </div>
       </section>
@@ -81,7 +97,7 @@ export default function Documentation() {
             {quickStart.map((s, i) => (
               <Reveal key={s.step} delay={i * 70}>
                 <article className={`group flex gap-7 border-t border-ink/[0.08] py-8 sm:gap-10 ${i === quickStart.length - 1 ? 'border-b' : ''}`}>
-                  <span className="font-display text-3xl font-extrabold leading-none tracking-tightest text-ink-100 transition-colors duration-500 group-hover:text-accent sm:text-5xl">
+                  <span aria-hidden="true" className="font-display text-3xl font-extrabold leading-none tracking-tightest text-ink-100 sm:text-5xl">
                     {s.step}
                   </span>
                   <div className="pt-0.5">

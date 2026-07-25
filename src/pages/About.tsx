@@ -1,9 +1,9 @@
-import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import PageLayout from '../components/PageLayout';
 import Reveal from '../site/Reveal';
 import { landingProducts } from '../site/data';
+import usePageMeta from '../lib/usePageMeta';
 
 const stats = [
   { value: '100+', label: 'Businesses served' },
@@ -22,12 +22,11 @@ const values = [
 ];
 
 export default function About() {
-  useEffect(() => {
-    document.title = 'About — FlowZa AI';
-    return () => {
-      document.title = 'FlowZa AI — Business Operating Systems';
-    };
-  }, []);
+  usePageMeta({
+    title: 'About — FlowZa AI',
+    description:
+      'FlowZa builds purpose-built operating systems for businesses across MEA and India — seven platforms sharing one operating fabric.',
+  });
 
   return (
     <PageLayout>
@@ -53,7 +52,9 @@ export default function About() {
             <Reveal
               key={s.label}
               delay={i * 80}
-              className={`px-6 text-center sm:px-10 ${i > 0 ? 'border-l border-ink/[0.07]' : ''}`}
+              className={`px-6 text-center sm:px-10 ${i % 2 === 1 ? 'border-l border-ink/[0.07]' : ''} ${
+                i === 2 ? 'lg:border-l lg:border-ink/[0.07]' : ''
+              } ${i >= 2 ? 'border-t border-ink/[0.07] pt-10 lg:border-t-0 lg:pt-0' : ''}`}
             >
               <p className="tabular font-display text-4xl font-extrabold leading-none tracking-tightest text-ink sm:text-5xl">
                 {s.value}
@@ -137,7 +138,7 @@ export default function About() {
               <Reveal key={v.title} delay={i * 60}>
                 <article className={`border-t border-ink/[0.08] py-7 sm:py-8 ${i === values.length - 1 ? 'border-b' : ''}`}>
                   <h3 className="flex items-baseline gap-4 font-display text-lg font-bold tracking-snug text-ink sm:text-xl">
-                    <span className="tabular font-display text-[13px] font-semibold text-ink-300">
+                    <span aria-hidden="true" className="tabular font-display text-[13px] font-semibold text-ink-300">
                       {String(i + 1).padStart(2, '0')}
                     </span>
                     {v.title}

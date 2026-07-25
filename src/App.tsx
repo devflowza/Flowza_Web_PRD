@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import ScrollToTop from './components/ScrollToTop';
 import Home from './site/Home';
 
@@ -53,7 +53,7 @@ function PublicRoutes() {
           <Route path="/" element={<Home />} />
           <Route path="/get-started" element={<GetStarted />} />
           <Route path="/products/:productId" element={<ProductDetail />} />
-          <Route path="/finance" element={<FinanceDemo />} />
+          <Route path="/finance" element={<Navigate to="/products/finance" replace />} />
           <Route path="/finance-demo" element={<FinanceDemo />} />
           <Route path="/about" element={<About />} />
           <Route path="/locations" element={<Locations />} />

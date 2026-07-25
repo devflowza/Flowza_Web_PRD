@@ -3,7 +3,9 @@ import { ArrowRight, CheckCircle2, Loader2, MapPin, MessageCircle, Clock, Linked
 import { useSearchParams, Link } from 'react-router-dom';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
 import PageLayout from '../components/PageLayout';
+import Reveal from '../site/Reveal';
 import { WHATSAPP_URL, OFFICE_ADDRESS, BUSINESS_HOURS } from '../site/data';
+import usePageMeta from '../lib/usePageMeta';
 
 interface FormData {
   companyName: string;
@@ -24,7 +26,7 @@ const services = [
   'FlowZa LogisPro',
   'FlowZa Spa Master',
   'FlowZa POS',
-  'FlowZa PMS',
+  'FlowZa Club',
 ];
 
 const socials = [
@@ -36,6 +38,7 @@ const socials = [
 export default function Contact() {
   const [searchParams] = useSearchParams();
   const formRef = useRef<HTMLDivElement>(null);
+  const successHeadingRef = useRef<HTMLHeadingElement>(null);
 
   const [formData, setFormData] = useState<FormData>({
     companyName: '',
@@ -49,12 +52,10 @@ export default function Contact() {
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    document.title = 'Contact — FlowZa AI';
-    return () => {
-      document.title = 'FlowZa AI — Business Operating Systems';
-    };
-  }, []);
+  usePageMeta({
+    title: 'Contact — FlowZa AI',
+    description: 'Talk to the FlowZa team — WhatsApp, email or the contact form. We respond within one business day.',
+  });
 
   useEffect(() => {
     const serviceParam = searchParams.get('service');
@@ -62,6 +63,12 @@ export default function Contact() {
       setFormData((prev) => ({ ...prev, product: serviceParam }));
     }
   }, [searchParams]);
+
+  useEffect(() => {
+    if (isSuccess) {
+      successHeadingRef.current?.focus();
+    }
+  }, [isSuccess]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -100,7 +107,7 @@ export default function Contact() {
   };
 
   const inputClass =
-    'w-full h-12 px-4 rounded-xl bg-white text-[15px] text-ink placeholder:text-ink-300 ring-1 ring-ink/[0.12] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent hover:ring-ink/25';
+    'w-full h-12 px-4 rounded-xl bg-white text-[15px] text-ink placeholder:text-ink-400 ring-1 ring-ink/[0.12] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent hover:ring-ink/25';
   const labelClass = 'mb-2 block text-[13px] font-semibold text-ink-600';
 
   return (
@@ -121,7 +128,7 @@ export default function Contact() {
 
           <div className="grid grid-cols-1 items-start gap-5 lg:grid-cols-5">
             {/* Left rail */}
-            <div className="space-y-5 lg:col-span-2">
+            <Reveal className="space-y-5 lg:col-span-2">
               <div className="rounded-[1.5rem] bg-ink p-7 text-white shadow-lift grain relative overflow-hidden">
                 <div className="pointer-events-none absolute inset-0 wash-ink" aria-hidden="true" />
                 <div className="relative">
@@ -172,12 +179,13 @@ export default function Contact() {
                   </div>
                 </div>
               </div>
-            </div>
+            </Reveal>
 
             {/* Form */}
+            <Reveal className="lg:col-span-3" delay={90}>
             <div
               ref={formRef}
-              className="overflow-hidden rounded-[1.75rem] bg-white shadow-soft ring-1 ring-ink/[0.07] lg:col-span-3"
+              className="overflow-hidden rounded-[1.75rem] bg-white shadow-soft ring-1 ring-ink/[0.07]"
             >
               <div className="border-b border-ink/[0.06] px-8 py-6">
                 <h2 className="font-display text-xl font-bold tracking-snug text-ink">Send us a message</h2>
@@ -189,7 +197,13 @@ export default function Contact() {
                   <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-emerald-50 ring-1 ring-emerald-200">
                     <CheckCircle2 className="h-8 w-8 text-emerald-600" strokeWidth={1.8} />
                   </div>
-                  <h3 className="font-display text-2xl font-bold tracking-snug text-ink">Message received.</h3>
+                  <h3
+                    ref={successHeadingRef}
+                    tabIndex={-1}
+                    className="font-display text-2xl font-bold tracking-snug text-ink outline-none"
+                  >
+                    Message received.
+                  </h3>
                   <p className="mx-auto mt-3 max-w-sm text-[15px] leading-relaxed text-ink-500">
                     Thanks for reaching out. A member of our team will get back to you within
                     one business day.
@@ -206,7 +220,7 @@ export default function Contact() {
                   <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                     <div>
                       <label htmlFor="contactName" className={labelClass}>
-                        Full name <span className="text-accent">*</span>
+                        Full name <span className="text-accent" aria-hidden="true">*</span><span className="sr-only"> (required)</span>
                       </label>
                       <input
                         id="contactName"
@@ -222,7 +236,7 @@ export default function Contact() {
                     </div>
                     <div>
                       <label htmlFor="email" className={labelClass}>
-                        Work email <span className="text-accent">*</span>
+                        Work email <span className="text-accent" aria-hidden="true">*</span><span className="sr-only"> (required)</span>
                       </label>
                       <input
                         id="email"
@@ -233,6 +247,8 @@ export default function Contact() {
                         required
                         autoComplete="email"
                         placeholder="amina@company.com"
+                        aria-invalid={error ? true : undefined}
+                        aria-describedby={error ? 'contact-form-error' : undefined}
                         className={inputClass}
                       />
                     </div>
@@ -269,7 +285,7 @@ export default function Contact() {
 
                   <div>
                     <label htmlFor="product" className={labelClass}>
-                      What's this about? <span className="text-accent">*</span>
+                      What's this about? <span className="text-accent" aria-hidden="true">*</span><span className="sr-only"> (required)</span>
                     </label>
                     <select
                       id="product"
@@ -287,7 +303,7 @@ export default function Contact() {
 
                   <div>
                     <label htmlFor="message" className={labelClass}>
-                      Message <span className="text-accent">*</span>
+                      Message <span className="text-accent" aria-hidden="true">*</span><span className="sr-only"> (required)</span>
                     </label>
                     <textarea
                       id="message"
@@ -302,7 +318,7 @@ export default function Contact() {
                   </div>
 
                   {error && (
-                    <div role="alert" className="rounded-xl bg-red-50 p-4 text-sm text-red-700 ring-1 ring-red-100">
+                    <div id="contact-form-error" role="alert" className="rounded-xl bg-red-50 p-4 text-sm text-red-700 ring-1 ring-red-100">
                       {error}
                     </div>
                   )}
@@ -333,6 +349,7 @@ export default function Contact() {
                 </form>
               )}
             </div>
+            </Reveal>
           </div>
         </div>
       </div>

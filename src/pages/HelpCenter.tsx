@@ -1,9 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Plus, MessageCircle, Mail, ArrowUpRight } from 'lucide-react';
 import PageLayout from '../components/PageLayout';
 import PageHero from '../components/PageHero';
 import Reveal from '../site/Reveal';
 import { WHATSAPP_URL } from '../site/data';
+import usePageMeta from '../lib/usePageMeta';
 
 const faqs: { question: string; answer: string; category: string }[] = [
   {
@@ -52,12 +53,10 @@ export default function HelpCenter() {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [activeCategory, setActiveCategory] = useState('All');
 
-  useEffect(() => {
-    document.title = 'Help center — FlowZa AI';
-    return () => {
-      document.title = 'FlowZa AI — Business Operating Systems';
-    };
-  }, []);
+  usePageMeta({
+    title: 'Help center — FlowZa AI',
+    description: 'Answers to the questions operators ask most — and a fast line to a real person when you need one.',
+  });
 
   const categories = ['All', ...new Set(faqs.map((f) => f.category))];
   const filtered = faqs.filter((f) => activeCategory === 'All' || f.category === activeCategory);
@@ -101,9 +100,11 @@ export default function HelpCenter() {
                 <div key={faq.question} className={`border-t border-ink/[0.09] ${i === filtered.length - 1 ? 'border-b' : ''}`}>
                   <h2>
                     <button
+                      id={`help-faq-trigger-${i}`}
                       onClick={() => setOpenFaq(isOpen ? null : i)}
                       className="group flex w-full items-center justify-between gap-6 py-6 text-left"
                       aria-expanded={isOpen}
+                      aria-controls={`help-faq-panel-${i}`}
                     >
                       <span
                         className={`font-display text-[17px] font-semibold tracking-snug transition-colors duration-300 ${
@@ -122,7 +123,13 @@ export default function HelpCenter() {
                       </span>
                     </button>
                   </h2>
-                  <div className={`grid transition-all duration-500 ease-swift ${isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}>
+                  <div
+                    id={`help-faq-panel-${i}`}
+                    role="region"
+                    aria-labelledby={`help-faq-trigger-${i}`}
+                    aria-hidden={!isOpen}
+                    className={`grid transition-all duration-500 ease-swift ${isOpen ? 'visible grid-rows-[1fr] opacity-100' : 'invisible grid-rows-[0fr] opacity-0'}`}
+                  >
                     <div className="overflow-hidden">
                       <p className="max-w-2xl pb-6 pr-14 text-[15px] leading-relaxed text-ink-500">{faq.answer}</p>
                     </div>

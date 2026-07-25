@@ -1,10 +1,11 @@
-import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, ArrowUpRight, MessageCircle } from 'lucide-react';
+import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import SiteLayout from '../site/SiteLayout';
 import Reveal from '../site/Reveal';
 import ProductCover from '../site/ProductCover';
-import { landingProducts, WHATSAPP_URL } from '../site/data';
+import ClosingCta from '../site/ClosingCta';
+import { landingProducts } from '../site/data';
+import usePageMeta from '../lib/usePageMeta';
 
 /*
  * Only platforms with real trial infrastructure get a self-serve button here.
@@ -27,12 +28,11 @@ const liveTrials = [
 ];
 
 export default function GetStarted() {
-  useEffect(() => {
-    document.title = 'Get started — FlowZa AI';
-    return () => {
-      document.title = 'FlowZa AI — Business Operating Systems';
-    };
-  }, []);
+  usePageMeta({
+    title: 'Get started — FlowZa AI',
+    description:
+      'Start a self-serve trial of FlowZa Finance or FlowZa Club today, or get early access to the rest of the fabric. Live in hours, no card required.',
+  });
 
   const live = liveTrials
     .map((t) => ({ ...t, product: landingProducts.find((p) => p.id === t.id)! }))
@@ -139,7 +139,7 @@ export default function GetStarted() {
               const Icon = p.icon;
               return (
                 <Reveal key={p.id} delay={(i % 3) * 80}>
-                  <article className="card-line flex h-full flex-col bg-white p-7 hover:-translate-y-1">
+                  <article className="card-line flex h-full flex-col bg-white p-7">
                     <div className="flex items-start justify-between">
                       <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-mist text-ink-500 ring-1 ring-ink/[0.05]">
                         <Icon size={18} strokeWidth={1.7} />
@@ -164,28 +164,34 @@ export default function GetStarted() {
                 </Reveal>
               );
             })}
+            <Reveal delay={160}>
+              <Link
+                to="/contact"
+                className="group relative flex h-full flex-col justify-between overflow-hidden rounded-3xl bg-ink p-7 text-white shadow-soft transition-all duration-500 ease-swift hover:-translate-y-1 hover:shadow-lift grain"
+              >
+                <div className="pointer-events-none absolute inset-0 wash-ink" aria-hidden="true" />
+                <h3 className="relative font-display text-lg font-bold tracking-snug">Something else?</h3>
+                <p className="relative mt-2 flex-1 text-sm leading-relaxed text-white/60">
+                  Running an operation none of these quite fit? Tell us how you work — the
+                  fabric is built to stretch.
+                </p>
+                <p className="relative mt-6 inline-flex items-center gap-1.5 text-sm font-semibold">
+                  Talk to us
+                  <ArrowRight size={13} className="transition-transform duration-300 ease-swift group-hover:translate-x-0.5" />
+                </p>
+              </Link>
+            </Reveal>
           </div>
         </div>
       </section>
 
-      {/* WhatsApp fallback */}
-      <section className="px-4 py-20 sm:px-6 sm:py-24">
-        <Reveal className="mx-auto max-w-2xl text-center">
-          <h2 className="display-title text-[1.75rem] text-ink sm:text-3xl">Not sure which platform fits?</h2>
-          <p className="mt-4 text-base leading-relaxed text-ink-500">
-            Chat with us — we'll map your operation to the right system in one conversation.
-          </p>
-          <a
-            href={WHATSAPP_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-primary btn-lg group mt-8 inline-flex"
-          >
-            <MessageCircle size={16} className="text-emerald-400" />
-            Chat on WhatsApp
-          </a>
-        </Reveal>
-      </section>
+      <ClosingCta
+        title="Not sure which"
+        accent="platform fits?"
+        subtitle="Chat with us — we'll map your operation to the right system in one conversation."
+        primaryLabel="Talk to us"
+        primaryTo="/contact"
+      />
     </SiteLayout>
   );
 }

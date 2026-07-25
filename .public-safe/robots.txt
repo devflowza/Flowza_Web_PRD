@@ -1,5 +1,0 @@
-User-agent: *
-Allow: /
-Disallow: /adm
-
-Sitemap: https://flowza.ai/sitemap.xml

@@ -1,13 +1,12 @@
-import { Star } from 'lucide-react';
 import Reveal from '../Reveal';
 import { homeTestimonials } from '../data';
 
-/** Asymmetric editorial testimonials: one featured voice, two supporting. */
+/** Two voices, both from live platforms — one featured, one supporting. */
 export default function TestimonialsSection() {
-  const [featured, ...others] = homeTestimonials;
+  const [featured, supporting] = homeTestimonials;
 
   return (
-    <section id="testimonials" className="scroll-mt-24 bg-white px-4 py-24 sm:px-6 sm:py-32">
+    <section id="testimonials" className="scroll-mt-24 bg-mist px-4 py-24 sm:px-6 sm:py-32">
       <div className="mx-auto max-w-7xl">
         <Reveal className="mb-14 flex flex-wrap items-end justify-between gap-6 sm:mb-16">
           <div>
@@ -16,21 +15,15 @@ export default function TestimonialsSection() {
               Operators, in their own words.
             </h2>
           </div>
-          <p className="flex items-center gap-2.5 pb-2 text-sm text-ink-500">
-            <span className="flex gap-0.5" aria-label="Rated 5 out of 5">
-              {Array.from({ length: 5 }).map((_, i) => (
-                <Star key={i} size={14} className="fill-ink text-ink" />
-              ))}
-            </span>
-            <span className="tabular font-semibold text-ink">5.0</span>
-            from 100+ businesses
+          <p className="max-w-xs pb-2 text-sm leading-relaxed text-ink-500">
+            From the people running FlowZa Finance and FlowZa Club in production today.
           </p>
         </Reveal>
 
         <div className="grid gap-5 lg:grid-cols-[1.5fr_1fr]">
           {/* Featured quote */}
           <Reveal>
-            <figure className="relative flex h-full flex-col justify-between overflow-hidden rounded-[2rem] bg-mist p-8 ring-1 ring-ink/[0.06] sm:p-12">
+            <figure className="relative flex h-full flex-col justify-between overflow-hidden rounded-[2rem] bg-white p-8 shadow-soft ring-1 ring-ink/[0.06] sm:p-12">
               <span
                 aria-hidden="true"
                 className="pointer-events-none absolute -top-7 right-6 select-none font-display text-[11rem] font-extrabold leading-none text-ink/[0.05]"
@@ -59,32 +52,28 @@ export default function TestimonialsSection() {
             </figure>
           </Reveal>
 
-          {/* Supporting quotes */}
-          <div className="flex flex-col gap-5">
-            {others.map((t, i) => (
-              <Reveal key={t.name} delay={(i + 1) * 110} className="flex-1">
-                <figure className="card-line flex h-full flex-col justify-between p-7">
-                  <blockquote>
-                    <p className="text-[15px] leading-relaxed text-ink-600">“{t.quote}”</p>
-                  </blockquote>
-                  <figcaption className="mt-6 flex items-center gap-3.5">
-                    <span
-                      className="flex h-10 w-10 items-center justify-center rounded-xl text-xs font-bold text-white"
-                      style={{ background: t.color }}
-                    >
-                      {t.initials}
-                    </span>
-                    <span>
-                      <span className="block text-sm font-semibold text-ink">{t.name}</span>
-                      <span className="block text-[13px] text-ink-400">
-                        {t.role}, {t.company}
-                      </span>
-                    </span>
-                  </figcaption>
-                </figure>
-              </Reveal>
-            ))}
-          </div>
+          {/* Supporting quote */}
+          <Reveal delay={120}>
+            <figure className="flex h-full flex-col justify-between rounded-[2rem] bg-white p-8 ring-1 ring-ink/[0.07]">
+              <blockquote>
+                <p className="text-[15px] leading-relaxed text-ink-600 sm:text-base">“{supporting.quote}”</p>
+              </blockquote>
+              <figcaption className="mt-8 flex items-center gap-3.5">
+                <span
+                  className="flex h-10 w-10 items-center justify-center rounded-xl text-xs font-bold text-white"
+                  style={{ background: supporting.color }}
+                >
+                  {supporting.initials}
+                </span>
+                <span>
+                  <span className="block text-sm font-semibold text-ink">{supporting.name}</span>
+                  <span className="block text-[13px] text-ink-400">
+                    {supporting.role}, {supporting.company}
+                  </span>
+                </span>
+              </figcaption>
+            </figure>
+          </Reveal>
         </div>
       </div>
     </section>

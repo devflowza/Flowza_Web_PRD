@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Check, ArrowRight, ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import SectionHeading from '../site/SectionHeading';
@@ -22,7 +22,7 @@ const plans: PricingPlan[] = [
     id: 'starter',
     name: 'Starter',
     monthlyPrice: 15,
-    description: 'For small businesses ready to streamline their finances.',
+    description: 'Best for one- and two-person operations getting off spreadsheets.',
     isHighlighted: false,
     trialUrl: 'https://finance.flowza.ai/trial?plan=starter',
     purchaseUrl: 'https://finance.flowza.ai/checkout?plan=starter',
@@ -39,7 +39,7 @@ const plans: PricingPlan[] = [
     id: 'professional',
     name: 'Professional',
     monthlyPrice: 40,
-    description: 'For growing businesses that need the full toolkit.',
+    description: 'Best for growing teams that invoice every week and run stock.',
     isHighlighted: true,
     trialUrl: 'https://finance.flowza.ai/trial?plan=professional',
     purchaseUrl: 'https://finance.flowza.ai/checkout?plan=professional',
@@ -54,9 +54,9 @@ const plans: PricingPlan[] = [
   },
   {
     id: 'enterprise',
-    name: 'Enterprise',
+    name: 'Scale',
     monthlyPrice: 60,
-    description: 'For established businesses with advanced requirements.',
+    description: 'Best for multi-entity operations with heavier volumes.',
     isHighlighted: false,
     trialUrl: 'https://finance.flowza.ai/trial?plan=enterprise',
     purchaseUrl: 'https://finance.flowza.ai/checkout?plan=enterprise',
@@ -81,6 +81,33 @@ const sharedFeatures = [
   'Recurring invoices',
 ];
 
+function AnimatedPrice({ value, className }: { value: number; className: string }) {
+  const [display, setDisplay] = useState(value);
+  const prevRef = useRef(value);
+
+  useEffect(() => {
+    const from = prevRef.current;
+    prevRef.current = value;
+    if (from === value || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setDisplay(value);
+      return;
+    }
+    const start = performance.now();
+    const duration = 350;
+    let raf = 0;
+    const tick = (now: number) => {
+      const t = Math.min(1, (now - start) / duration);
+      const eased = 1 - Math.pow(1 - t, 3);
+      setDisplay(Math.round(from + (value - from) * eased));
+      if (t < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [value]);
+
+  return <span className={className}>${display}</span>;
+}
+
 function calculateYearlyPrice(monthlyPrice: number): number {
   const yearlyTotal = monthlyPrice * 12;
   const discount = yearlyTotal * (YEARLY_DISCOUNT_PERCENT / 100);
@@ -97,9 +124,9 @@ export default function Pricing() {
     <section id="pricing" className="scroll-mt-24 bg-white px-4 py-24 sm:px-6 sm:py-32">
       <div className="mx-auto max-w-7xl">
         <SectionHeading
-          badge="Pricing"
+          badge="Pricing · FlowZa Finance"
           title="Simple, transparent pricing."
-          subtitle="Start free, scale as you grow. Plans differ only in capacity — every feature ships with every plan."
+          subtitle="FlowZa Finance plans differ only in capacity — every feature ships with every plan. FlowZa Club has its own 14-day trial; the rest of the fabric is priced on request."
         />
 
         {/* Billing toggle */}
@@ -129,7 +156,7 @@ export default function Pricing() {
               }`}
             >
               Yearly
-              <span className={`ml-1.5 text-xs font-bold ${billingPeriod === 'yearly' ? 'text-emerald-300' : 'text-emerald-600'}`}>
+              <span className={`ml-1.5 text-xs font-bold ${billingPeriod === 'yearly' ? 'text-white/80' : 'text-accent'}`}>
                 −25%
               </span>
             </button>
@@ -137,9 +164,13 @@ export default function Pricing() {
         </Reveal>
 
         {/* Plan cards */}
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
           {plans.map((plan, i) => (
-            <Reveal key={plan.id} delay={i * 90} className="h-full">
+            <Reveal
+              key={plan.id}
+              delay={i * 90}
+              className={`h-full ${plan.isHighlighted ? 'md:order-first md:col-span-2 lg:order-none lg:col-span-1' : ''}`}
+            >
               <article
                 className={`relative flex h-full flex-col rounded-[1.75rem] p-8 transition-all duration-500 ease-swift ${
                   plan.isHighlighted
@@ -168,14 +199,15 @@ export default function Pricing() {
                   </p>
 
                   <div className="mt-7 flex items-baseline gap-1.5">
-                    <span className={`tabular font-display text-[3.25rem] font-extrabold leading-none tracking-tightest ${plan.isHighlighted ? 'text-white' : 'text-ink'}`}>
-                      ${getDisplayPrice(plan.monthlyPrice)}
-                    </span>
+                    <AnimatedPrice
+                      value={getDisplayPrice(plan.monthlyPrice)}
+                      className={`tabular font-display text-[3.25rem] font-extrabold leading-none tracking-tightest ${plan.isHighlighted ? 'text-white' : 'text-ink'}`}
+                    />
                     <span className={`text-sm font-medium ${plan.isHighlighted ? 'text-white/50' : 'text-ink-400'}`}>
                       /month
                     </span>
                   </div>
-                  <p className={`mt-1.5 h-4 text-xs font-medium ${plan.isHighlighted ? 'text-emerald-300' : 'text-emerald-600'}`}>
+                  <p className={`mt-1.5 h-4 text-xs font-medium ${plan.isHighlighted ? 'text-accent-soft' : 'text-accent'}`}>
                     {billingPeriod === 'yearly' ? `billed yearly — saving ${YEARLY_DISCOUNT_PERCENT}%` : ''}
                   </p>
 
@@ -194,7 +226,7 @@ export default function Pricing() {
                     href={plan.purchaseUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`group mt-3.5 inline-flex w-full items-center justify-center gap-1.5 text-sm font-semibold transition-colors ${
+                    className={`group mt-1.5 inline-flex w-full items-center justify-center gap-1.5 py-2.5 text-sm font-semibold transition-colors duration-300 ${
                       plan.isHighlighted ? 'text-white/70 hover:text-white' : 'text-ink-500 hover:text-ink'
                     }`}
                   >
@@ -230,7 +262,7 @@ export default function Pricing() {
             <ul className="mt-4 flex flex-wrap gap-x-8 gap-y-2.5">
               {sharedFeatures.map((feature) => (
                 <li key={feature} className="flex items-center gap-2 text-sm font-medium text-ink-600">
-                  <Check size={14} className="text-emerald-600" strokeWidth={2.5} />
+                  <Check size={14} className="text-ink" strokeWidth={2.5} />
                   {feature}
                 </li>
               ))}

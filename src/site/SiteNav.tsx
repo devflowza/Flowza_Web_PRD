@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { ChevronDown, ArrowRight, ArrowUpRight, MessageCircle, Mail } from 'lucide-react';
 import { landingProducts, WHATSAPP_URL, WHATSAPP_DISPLAY, CONTACT_EMAIL } from './data';
@@ -16,6 +16,8 @@ export default function SiteNav() {
   const [platformsOpen, setPlatformsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+  const toggleRef = useRef<HTMLButtonElement>(null);
+  const firstMenuItemRef = useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {
     setMobileOpen(false);
@@ -40,18 +42,31 @@ export default function SiteNav() {
         setMobileOpen(false);
       }
     };
-    document.addEventListener('mousedown', close);
+    document.addEventListener('click', close);
     document.addEventListener('keydown', onKey);
     return () => {
-      document.removeEventListener('mousedown', close);
+      document.removeEventListener('click', close);
       document.removeEventListener('keydown', onKey);
     };
   }, []);
 
+  /* Real modal behaviour for the mobile sheet: lock scroll, make the page
+     behind it inert, move focus in on open and back to the toggle on close. */
+  const wasOpenRef = useRef(false);
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? 'hidden' : '';
+    const main = document.querySelector('main');
+    const footer = document.querySelector('footer');
+    for (const el of [main, footer]) el?.toggleAttribute('inert', mobileOpen);
+    if (mobileOpen) {
+      firstMenuItemRef.current?.focus();
+    } else if (wasOpenRef.current) {
+      toggleRef.current?.focus({ preventScroll: true });
+    }
+    wasOpenRef.current = mobileOpen;
     return () => {
       document.body.style.overflow = '';
+      for (const el of [main, footer]) el?.removeAttribute('inert');
     };
   }, [mobileOpen]);
 
@@ -60,17 +75,17 @@ export default function SiteNav() {
   return (
     <>
     <header
-      className={`sticky top-0 z-50 transition-all duration-500 ease-swift ${
+      className={`sticky top-0 z-50 backdrop-blur-md transition-[background-color,box-shadow] duration-500 ease-swift ${
         scrolled
-          ? 'bg-white/85 backdrop-blur-xl shadow-[0_1px_0_rgba(11,18,33,0.07),0_8px_28px_-16px_rgba(11,18,33,0.14)]'
-          : 'bg-white/70 backdrop-blur-md'
+          ? 'bg-white/90 shadow-[0_1px_0_rgba(11,18,33,0.07),0_8px_28px_-16px_rgba(11,18,33,0.14)]'
+          : 'bg-white/70'
       }`}
     >
       <nav aria-label="Main" className="mx-auto flex h-[76px] max-w-7xl items-center justify-between gap-4 px-4 sm:px-6">
         {/* Wordmark */}
         <Link to="/" className="group flex shrink-0 items-center gap-3" aria-label="FlowZa AI — home">
           <span className="h-10 w-10 overflow-hidden rounded-xl ring-1 ring-ink/[0.08] transition-transform duration-300 ease-swift group-hover:scale-105">
-            <img src="/Logo_Final_-_Focused.jpeg" alt="" width="40" height="40" className="h-full w-full object-cover" />
+            <img src="/logo-mark.webp" alt="" width="40" height="40" className="h-full w-full object-cover" />
           </span>
           <span className="font-display text-[21px] font-bold tracking-snug text-ink">
             FlowZa<span className="text-accent"> AI</span>
@@ -112,7 +127,7 @@ export default function SiteNav() {
                           <span className="flex items-center gap-2 text-sm font-semibold leading-tight text-ink">
                             {p.short}
                             {p.live && (
-                              <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-emerald-600">
+                              <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-emerald-700">
                                 <span className="h-1 w-1 rounded-full bg-emerald-500" />
                                 Live
                               </span>
@@ -168,10 +183,12 @@ export default function SiteNav() {
             </span>
           </Link>
           <button
+            ref={toggleRef}
             onClick={() => setMobileOpen((v) => !v)}
             className="relative flex h-11 w-11 items-center justify-center rounded-full transition-colors duration-300 hover:bg-mist lg:hidden"
             aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={mobileOpen}
+            aria-controls="mobile-menu"
           >
             <span
               className={`absolute h-[1.5px] w-[18px] rounded-full bg-ink transition-all duration-300 ease-swift ${
@@ -191,6 +208,10 @@ export default function SiteNav() {
       {/* Mobile overlay — sibling of the blurred header: backdrop-filter would
           otherwise make the header the containing block and collapse this. */}
       <div
+        id="mobile-menu"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Menu"
         className={`fixed inset-x-0 bottom-0 top-[76px] z-40 overflow-y-auto bg-white transition-all duration-500 ease-swift lg:hidden ${
           mobileOpen ? 'visible opacity-100' : 'invisible opacity-0'
         }`}
@@ -203,6 +224,7 @@ export default function SiteNav() {
               return (
                 <Link
                   key={p.id}
+                  ref={i === 0 ? firstMenuItemRef : undefined}
                   to={`/products/${p.id}`}
                   onClick={() => setMobileOpen(false)}
                   className={`flex items-center gap-4 border-b border-ink/[0.06] py-4 transition-all duration-500 ease-swift ${

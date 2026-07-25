@@ -1,8 +1,8 @@
-import { useEffect } from 'react';
 import PageLayout from '../components/PageLayout';
 import PageHero from '../components/PageHero';
 import LocationCard from '../components/LocationCard';
 import Reveal from '../site/Reveal';
+import usePageMeta from '../lib/usePageMeta';
 
 const locations = [
   {
@@ -28,12 +28,10 @@ const locations = [
 ];
 
 export default function Locations() {
-  useEffect(() => {
-    document.title = 'Locations — FlowZa AI';
-    return () => {
-      document.title = 'FlowZa AI — Business Operating Systems';
-    };
-  }, []);
+  usePageMeta({
+    title: 'Locations — FlowZa AI',
+    description: 'FlowZa operates from Bengaluru, Muscat and Dubai — close to the businesses we build for, in their time zones and tax regimes.',
+  });
 
   return (
     <PageLayout>

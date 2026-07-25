@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { CheckCircle, AlertCircle, ArrowRight } from 'lucide-react';
 import PageLayout from '../components/PageLayout';
 import { WHATSAPP_URL } from '../site/data';
+import usePageMeta from '../lib/usePageMeta';
 
 type ServiceStatus = 'operational' | 'degraded' | 'outage';
 
@@ -68,12 +69,10 @@ const allOperational = services.every((s) => s.status === 'operational');
 export default function Status() {
   const [openIncident, setOpenIncident] = useState<number | null>(null);
 
-  useEffect(() => {
-    document.title = 'System status — FlowZa AI';
-    return () => {
-      document.title = 'FlowZa AI — Business Operating Systems';
-    };
-  }, []);
+  usePageMeta({
+    title: 'System status — FlowZa AI',
+    description: 'Live operational status and uptime history for all FlowZa platforms and infrastructure.',
+  });
 
   return (
     <PageLayout>
@@ -96,18 +95,19 @@ export default function Status() {
               </>
             )}
           </div>
-          <h1 className="display-hero text-4xl text-ink sm:text-5xl lg:text-[56px] mb-5">System status</h1>
+          <span className="eyebrow justify-center">Status</span>
+          <h1 className="display-hero mt-6 text-4xl text-ink sm:text-5xl lg:text-[56px] mb-5">System status</h1>
           <p className="text-ink-500 text-lg">
             Real-time status for all FlowZa AI platforms and infrastructure components.
           </p>
         </div>
       </section>
 
-      <section className="py-16 px-6 bg-mist">
+      <section className="py-20 sm:py-24 px-6 bg-mist">
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center justify-between mb-8">
             <h2 className="display-title text-2xl text-ink">Service status</h2>
-            <span className="text-xs text-gray-400">Last updated: {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} GST</span>
+            <span className="text-xs text-ink-400">Last updated: {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} GST</span>
           </div>
           <div className="space-y-2">
             {services.map((service) => {
@@ -121,12 +121,12 @@ export default function Status() {
                       )}
                     </span>
                     <div>
-                      <p className="font-medium text-gray-900 text-sm">{service.name}</p>
-                      <p className="text-xs text-gray-400">{service.description}</p>
+                      <p className="font-medium text-ink text-sm">{service.name}</p>
+                      <p className="text-xs text-ink-400">{service.description}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-4">
-                    <span className="text-xs text-gray-400 hidden md:block font-mono">{service.uptime}% uptime (30d)</span>
+                    <span className="text-xs text-ink-400 hidden md:block font-mono">{service.uptime}% uptime (30d)</span>
                     <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${cfg.bg} ${cfg.color}`}>{cfg.label}</span>
                   </div>
                 </div>
@@ -136,13 +136,17 @@ export default function Status() {
         </div>
       </section>
 
-      <section className="py-20 px-6">
+      <section className="py-20 sm:py-24 px-6">
         <div className="max-w-4xl mx-auto">
           <div className="mb-10">
             <h2 className="display-title text-2xl text-ink mb-2">90-day uptime history</h2>
-            <p className="text-gray-500 text-sm">Each bar represents one day. Green = fully operational.</p>
+            <p className="text-ink-500 text-sm">Each bar represents one day. Green = fully operational.</p>
           </div>
-          <div className="flex items-end gap-0.5 h-16">
+          <div
+            className="flex items-end gap-0.5 h-16"
+            role="img"
+            aria-label={`90-day uptime history: lowest day ${Math.min(...uptimeHistory)}%`}
+          >
             {uptimeHistory.map((val, i) => {
               const height = Math.max(20, ((val - 99.8) / 0.2) * 100);
               const color = val === 100 ? '#10b981' : val >= 99.95 ? '#34d399' : val >= 99.9 ? '#fbbf24' : '#f87171';
@@ -150,19 +154,20 @@ export default function Status() {
                 <div
                   key={i}
                   title={`Day ${i + 1}: ${val}%`}
+                  aria-hidden="true"
                   className="flex-1 rounded-sm cursor-default transition-all hover:opacity-80"
                   style={{ height: `${height}%`, minHeight: 4, background: color }}
                 />
               );
             })}
           </div>
-          <div className="flex items-center justify-between mt-3 text-xs text-gray-400">
+          <div className="flex items-center justify-between mt-3 text-xs text-ink-400">
             <span>90 days ago</span>
             <span>Today</span>
           </div>
           <div className="flex items-center gap-4 mt-4">
             {[{ color: '#10b981', label: '100%' }, { color: '#34d399', label: '≥99.95%' }, { color: '#fbbf24', label: '≥99.9%' }, { color: '#f87171', label: '<99.9%' }].map(({ color, label }) => (
-              <div key={label} className="flex items-center gap-1.5 text-xs text-gray-500">
+              <div key={label} className="flex items-center gap-1.5 text-xs text-ink-500">
                 <span className="w-3 h-3 rounded-sm" style={{ background: color }} />
                 {label}
               </div>
@@ -171,50 +176,66 @@ export default function Status() {
         </div>
       </section>
 
-      <section className="py-16 px-6 bg-mist">
+      <section className="py-20 sm:py-24 px-6 bg-mist">
         <div className="max-w-4xl mx-auto">
           <h2 className="display-title text-2xl text-ink mb-8">Past incidents</h2>
           {incidents.length === 0 ? (
-            <div className="text-center py-12 text-gray-400">No incidents in the past 90 days.</div>
+            <div className="text-center py-12 text-ink-400">No incidents in the past 90 days.</div>
           ) : (
             <div className="space-y-4">
-              {incidents.map((incident, i) => (
-                <div key={i} className="bg-white rounded-2xl ring-1 ring-ink/[0.07] overflow-hidden">
-                  <button
-                    onClick={() => setOpenIncident(openIncident === i ? null : i)}
-                    className="w-full flex items-center justify-between p-5 text-left"
-                  >
-                    <div>
-                      <div className="flex items-center gap-3 mb-1">
-                        <span className="text-xs text-gray-400">{incident.date}</span>
-                        <span className="text-xs px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 font-semibold">{incident.status}</span>
-                        <span className="text-xs text-gray-400">Duration: {incident.duration}</span>
+              {incidents.map((incident, i) => {
+                const isOpen = openIncident === i;
+                return (
+                  <div key={i} className="bg-white rounded-2xl ring-1 ring-ink/[0.07] overflow-hidden">
+                    <button
+                      id={`incident-trigger-${i}`}
+                      onClick={() => setOpenIncident(isOpen ? null : i)}
+                      aria-expanded={isOpen}
+                      aria-controls={`incident-panel-${i}`}
+                      className="w-full flex items-center justify-between p-5 text-left"
+                    >
+                      <div>
+                        <div className="flex items-center gap-3 mb-1">
+                          <span className="text-xs text-ink-400">{incident.date}</span>
+                          <span className="text-xs px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 font-semibold">{incident.status}</span>
+                          <span className="text-xs text-ink-400">Duration: {incident.duration}</span>
+                        </div>
+                        <h3 className="font-semibold text-ink text-sm">{incident.title}</h3>
                       </div>
-                      <h3 className="font-semibold text-gray-900 text-sm">{incident.title}</h3>
-                    </div>
-                    <ArrowRight size={16} className={`text-gray-400 transition-transform ${openIncident === i ? 'rotate-90' : ''}`} />
-                  </button>
-                  {openIncident === i && (
-                    <div className="px-5 pb-5 border-t border-gray-100">
-                      <p className="text-sm text-gray-600 mb-4 mt-3">{incident.impact}</p>
-                      <div className="space-y-2">
-                        {incident.updates.map((u, j) => (
-                          <div key={j} className="flex gap-3">
-                            <span className="text-xs font-mono text-sky-600 shrink-0 w-20">{u.time}</span>
-                            <span className="text-xs text-gray-600">{u.text}</span>
+                      <ArrowRight size={16} className={`text-ink-400 transition-transform ${isOpen ? 'rotate-90' : ''}`} />
+                    </button>
+                    <div
+                      id={`incident-panel-${i}`}
+                      role="region"
+                      aria-labelledby={`incident-trigger-${i}`}
+                      aria-hidden={!isOpen}
+                      className={`grid transition-all duration-500 ease-swift ${
+                        isOpen ? 'visible grid-rows-[1fr] opacity-100' : 'invisible grid-rows-[0fr] opacity-0'
+                      }`}
+                    >
+                      <div className="overflow-hidden">
+                        <div className="px-5 pb-5 border-t border-ink/[0.08]">
+                          <p className="text-sm text-ink-500 mb-4 mt-3">{incident.impact}</p>
+                          <div className="space-y-2">
+                            {incident.updates.map((u, j) => (
+                              <div key={j} className="flex gap-3">
+                                <span className="text-xs font-mono text-ink-400 shrink-0 w-20">{u.time}</span>
+                                <span className="text-xs text-ink-500">{u.text}</span>
+                              </div>
+                            ))}
                           </div>
-                        ))}
+                        </div>
                       </div>
                     </div>
-                  )}
-                </div>
-              ))}
+                  </div>
+                );
+              })}
             </div>
           )}
         </div>
       </section>
 
-      <section className="py-16 px-6">
+      <section className="py-20 sm:py-24 px-6">
         <div className="mx-auto max-w-2xl rounded-[2rem] bg-white p-10 text-center shadow-soft ring-1 ring-ink/[0.07]">
           <h2 className="display-title mb-2 text-2xl text-ink">Get status updates</h2>
           <p className="mb-7 text-sm leading-relaxed text-ink-500">

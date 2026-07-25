@@ -33,7 +33,7 @@ export default function WhyFlowza() {
                   }`}
                 >
                   <h3 className="flex items-baseline gap-4 font-display text-lg font-bold tracking-snug text-ink sm:text-xl">
-                    <span className="tabular font-display text-[13px] font-semibold text-ink-300">
+                    <span aria-hidden="true" className="tabular font-display text-[13px] font-semibold text-ink-300">
                       {String(i + 1).padStart(2, '0')}
                     </span>
                     {item.title}
@@ -53,7 +53,9 @@ export default function WhyFlowza() {
             <Reveal
               key={s.label}
               delay={i * 80}
-              className={`px-6 text-center sm:px-10 ${i > 0 ? 'border-l border-ink/[0.07]' : ''}`}
+              className={`px-6 text-center sm:px-10 ${i % 2 === 1 ? 'border-l border-ink/[0.07]' : ''} ${
+                i === 2 ? 'lg:border-l lg:border-ink/[0.07]' : ''
+              } ${i >= 2 ? 'border-t border-ink/[0.07] pt-10 lg:border-t-0 lg:pt-0' : ''}`}
             >
               <p className="tabular font-display text-[2.6rem] font-extrabold leading-none tracking-tightest text-ink sm:text-6xl">
                 {s.value}

@@ -23,9 +23,14 @@ export default function PageHero({ label, title, titleHighlight, subtitle, image
         </>
       )}
       <div className="relative mx-auto max-w-4xl text-center">
-        {label && <span className={`eyebrow justify-center ${onImage ? 'eyebrow-light' : ''}`}>{label}</span>}
+        {label && (
+          <span className="rise-block block" style={{ animationDelay: '40ms' }}>
+            <span className={`eyebrow justify-center ${onImage ? 'eyebrow-light' : ''}`}>{label}</span>
+          </span>
+        )}
         <h1
-          className={`display-hero mt-6 text-4xl sm:text-5xl lg:text-[64px] ${onImage ? 'text-white' : 'text-ink'}`}
+          className={`rise-block-media display-hero mt-6 text-4xl sm:text-5xl lg:text-[64px] ${onImage ? 'text-white' : 'text-ink'}`}
+          style={{ animationDelay: '80ms' }}
         >
           {title}
           {titleHighlight && (
@@ -36,9 +41,10 @@ export default function PageHero({ label, title, titleHighlight, subtitle, image
           )}
         </h1>
         <p
-          className={`mx-auto mt-6 max-w-2xl text-lg leading-relaxed sm:text-xl ${
+          className={`rise-block mx-auto mt-6 max-w-2xl text-lg leading-relaxed sm:text-xl ${
             onImage ? 'text-white/65' : 'text-ink-500'
           }`}
+          style={{ animationDelay: '180ms' }}
         >
           {subtitle}
         </p>

@@ -27,7 +27,7 @@ export default function FaqSection() {
               rel="noopener noreferrer"
               className="btn-secondary btn-md group mt-8 inline-flex"
             >
-              <MessageCircle size={15} className="text-emerald-600" />
+              <MessageCircle size={15} />
               Chat with us
             </a>
           </Reveal>
@@ -42,9 +42,11 @@ export default function FaqSection() {
                 <div className={`border-t border-ink/[0.09] ${i === faqItems.length - 1 ? 'border-b' : ''}`}>
                   <h3>
                     <button
+                      id={`faq-trigger-${i}`}
                       onClick={() => setOpen(isOpen ? null : i)}
                       className="group flex w-full items-center justify-between gap-6 py-6 text-left sm:py-7"
                       aria-expanded={isOpen}
+                      aria-controls={`faq-panel-${i}`}
                     >
                       <span
                         className={`font-display text-lg font-semibold tracking-snug transition-colors duration-300 sm:text-xl ${
@@ -64,8 +66,12 @@ export default function FaqSection() {
                     </button>
                   </h3>
                   <div
+                    id={`faq-panel-${i}`}
+                    role="region"
+                    aria-labelledby={`faq-trigger-${i}`}
+                    aria-hidden={!isOpen}
                     className={`grid transition-all duration-500 ease-swift ${
-                      isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
+                      isOpen ? 'visible grid-rows-[1fr] opacity-100' : 'invisible grid-rows-[0fr] opacity-0'
                     }`}
                   >
                     <div className="overflow-hidden">

@@ -1,39 +1,56 @@
 import { useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { ArrowLeft, ArrowRight, ArrowUpRight, MessageCircle, Star } from 'lucide-react';
+import { ArrowLeft, ArrowRight, ArrowUpRight, MessageCircle, Star, Play } from 'lucide-react';
 import SiteLayout from '../site/SiteLayout';
 import SectionHeading from '../site/SectionHeading';
 import Reveal from '../site/Reveal';
 import ProductCover from '../site/ProductCover';
 import Pricing from '../components/Pricing';
+import ClosingCta from '../site/ClosingCta';
 import productDetailsMap from '../data/productDetails';
 import { productImages } from '../assets/productImages';
-import { WHATSAPP_URL } from '../site/data';
+import { landingProducts, whatsappUrl } from '../site/data';
+import usePageMeta from '../lib/usePageMeta';
 
 export default function ProductDetail() {
   const { productId } = useParams<{ productId: string }>();
   const navigate = useNavigate();
 
   const product = productId ? productDetailsMap[productId] : null;
+  const isLive = product ? landingProducts.find((p) => p.id === product.id)?.live ?? false : false;
 
   useEffect(() => {
     if (!product) navigate('/', { replace: true });
   }, [product, navigate]);
 
-  useEffect(() => {
-    if (product) document.title = `${product.name} — FlowZa AI`;
-    return () => {
-      document.title = 'FlowZa AI — Business Operating Systems';
-    };
-  }, [product]);
+  usePageMeta({
+    title: product ? `${product.name} — ${product.tagline} | FlowZa AI` : 'FlowZa AI',
+    description: product?.description,
+    ogImage: product ? productImages[product.id] || undefined : undefined,
+  });
 
   if (!product) return null;
 
   const shortName = product.name.replace('FlowZa ', '');
   const image = productImages[product.id];
 
+  const productJsonLd = JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: product.name,
+    applicationCategory: 'BusinessApplication',
+    operatingSystem: 'Web',
+    description: product.description,
+    url: `https://flowza.ai/products/${product.id}`,
+    offers:
+      product.id === 'finance'
+        ? { '@type': 'Offer', price: '15', priceCurrency: 'USD', description: 'Starter plan, per month' }
+        : undefined,
+  });
+
   return (
     <SiteLayout>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: productJsonLd }} />
       {/* Hero */}
       <section className="relative overflow-hidden wash-top">
         <div className="relative mx-auto max-w-7xl px-4 pb-20 pt-10 sm:px-6 lg:pb-24 lg:pt-14">
@@ -47,7 +64,14 @@ export default function ProductDetail() {
 
           <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_1fr] lg:gap-16">
             <div>
-              <span className="eyebrow">{product.tagline}</span>
+              <span className="eyebrow">
+                {product.tagline}
+                {!isLive && (
+                  <span className="ml-2 rounded-full bg-accent-wash px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-[0.14em] text-accent-deep normal-case">
+                    Rolling out
+                  </span>
+                )}
+              </span>
 
               <h1 className="display-hero mt-6 text-[42px] text-ink sm:text-5xl lg:text-[62px]">{product.name}</h1>
 
@@ -63,58 +87,79 @@ export default function ProductDetail() {
               </ul>
 
               <div className="mt-9 flex flex-col gap-3.5 sm:flex-row sm:flex-wrap">
-                <a href={product.href} target="_blank" rel="noopener noreferrer" className="btn-primary btn-lg group">
-                  Launch {shortName}
-                  <span className="btn-orb bg-white/15 group-hover:translate-x-0.5">
-                    <ArrowUpRight size={14} />
-                  </span>
-                </a>
+                {isLive ? (
+                  <a href={product.href} target="_blank" rel="noopener noreferrer" className="btn-primary btn-lg group">
+                    Launch {shortName}
+                    <span className="btn-orb bg-white/15 group-hover:translate-x-0.5">
+                      <ArrowUpRight size={14} />
+                    </span>
+                  </a>
+                ) : (
+                  <Link to={`/contact?service=${encodeURIComponent(product.name)}`} className="btn-primary btn-lg group">
+                    Get early access
+                    <span className="btn-orb bg-white/15 group-hover:translate-x-0.5">
+                      <ArrowRight size={14} />
+                    </span>
+                  </Link>
+                )}
                 <Link to="/contact" className="btn-secondary btn-lg">
                   Talk to sales
                 </Link>
+                {product.id === 'finance' && (
+                  <Link to="/finance-demo" className="btn-secondary btn-lg group">
+                    <Play size={14} className="text-accent" />
+                    Try the live demo
+                  </Link>
+                )}
               </div>
               <a
-                href={WHATSAPP_URL}
+                href={whatsappUrl(`Hello! I'm interested in ${product.name}.`)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-ink-400 transition-colors hover:text-ink"
+                className="mt-5 inline-flex items-center gap-2 py-2 text-sm font-medium text-ink-400 transition-colors duration-300 hover:text-ink"
               >
-                <MessageCircle size={14} className="text-emerald-600" />
+                <MessageCircle size={14} />
                 or ask us anything on WhatsApp
               </a>
             </div>
 
-            {/* Visual */}
-            <Reveal className="relative">
+            {/* Visual — opacity never gated: this is the page's LCP element */}
+            <div className="rise-block-media relative" style={{ animationDelay: '80ms' }}>
               <div className="bezel shadow-frame">
                 <div className="bezel-inner relative h-[300px] sm:h-[400px]">
                   <ProductCover
                     name={product.name}
                     icon={product.icon}
                     image={image}
+                    priority
                     imgClassName="absolute inset-0 h-full w-full object-cover object-left-top"
                   />
                 </div>
               </div>
+              {isLive && (
               <div className="absolute -bottom-5 left-8 rounded-2xl bg-white/90 px-5 py-4 shadow-lift ring-1 ring-ink/[0.06] backdrop-blur-md">
                 <span className="tabular block font-display text-xl font-bold leading-none text-ink">
                   {product.stats[0].value}
                 </span>
                 <span className="mt-1 block max-w-[18ch] text-xs text-ink-400">{product.stats[0].label}</span>
               </div>
-            </Reveal>
+              )}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Stats — editorial numbers, hairline separated */}
+      {/* Stats — editorial numbers, hairline separated (live products only) */}
+      {isLive && (
       <section className="border-y border-ink/[0.06] bg-white px-4 py-14 sm:px-6 sm:py-16" aria-label={`${product.name} in numbers`}>
-        <div className="mx-auto grid max-w-7xl grid-cols-2 gap-y-10 lg:grid-cols-4">
-          {product.stats.map((s, i) => (
+        <div className="mx-auto grid max-w-7xl grid-cols-2 gap-y-10 lg:grid-cols-3">
+          {product.stats.slice(1).map((s, i) => (
             <Reveal
               key={s.label}
               delay={i * 80}
-              className={`px-6 text-center sm:px-10 ${i > 0 ? 'border-l border-ink/[0.07]' : ''}`}
+              className={`px-6 text-center sm:px-10 ${i % 2 === 1 ? 'border-l border-ink/[0.07]' : ''} ${
+                i === 2 ? 'border-t border-ink/[0.07] pt-10 lg:border-l lg:border-ink/[0.07] lg:border-t-0 lg:pt-0' : ''
+              }`}
             >
               <p className="tabular font-display text-4xl font-extrabold leading-none tracking-tightest text-ink sm:text-5xl">
                 {s.value}
@@ -124,6 +169,7 @@ export default function ProductDetail() {
           ))}
         </div>
       </section>
+      )}
 
       {/* Features */}
       <section className="bg-mist px-4 py-24 sm:px-6 sm:py-32">
@@ -171,7 +217,7 @@ export default function ProductDetail() {
                     i === product.steps.length - 1 ? 'border-b' : ''
                   }`}
                 >
-                  <span className="font-display text-4xl font-extrabold leading-none tracking-tightest text-ink-100 transition-colors duration-500 group-hover:text-accent sm:text-6xl">
+                  <span aria-hidden="true" className="font-display text-4xl font-extrabold leading-none tracking-tightest text-ink-100 sm:text-6xl">
                     {String(step.number).padStart(2, '0')}
                   </span>
                   <div className="pt-1">
@@ -185,7 +231,8 @@ export default function ProductDetail() {
         </div>
       </section>
 
-      {/* Testimonial */}
+      {/* Testimonial — live products only */}
+      {isLive && (
       <section className="bg-mist px-4 py-24 sm:px-6 sm:py-28">
         <div className="mx-auto max-w-3xl">
           <Reveal>
@@ -224,6 +271,7 @@ export default function ProductDetail() {
           </Reveal>
         </div>
       </section>
+      )}
 
       {/* Pricing — plans are FlowZa Finance plans */}
       {product.id === 'finance' && <Pricing />}
@@ -263,6 +311,12 @@ export default function ProductDetail() {
           </div>
         </div>
       </section>
+
+      <ClosingCta
+        title="See your operation"
+        accent="in flow."
+        subtitle={`Try ${shortName} with your own data — guided setup, no card required, and a real person on WhatsApp when you need one.`}
+      />
     </SiteLayout>
   );
 }

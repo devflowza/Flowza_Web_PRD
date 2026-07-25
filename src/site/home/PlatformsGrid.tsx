@@ -36,8 +36,8 @@ export default function PlatformsGrid() {
             <div className="relative flex flex-col justify-between p-8 sm:p-12 grain">
               <div className="pointer-events-none absolute inset-0 wash-ink" aria-hidden="true" />
               <div className="relative">
-                <p className="flex items-center gap-3 text-[12px] font-bold uppercase tracking-[0.2em] text-white/40">
-                  <span className="font-display text-white/30">01</span>
+                <p className="flex items-center gap-3 text-[12px] font-bold uppercase tracking-[0.2em] text-white/60">
+                  <span aria-hidden="true" className="font-display text-white/30">01</span>
                   Flagship · Live
                   <span className="relative flex h-1.5 w-1.5">
                     <span className="absolute h-full w-full animate-ping rounded-full bg-emerald-400 opacity-70" />
@@ -106,7 +106,7 @@ export default function PlatformsGrid() {
                   <h3 className="mt-6 flex items-center gap-2.5 font-display text-xl font-bold tracking-snug text-ink">
                     {p.short}
                     {p.live && (
-                      <span className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-emerald-600">
+                      <span className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-emerald-700">
                         <span className="h-1 w-1 rounded-full bg-emerald-500" />
                         Live
                       </span>

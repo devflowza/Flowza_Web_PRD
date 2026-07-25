@@ -57,7 +57,7 @@ export default function HowItWorks() {
                   i === steps.length - 1 ? 'border-b' : ''
                 }`}
               >
-                <span className="font-display text-4xl font-extrabold leading-none tracking-tightest text-ink-100 transition-colors duration-500 group-hover:text-accent sm:text-6xl">
+                <span aria-hidden="true" className="font-display text-4xl font-extrabold leading-none tracking-tightest text-ink-100 sm:text-6xl">
                   {step.number}
                 </span>
                 <div className="pt-1">

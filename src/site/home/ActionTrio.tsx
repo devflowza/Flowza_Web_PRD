@@ -38,7 +38,7 @@ export default function ActionTrio() {
               rel="noopener noreferrer"
               className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-white/50 transition-colors hover:text-white"
             >
-              <MessageCircle size={14} className="text-emerald-400" />
+              <MessageCircle size={14} />
               Fastest response on WhatsApp
             </a>
           </div>
