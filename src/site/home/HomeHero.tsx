@@ -1,7 +1,7 @@
 import { ArrowRight, MessageCircle, TrendingUp, Clock3 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { WHATSAPP_URL } from '../data';
-import dashboardImg from '../../assets/01_Dashboard.png';
+import dashboardImg from '../../assets/01_Dashboard.webp';
 
 const headlineWords = ['Run', 'your', 'whole', 'business'];
 

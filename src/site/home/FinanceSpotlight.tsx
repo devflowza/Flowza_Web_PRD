@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import Reveal from '../Reveal';
-import dashboardImg from '../../assets/01_Dashboard.png';
+import dashboardImg from '../../assets/01_Dashboard.webp';
 
 const capabilities = [
   {
